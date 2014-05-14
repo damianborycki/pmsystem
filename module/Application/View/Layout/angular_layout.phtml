@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" ng-app="<?php echo $this->config['ng-app'] ?>">
+<head>
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv='Content-Type' content="'application/xhtml xml;charset='utf-8'" />
+    <?php echo $this->headTitle($this->config['title']) ?>
+    <!-- end: Meta -->
+    
+    <!-- start: Mobile Specific -->
+    <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+    <!-- end: Mobile Specific -->
+	
+    <!-- start: CSS -->
+<?php foreach($this->config['css'] as $css){
+    $this->headLink()->prependStylesheet($this->basePath() . $css );
+}
+echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath().'/img/favicon.ico'),'prepend');
+?>
+    <!-- end: CSS -->
+
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <?php echo $this->headScript()
+        ->prependFile('http://html5shim.googlecode.com/svn/trunk/html5.js', 'text/javascript', array('conditional' => 'lt IE 9'))?>
+    <?php echo $this->headLink()
+        ->setStylesheet($this->basePath() . '/css/ie.css', 'screen', 'lt IE 9') ?>
+
+    <!-- styles for IE9>
+    <?php echo $this->headLink()
+        ->setStylesheet($this->basePath() . '/css/ie9.css', 'screen', 'IE 9') ?>
+    <! -->      
+</head>
+
+<body>
+
+<div ui-view></div>
+<?php echo $this->content; ?>    
+    
+<?php foreach($this->config['js'] as $jsFile){
+        $this->inlineScript()->appendFile($this->basePath() . $jsFile );
+    }
+    echo $this->inlineScript();
+?>    
+</body>
+</html>
