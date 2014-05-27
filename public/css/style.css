@@ -112,6 +112,10 @@ dt {
 	padding-top: 70px;
 }
 
+.under-top{
+	margin-top: 50px;
+}
+
 /* Grupa: Słowniki i Rejestry*/
 body > div.jumbotron > ol {
     background: none;
