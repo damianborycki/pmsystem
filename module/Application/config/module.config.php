@@ -5,7 +5,7 @@ return array(
         'invokables' => array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Task\Task' => 'Application\Controller\Task\TaskController',
+            'Application\Controller\Issue\Issue' => 'Application\Controller\Issue\IssueController',
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -71,18 +71,18 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO LISTY TASKOW
+             * SCIEZKA DO LISTY ZAGADNIEŃ
              */
-            'taskList' => array(
+            'IssueList' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:project]/tasks',
+                    'route' => '/[:project]/issues',
             		'constraints' => array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Task\Task',
-                        'action' => 'listOfTasks'
+                        'controller' => 'Application\Controller\Issue\Issue',
+                        'action' => 'listOfIssues'
                     )
                 ),
             ),
