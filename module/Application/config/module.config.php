@@ -5,6 +5,7 @@ return array(
         'invokables' => array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Task\Task' => 'Application\Controller\Task\TaskController',
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -65,6 +66,23 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action' => 'index'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO LISTY TASKOW
+             */
+            'taskList' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/[:project]/tasks',
+            		'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Task\Task',
+                        'action' => 'listOfTasks'
                     )
                 ),
             ),
