@@ -106,7 +106,7 @@ return array(
 			/**
              * SCIEZKA DO PRAW DO POL
              */
-            'statusTransiton' => array(
+            'fieldsPermission' => array(
                 'type' => 'segment',
                 'options' => array(
                     'route' => '/fieldsPermission',
