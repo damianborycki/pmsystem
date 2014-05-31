@@ -6,6 +6,8 @@ return array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issue\Issue' => 'Application\Controller\Issue\IssueController',
+			'Application\Controller\FieldsPermission\FieldsPermission' => 'Application\Controller\FieldsPermission\FieldsPermissionController',
+			'Application\Controller\StatusTransition\StatusTransition' => 'Application\Controller\StatusTransition\StatusTransitionController'
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -86,6 +88,35 @@ return array(
                     )
                 ),
             ),
+			
+			/**
+             * SCIEZKA DO PRZEJSC STANOW
+             */
+            'statusTransiton' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/status',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\StatusTransition\StatusTransition',
+                        'action' => 'status'
+                    )
+                ),
+            ),
+			
+			/**
+             * SCIEZKA DO PRAW DO POL
+             */
+            'statusTransiton' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/fieldsPermission',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\FieldsPermission\FieldsPermission',
+                        'action' => 'fieldsPermission'
+                    )
+                ),
+            ),
+			
         ),
     ),
     'doctrine' => array(
