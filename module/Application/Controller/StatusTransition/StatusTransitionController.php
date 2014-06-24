@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class StatusTransitionController extends AbstractActionController 
 {
-	public function statusAction(){
+	public function statusTransitionAction(){
 		return;
 	}
 

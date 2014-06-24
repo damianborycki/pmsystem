@@ -95,10 +95,10 @@ return array(
             'statusTransiton' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/status',
+                    'route' => '/statusTransition',
                     'defaults' => array(
                         'controller' => 'Application\Controller\StatusTransition\StatusTransition',
-                        'action' => 'status'
+                        'action' => 'statusTransition'
                     )
                 ),
             ),
