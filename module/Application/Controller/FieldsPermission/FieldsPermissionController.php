@@ -47,9 +47,6 @@ class FieldsPermissionController extends AbstractActionController {
      */
     public function addNewPermission($taskType, $taskState, $userRole, $fieldId, $permission)
     {
-        
-//       TEST SZYMON
-        
     }
 
     /**
