@@ -1,10 +1,10 @@
 <?php
 
-namespace Application\Controller\Issue;
+namespace Application\Controller\ListOfIssues;
 
 use Zend\Mvc\Controller\AbstractActionController;
 
-class IssueController extends AbstractActionController
+class ListOfIssuesController extends AbstractActionController
 {
     public function listOfIssuesAction(){
     	// lista zagadnień

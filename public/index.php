@@ -3,6 +3,9 @@
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
  */
+
+/*Do raportowania błędów*/
+ini_set('display_errors', 1);
  
 define('REQUEST_MICROTIME', microtime(true));
 chdir(dirname(__DIR__));

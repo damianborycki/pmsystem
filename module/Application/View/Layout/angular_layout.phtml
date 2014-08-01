@@ -68,8 +68,8 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zadania <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Aktualny projekt</li>
-                            <li><a href="ProjektTestowy/issues">Lista zadań</a></li>
-                            <li><a href="?page=AddTask">Dodaj zadanie</a></li>
+                            <li><a href="/ProjektTestowy/issues">Lista zadań</a></li>
+                            <li><a href="/ProjektTestowy/addIssue">Dodaj zadanie</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Filtry</li>
                             <li><a href="#">Zadania przypisane do mnie</a></li>
@@ -91,13 +91,13 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                             <li><a href="?page=IssuesStatus">Statusy zagadnień</a></li>
                             <li><a href="?page=Enumeration">Wyliczenia</a></li>
                             <li class="divider"></li>
-                            <li><a href="statusTransition">Przejścia stanów</a></li>
-                            <li><a href="fieldsPermission">Uprawnienia pól</a></li>
+                            <li><a href="/statusTransition">Przejścia stanów</a></li>
+                            <li><a href="/fieldsPermission">Uprawnienia pól</a></li>
                         </ul>
                     </li>
                 </ul>
                 <div class="navbar-form navbar-left">
-                    <button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button>
+                    <A href="/ProjektTestowy/addIssue"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
                 </div>
                 <form class="navbar-form navbar-right" role="form">
                     <div class="form-group">

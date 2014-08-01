@@ -5,7 +5,8 @@ return array(
         'invokables' => array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Issue\Issue' => 'Application\Controller\Issue\IssueController',
+            'Application\Controller\ListOfIssues\ListOfIssues' => 'Application\Controller\ListOfIssues\ListOfIssuesController',
+            'Application\Controller\AddIssue\AddIssue' => 'Application\Controller\AddIssue\AddIssueController',
 			'Application\Controller\FieldsPermission\FieldsPermission' => 'Application\Controller\FieldsPermission\FieldsPermissionController',
 			'Application\Controller\StatusTransition\StatusTransition' => 'Application\Controller\StatusTransition\StatusTransitionController'
             /* generator-end-controllers.invokables */
@@ -83,8 +84,25 @@ return array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Issue\Issue',
+                        'controller' => 'Application\Controller\ListOfIssues\ListOfIssues',
                         'action' => 'listOfIssues'
+                    )
+                ),
+            ),
+
+            /**
+             * SCIEZKA DO DODAWANIA ZAGADNIEŃ
+             */
+            'AddIssue' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/[:project]/addIssue',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\AddIssue\AddIssue',
+                        'action' => 'addIssue'
                     )
                 ),
             ),
