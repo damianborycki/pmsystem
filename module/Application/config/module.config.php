@@ -5,10 +5,10 @@ return array(
         'invokables' => array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\ListOfIssues\ListOfIssues' => 'Application\Controller\ListOfIssues\ListOfIssuesController',
-            'Application\Controller\AddIssue\AddIssue' => 'Application\Controller\AddIssue\AddIssueController',
-			'Application\Controller\FieldsPermission\FieldsPermission' => 'Application\Controller\FieldsPermission\FieldsPermissionController',
-			'Application\Controller\StatusTransition\StatusTransition' => 'Application\Controller\StatusTransition\StatusTransitionController'
+            'Application\Controller\ListOfIssues' => 'Application\Controller\ListOfIssues\ListOfIssuesController',
+            'Application\Controller\AddIssue' => 'Application\Controller\AddIssue\AddIssueController',
+			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermission\FieldsPermissionController',
+			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransition\StatusTransitionController'
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -84,7 +84,7 @@ return array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\ListOfIssues\ListOfIssues',
+                        'controller' => 'Application\Controller\ListOfIssues',
                         'action' => 'listOfIssues'
                     )
                 ),
@@ -101,7 +101,7 @@ return array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\AddIssue\AddIssue',
+                        'controller' => 'Application\Controller\AddIssue',
                         'action' => 'addIssue'
                     )
                 ),
@@ -115,7 +115,7 @@ return array(
                 'options' => array(
                     'route' => '/statusTransition',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\StatusTransition\StatusTransition',
+                        'controller' => 'Application\Controller\StatusTransition',
                         'action' => 'statusTransition'
                     )
                 ),
@@ -129,7 +129,7 @@ return array(
                 'options' => array(
                     'route' => '/fieldsPermission',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\FieldsPermission\FieldsPermission',
+                        'controller' => 'Application\Controller\FieldsPermission',
                         'action' => 'fieldsPermission'
                     )
                 ),
