@@ -4,6 +4,10 @@ namespace Application\Model\Domain;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * Issue 
@@ -11,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Table(name="`ISSUE`")
  * @ORM\Entity(repositoryClass="Application\Model\Infrastructure\Repositories\IssueRepository")
  */
-class Issue 
+class Issue implements InputFilterAwareInterface
 {
     /**
      * @var Project $project
@@ -104,6 +108,7 @@ class Issue
      */
     protected $id;
 
+    protected $inputFilter;
 
     public function __construct()
     {
@@ -288,4 +293,62 @@ class Issue
         return (string)($this->getId());
     }
 
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
+
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory     = new InputFactory();
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'project',
+                    'required' => true
+                ))
+            );
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'subject',
+                    'required' => true
+                ))
+            );
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'description',
+                    'required' => true,
+                    'filters'  => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim'),
+                    ),
+                    'validators' => array(
+                        array(
+                            'name'    => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min'      => 1,
+                                'max'      => 300,
+                            ),
+                        ),
+                    ),
+                ))
+            );
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'issuePriority',
+                    'required' => true
+                ))
+            );
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
+    }
 }
