@@ -96,7 +96,7 @@ return array(
             'AddIssue' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:project]/addIssue',
+                    'route' => '[:project]/addIssue',
                     'constraints' => array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
@@ -176,5 +176,18 @@ return array(
                 )
             ),
         ),
+        'connection' => array(
+            // default connection name
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => 'localhost',
+                    'port'     => '3306',
+                    'user'     => 'root',
+                    'password' => '',
+                    'dbname'   => 'pmsystem',
+                )
+            )
+        )
     ),
 );
