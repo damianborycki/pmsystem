@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\StatusTransition;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 

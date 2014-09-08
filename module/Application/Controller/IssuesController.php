@@ -1,17 +1,30 @@
 <?php
 
-namespace Application\Controller\AddIssue;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Form\IssueForm;
 
-class AddIssueController extends AbstractActionController {
+class IssuesController extends AbstractActionController {
 
     protected $_objectManager;
 
-    public function addIssueAction() {
+    public function showAction(){
+        // pokaz pojedynczy
+        return;
+    }
+
+    public function listAction(){
+        // lista zagadnień
+        $view = new ViewModel();
+        $view->setTemplate('Issues/List');
+
+        return $view;
+    }
+
+    public function addAction() {
         $form = new IssueForm();
 
         if ($this->getRequest()->isPost()) {
@@ -38,7 +51,10 @@ class AddIssueController extends AbstractActionController {
             }
         }
 
-        return array('form' => $form);
+        $view = new ViewModel(array('form' => $form));
+        $view->setTemplate('Issues/Add');
+
+        return $view;
     }
 
     protected function getObjectManager() {

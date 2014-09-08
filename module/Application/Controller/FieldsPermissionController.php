@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\FieldsPermission;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 

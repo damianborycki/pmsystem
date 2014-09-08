@@ -5,10 +5,9 @@ return array(
         'invokables' => array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\ListOfIssues' => 'Application\Controller\ListOfIssues\ListOfIssuesController',
-            'Application\Controller\AddIssue' => 'Application\Controller\AddIssue\AddIssueController',
-			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermission\FieldsPermissionController',
-			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransition\StatusTransitionController'
+            'Application\Controller\Issues' => 'Application\Controller\IssuesController',
+			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
+			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController'
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -28,7 +27,7 @@ return array(
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../../Application/View/Layout/angular_layout.phtml',
             'error/index' => __DIR__ . '/../../Application/View/Error/index.phtml',
-            'error/404' => __DIR__ . '/../../Application/View/Error/404.phtml',
+            'error/404' => __DIR__ . '/../../Application/View/Error/404.phtml'
         ),
     ),
     'service_manager' => array(
@@ -79,13 +78,13 @@ return array(
             'IssueList' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:project]/issues',
+                    'route' => '[:project]/issues',
             		'constraints' => array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\ListOfIssues',
-                        'action' => 'listOfIssues'
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'list'
                     )
                 ),
             ),
@@ -96,13 +95,13 @@ return array(
             'AddIssue' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '[:project]/addIssue',
+                    'route' => '[:project]/issues/add',
                     'constraints' => array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\AddIssue',
-                        'action' => 'addIssue'
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'add'
                     )
                 ),
             ),

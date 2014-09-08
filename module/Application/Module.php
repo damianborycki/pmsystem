@@ -36,6 +36,8 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
 
     public function onBootstrap(MvcEvent $e)
     {
+        # cos tu jest nie tak
+
         $app = $e->getApplication();
         $serviceManager = $app->getServiceManager();
         $eventManager = $serviceManager->get('Application')->getEventManager();
