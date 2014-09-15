@@ -221,7 +221,139 @@ class EnumerationController extends AbstractActionController{
       return $view;
     }
     
-  
+  //   priority
+    
+    public function addpriorityAction() 
+     {
+        
+       $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
+       
+    echo $_SERVER['REQUEST_METHOD'];
+    $form = new IssuePriorityForm();
+
+     if ($this->getRequest()->isPost()) {
+            $issue = new IssuePriority();
+            $form->setInputFilter($issue->getInputFilter());
+            $form->setData($this->getRequest()->getPost());
+
+            if ($form->isValid()) {
+                $data = $form->getData();
+                print_r($data);
+                               
+                
+                $issue->setName($data['name']);
+                if (isset($data['IsActive'])) 
+                    { $issue->setIsActive($data['IsActive'][0]);                                        
+                    }
+                    
+                 if (isset($data['IsDefault'])) 
+                    { 
+                         $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssuePriority u')
+                        ->getResult();
+
+                     foreach ($issuelist as $iss)
+                     {
+                          $iss->setIsDefault(false);                       
+                          $this->getObjectManager()->merge($iss);
+                     }  
+                     $issue->setIsDefault($data['IsDefault'][0]);
+                    }
+                
+                $this->getObjectManager()->persist($issue);                             
+                $this->getObjectManager()->flush();         
+                return $this->redirect()->toRoute('IssueCategory');
+            }
+      }
+
+      $view = new ViewModel(array('form' => $form));
+      $view->setTemplate('Enumeration/add_priority');
+      return $view;
+    }
+    
+    public function deletepriorityAction()
+     {
+     $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
+    
+    $id = (int) $this->params('id', null);
+     if (null === $id) {
+      return $this->redirect()->toRoute('IssueCategory');
+    }
+
+    $issuedelete = $objectManager->find('Application\Model\Domain\IssuePriority', $id);
+ 
+    $objectManager->remove($issuedelete);
+    $objectManager->flush();
+    
+    return $this->redirect()->toRoute('IssueCategory');
+   } 
+   
+    public function editpriorityAction()
+     {
+       
+       $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');  
+       
+       $id = (int) $this->params('id', null);
+        if (null === $id) {
+          return $this->redirect()->toRoute('IssueCategory');
+        } 
+
+      $issueedit = $objectManager->find('Application\Model\Domain\IssuePriority', $id); 
+      
+       $form = new IssuePriorityForm(); 
+      
+        if ($this->getRequest()->isPost()) {
+            
+            $issue = new IssuePriority();
+            $form->setInputFilter($issue->getInputFilter());
+           $form->setData($this->getRequest()->getPost());
+                         
+            if ($form->isValid()) {
+                $data = $form->getData();
+                print_r($data);
+                
+                $issue->setName($data['name']);
+                 if (isset($data['IsActive'])) 
+                    { 
+                        $issue->setIsActive($data['IsActive'][0]);
+                                          
+                    }
+                 if (isset($data['IsDefault'])) 
+                    { 
+                     $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssuePriority u')
+                        ->getResult();
+
+                     foreach ($issuelist as $iss)
+                     {
+                          $iss->setIsDefault(false);                       
+                           $this->getObjectManager()->merge($iss);
+                     }  
+                     $issue->setIsDefault($data['IsDefault'][0]);
+       
+                    }
+   
+                    
+                    
+                $issue->setId($id);
+                $this->getObjectManager()->merge($issue);                  
+                $this->getObjectManager()->flush();        
+                
+                return $this->redirect()->toRoute('IssueCategory');
+            }
+      }
+
+      $view = new ViewModel(array('issueedit' => $issueedit, 'form2' => $form));
+      $view->setTemplate('Enumeration/edit_priority');
+      return $view;
+    }
+    
     
     
   
