@@ -108,6 +108,76 @@ return array(
                 ),
             ),
 	
+	
+	      /**
+             * SCIEZKA DO DODAWANIA KATEGORII DOKUMENTW --
+             */
+            'IssueCategory' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecategory/index',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            
+             /**
+             * SCIEZKA DO DODAWANIA KATEGORII DOKUMENTÓW --
+             */
+            'AddIssueCategory' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecategory/add',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'addcategory'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO EDYTOWANIA KATEGORII DOKUMENTÓW --
+             */
+            'UpdateIssueCategory' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecategory/edit/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'editcategory'
+                    )
+                ),
+            ),
+            /**
+             * SCIEZKA DO USUWANIA KATEGORII DOKUMENTÓW --
+             */
+            'DeleteIssueCategory' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecategory/delete/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'deletecategory'
+                    )
+                ),
+            ),
+	
+	
+	
 	/**
              * SCIEZKA DO DODAWANIA Statusów --
              */
