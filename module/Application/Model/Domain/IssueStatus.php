@@ -4,24 +4,28 @@ namespace Application\Model\Domain;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
- * IssueStatus 
+ * IssueStatus
  *
  * @ORM\Table(name="`ISSUESTATUS`")
- * @ORM\Entity(repositoryClass="Application\Model\Infrastructure\Repositories\IssueStatusRepository")
+ * @ORM\Entity(repositoryClass="\Application\Model\Infrastructure\Repositories\IssueStatusRepository")
  */
-class IssueStatus 
+class IssueStatus implements InputFilterAwareInterface
 {
     /**
      * @var string $code
      * @ORM\Column(name="`CODE`", type="string", length=50, nullable=false)
      */
     protected $code;
-
+    
     /**
      * @var string $name
-     * @ORM\Column(name="`NAME`", type="string", length=100, nullable=false)
+     * @ORM\Column(name="NAME", type="string", length=100, nullable=false)
      */
     protected $name;
 
@@ -70,9 +74,12 @@ class IssueStatus
      */
     protected $id;
 
-
+    protected $inputFilter;
+    
     public function __construct()
     {
+        $this->estimatedActivitys = new ArrayCollection();
+        $this->assignedUsers = new ArrayCollection();
     }
 
     public function getCode()
@@ -179,5 +186,48 @@ class IssueStatus
     {
         return (string)($this->getName());
     }
+    
+     public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
 
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory     = new InputFactory();
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'name',
+                    'required' => true,
+                    'options' => array(
+                        'rncoding' => 'UTF-8',
+                        'min' => 2,
+                        'max' => 140,
+                    )
+                ))
+            );
+            
+          $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsClosed',
+                    'required' => false
+                ))
+            );
+          
+              $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsDefault',
+                    'required' => false
+                ))
+            );
+
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
+    }
 }
