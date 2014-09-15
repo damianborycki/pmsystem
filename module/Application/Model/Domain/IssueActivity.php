@@ -4,6 +4,10 @@ namespace Application\Model\Domain;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * IssueActivity 
@@ -11,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Table(name="`ISSUEACTIVITY`")
  * @ORM\Entity(repositoryClass="Application\Model\Infrastructure\Repositories\IssueActivityRepository")
  */
-class IssueActivity 
+class IssueActivity implements InputFilterAwareInterface
 {
     /**
      * @var string $code
@@ -64,10 +68,15 @@ class IssueActivity
      */
     protected $id;
 
+     protected $inputFilter;
 
-    public function __construct()
-    {
-    }
+        public function __construct()
+        {
+            $this->estimatedActivitys = new ArrayCollection();
+            $this->assignedUsers = new ArrayCollection();
+        }
+
+   
 
     public function getCode()
     {
@@ -161,6 +170,50 @@ class IssueActivity
     public function __toString()
     {
         return (string)($this->getName());
+    }
+    
+     public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
+
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory     = new InputFactory();
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'name',
+                    'required' => true,
+                    'options' => array(
+                        'rncoding' => 'UTF-8',
+                        'min' => 2,
+                        'max' => 140,
+                    )
+                ))
+            );
+            
+          $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsActive',
+                    'required' => false
+                ))
+            );
+          
+              $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsDefault',
+                    'required' => false
+                ))
+            );
+
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
     }
 
 }
