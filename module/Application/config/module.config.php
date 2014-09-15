@@ -7,7 +7,7 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issues' => 'Application\Controller\IssuesController',
 			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
-			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController'
+			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController',
 			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
             		'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController'
             /* generator-end-controllers.invokables */
