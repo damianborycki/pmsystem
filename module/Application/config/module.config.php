@@ -108,7 +108,7 @@ return array(
                 ),
             ),
 	
-		/**
+	/**
              * SCIEZKA DO DODAWANIA Statusów --
              */
             'AddIssueStatus' => array(
@@ -121,6 +121,40 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\IssueStatus',
                         'action' => 'add'
+                    )
+                ),
+            ),
+            
+             /**
+             * SCIEZKA DO USUWANIA Statusów
+             */
+            'DeleteIssueStatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuestatus/delete/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\IssueStatus',
+                        'action' => 'delete'
+                    )
+                ),
+            ),
+            
+             /**
+             * SCIEZKA DO Idex Statusów
+             */
+            'IssueStatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuestatus',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\IssueStatus',
+                        'action' => 'index'
                     )
                 ),
             ),
