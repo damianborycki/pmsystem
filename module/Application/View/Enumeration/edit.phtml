@@ -1,0 +1,93 @@
+<style>
+    li.header{
+        margin-top: 20px;
+    }
+</style>
+    
+	<div class="jumbotron">
+        <ol class="breadcrumb container change-pos">                                 
+            <li class="active header"></li>                                    
+        </ol>  
+            
+		<div class="container">
+			<div class="center-block table-responsive table-background-white" >
+                <?php 
+                       $form = $this->form2;                      
+                       $form->prepare();
+                       
+ 
+                        echo $this->form()->openTag($form);
+
+                       ?>
+                    
+                            
+                            
+                            
+                            
+                <div class="center-block">
+                    <div ng-app="app" ng-controller="Ctrl">
+                        <h3>Kategorie dokumentów</h3>
+				    <table class="table table-striped table-clickable">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%">Kategoria dokumentów</th>
+                                <th style="width: 25%">Domyślny Status</th>
+                                <th style="width: 25%">Aktywne</th>
+                                
+                            </tr>
+                        </thead>
+                       
+                        <tbody>                         
+                               <tr>
+		                <td>
+                                  <div class="editable-controls form-group">
+                                      <input type="text" name="name" required="required" value="<?php echo  $issueedit->getName('id')?>" class="editable-input form-control ng-pristine ng-invalid ng-invalid-required" ng-model="$data">                                    
+                                  </div>
+                                </td>
+		                <td>
+                                    
+                                    <span class="editable-wrap editable-checkbox ">
+                                        <div class="editable-controls form-group">
+                                            <?php echo $this->formRow($form->get('IsDefault')->setChecked($issueedit->getIsDefault())); ?>                                            
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                            </div>                                                
+                                        </div>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-checkbox="status.close" e-name="default" e-form="rowform" onbeforesave="checkName($data, close.id)" class="ng-scope ng-binding editable editable-hide editable-empty" />
+                              </span>
+                                    <span class="editable-wrap editable-checkbox ng-scope">
+                                        <div class="editable-controls form-group">
+                                            <?php echo $this->formRow($form->get('IsActive')->setChecked($issueedit->getIsActive())); ?> 
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                            </div>                                                
+                                        </div>
+                                    </span>
+                                </td>
+                                    
+
+                            </tr>
+                                                
+                        </tbody>
+                        
+                    </table>
+                         <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Zaktualizuj kategorię</button>
+                    
+                    </div>
+			<?php 
+                        
+                        
+                        echo $this->form()->closeTag(); ?>    
+                </div>
+                           
+			</div>
+		</div>
+            
+	</div>
+
+
+
+    
+
+
