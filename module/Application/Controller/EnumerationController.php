@@ -355,12 +355,79 @@ class EnumerationController extends AbstractActionController{
     }
     
 
+     // activity
     
+    public function addactivityAction() 
+     {
+        
+       $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
+       
+    echo $_SERVER['REQUEST_METHOD'];
+    $form = new IssueActivityForm();
+
+     if ($this->getRequest()->isPost()) {
+            $issue = new IssueActivity();
+            $form->setInputFilter($issue->getInputFilter());
+            $form->setData($this->getRequest()->getPost());
+
+            if ($form->isValid()) {
+                $data = $form->getData();
+                print_r($data);
+                               
+                
+                $issue->setName($data['name']);
+                if (isset($data['IsActive'])) 
+                    { $issue->setIsActive($data['IsActive'][0]);                                        
+                    }
+                    
+                 if (isset($data['IsDefault'])) 
+                    { 
+                         $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueActivity u')
+                        ->getResult();
+
+                     foreach ($issuelist as $iss)
+                     {
+                          $iss->setIsDefault(false);                       
+                          $this->getObjectManager()->merge($iss);
+                     }  
+                     $issue->setIsDefault($data['IsDefault'][0]);
+                    }
+                
+                $this->getObjectManager()->persist($issue);                             
+                $this->getObjectManager()->flush();         
+                return $this->redirect()->toRoute('IssueCategory');
+            }
+      }
+
+
+      $view = new ViewModel(array('form' => $form));
+      $view->setTemplate('Enumeration/add_activity');
+      return $view;
+    }
     
-  
+    public function deleteactivityAction()
+     {
+     $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
     
+    $id = (int) $this->params('id', null);
+     if (null === $id) {
+      return $this->redirect()->toRoute('IssueCategory');
+    }
+
+    $issuedelete = $objectManager->find('Application\Model\Domain\IssueActivity', $id);
+ 
+    $objectManager->remove($issuedelete);
+    $objectManager->flush();
+    
+    return $this->redirect()->toRoute('IssueCategory');
+   } 
    
-   
+ 
     
   } 
 
