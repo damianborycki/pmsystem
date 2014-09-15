@@ -107,6 +107,75 @@ return array(
                     )
                 ),
             ),
+            
+             /**
+             * SCIEZKA DO INDEX PRIORYTETÓW ZAGADNIEŃ ++
+             */
+            'IssuePriority' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecpriority/index',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            
+             /**
+             * SCIEZKA DO DODAWANIA PRIORYTETÓW ++
+             */
+            'AddIssuePriority' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuepriority/add',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'addpriority'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO USUWANIA PRIORYTETÓW ++
+             */
+            'DeleteIssuePriority' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuepriority/delete/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'deletepriority'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO EDYCJI PRIORYTETÓW ++
+             */
+            'UpdateIssuePriority' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuepriority/edit/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'editpriority'
+                    )
+                ),
+            ),
+            
 	
 	
 	      /**
