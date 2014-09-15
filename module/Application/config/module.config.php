@@ -8,6 +8,8 @@ return array(
             'Application\Controller\Issues' => 'Application\Controller\IssuesController',
 			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
 			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController'
+			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
+            		'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController'
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -105,6 +107,40 @@ return array(
                     )
                 ),
             ),
+	
+	/**
+             * SCIEZKA DO DODAWANIA Statusów --
+             */
+            'AddIssueStatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuestatus/add',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\IssueStatus',
+                        'action' => 'add'
+                    )
+                ),
+            ),
+            
+             /**
+             * SCIEZKA DO EDYTOWANIA Statusów
+             */
+            'UpdateIssueStatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuestatus/edit/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\IssueStatus',
+                        'action' => 'edit'
+                    )
+                ),
+            ),
 			
 			/**
              * SCIEZKA DO PRZEJSC STANOW
@@ -119,6 +155,8 @@ return array(
                     )
                 ),
             ),
+		
+		
 			
 			/**
              * SCIEZKA DO PRAW DO POL
