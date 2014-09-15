@@ -18,6 +18,32 @@ class IssueStatusController extends AbstractActionController{
         return $this->_objectManager;
     }
     
+     public function indexAction() {
+    $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');
+    
+    $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueStatus u')
+                        ->getResult();
+        
+    foreach ($issuelist as $iss)
+                     {
+                          if($iss->getIsDefault(true)){                            
+                            $iss->setIsDefault('<i class="fa fa-check"></i>');
+                          }
+                          
+                          if($iss->getIsClosed(true)){                           
+                            $iss->setIsClosed('<i class="fa fa-check"></i>');
+                          }                         
+                     } 
+                     
+                                
+                     
+     $view = new ViewModel(array('issuelist'=> $issuelist));
+     $view->setTemplate('IssueStatus/index');
+     return $view;
+}  
   
  
     public function addAction() 
@@ -70,6 +96,25 @@ class IssueStatusController extends AbstractActionController{
       return $view;
     }
 
+
+  public function deleteAction()
+    {
+     $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
+    
+  $id = (int) $this->params('id', null);
+    if (null === $id) {
+      return $this->redirect()->toRoute('IssueStatus');
+    }
+
+    $issuedelete = $objectManager->find('Application\Model\Domain\IssueStatus', $id);
+ 
+    $objectManager->remove($issuedelete);
+    $objectManager->flush();
+    
+    return $this->redirect()->toRoute('IssueStatus');
+   } 
  
   
     
