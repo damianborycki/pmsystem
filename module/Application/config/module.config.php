@@ -108,7 +108,7 @@ return array(
                 ),
             ),
 	
-	/**
+		/**
              * SCIEZKA DO DODAWANIA Statusów --
              */
             'AddIssueStatus' => array(
