@@ -190,6 +190,56 @@ return array(
                 ),
             ),
 		
+	  /**
+             * SCIEZKA DO DODAWANIA DZIAŁAŃ ++
+             */
+            'AddIssueActivity' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issueactivity/add',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'addactivity'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO USUWANIA DZIAŁAŃ ++
+             */
+            'DeleteIssueActivity' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issueactivity/delete/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'deleteactivity'
+                    )
+                ),
+            ),
+            
+             /**
+             * SCIEZKA DO EDYCJI DZIAŁAŃ ++
+             */
+            'UpdateIssueActivity' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issueactivity/edit/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'editactivity'
+                    )
+                ),
+            ),
 		
 			
 			/**
