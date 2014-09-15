@@ -401,6 +401,7 @@ class EnumerationController extends AbstractActionController{
             }
       }
 
+
       $view = new ViewModel(array('form' => $form));
       $view->setTemplate('Enumeration/add_activity');
       return $view;
