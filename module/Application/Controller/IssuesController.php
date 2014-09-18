@@ -17,8 +17,8 @@ class IssuesController extends AbstractActionController {
     }
 
     public function listAction(){
-        // lista zagadnień
-        $view = new ViewModel();
+        $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findAll();
+        $view   = new ViewModel(array('issues' => $issues));
         $view->setTemplate('Issues/List');
 
         return $view;

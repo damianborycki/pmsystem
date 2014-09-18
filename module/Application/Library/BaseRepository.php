@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Model\Infrastructure;
+namespace Application\Library;
 
 use Doctrine\ORM\EntityRepository;
 
