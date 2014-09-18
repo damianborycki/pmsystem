@@ -13,4 +13,3 @@ composer.lock
 /config/autoload/local.php
 /public/img/captcha
 /data/DoctrineORMModule
-module/Application/config/module.config.php
