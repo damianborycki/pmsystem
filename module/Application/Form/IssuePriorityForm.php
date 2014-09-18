@@ -15,7 +15,7 @@ class IssuePriorityForm extends Form {
             'name'       => 'name',
             'type'       => 'Zend\Form\Element\Text',
             'attributes' => array( 
-                'placeholder' => 'Status', 
+                'placeholder' => 'Priorytet', 
                 'required' => 'required', 
             ), 
             'options' => array( 

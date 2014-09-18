@@ -15,7 +15,7 @@ class IssueCategoryForm extends Form {
             'name'       => 'name',
             'type'       => 'Zend\Form\Element\Text',
             'attributes' => array( 
-                'placeholder' => 'Status', 
+                'placeholder' => 'Kategoria', 
                 'required' => 'required', 
             ), 
             'options' => array( 

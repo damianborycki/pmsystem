@@ -15,7 +15,7 @@ class IssueActivityForm extends Form {
             'name'       => 'name',
             'type'       => 'Zend\Form\Element\Text',
             'attributes' => array( 
-                'placeholder' => 'Status', 
+                'placeholder' => 'Działanie', 
                 'required' => 'required', 
             ), 
             'options' => array( 
