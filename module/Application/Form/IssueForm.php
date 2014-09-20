@@ -75,14 +75,14 @@ class IssueForm extends Form {
                     'class' => 'col-sm-2 control-label'
                 ),
                 'value_options'    => array(
-                    'task'          => 'Zadanie',
-                    'external_task' => 'Zewnętrzne zadanie',
-                    'bug'           => 'Bug',
-                    'requirement'   => 'Wymaganie',
-                    'request'       => 'Żądanie',
-                    'fix'           => 'Poprawka',
-                    'event'         => 'Wydarzenie',
-                    'client'        => 'Klient'
+                    'Task'          => 'Zadanie',
+                    'External' => 'Zewnętrzne zadanie',
+                    'Bug'           => 'Bug',
+                    'Requirement'   => 'Wymaganie',
+                    'Request'       => 'Żądanie',
+                    'Fix'           => 'Poprawka',
+                    'Event'         => 'Wydarzenie',
+                    'Client'        => 'Klient'
                 )
             ),
         ));
@@ -112,6 +112,28 @@ class IssueForm extends Form {
                 )
             ),
         ));
+
+        $this->add(array(
+            'name'       => 'issueStatus',
+            'type'       => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'id'       => 'inputStatus',
+                'type'     => 'select',
+                'class'    => 'form-control',
+                'required' => 'true'
+            ),
+            'options'    => array(
+                'label'            => 'Status',
+                'label_attributes' => array(
+                    'for'   => 'inputPriority',
+                    'class' => 'col-sm-2 control-label'
+                ),
+                'value_options'    => array(
+                    '1' => 'Nowy'
+                )
+            ),
+        ));
+
 
         $this->add(array(
             'name'       => 'submit',

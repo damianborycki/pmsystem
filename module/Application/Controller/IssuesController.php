@@ -36,10 +36,12 @@ class IssuesController extends AbstractActionController {
                 $data     = $form->getData();
                 $project  = $this->getObjectManager()->find('\Application\Model\Domain\Project', $data['project']);
                 $priority = $this->getObjectManager()->find('\Application\Model\Domain\IssuePriority', $data['issuePriority']);
+                $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
 
                 $issue->setProject($project);
                 $issue->setSubject($data['subject']);
                 $issue->setDescription($data['description']);
+                $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);
                 $issue->setCreationTime(new \DateTime());
 
