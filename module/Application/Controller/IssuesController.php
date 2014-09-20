@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
+use Application\Model\Domain\Project;
 use Application\Form\IssueForm;
 
 class IssuesController extends AbstractActionController {
@@ -19,7 +20,8 @@ class IssuesController extends AbstractActionController {
     public function listAction(){
     	$id = $this->getEvent()->getRouteMatch()->getParam('project');
     	
-        $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findAll();
+        $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('project' => $id));
+       
         $view   = new ViewModel(array('issues' => $issues));
         $view->setTemplate('Issues/List');
 

@@ -80,7 +80,7 @@ return array(
             'IssueList' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:project]/issuess',
+                    'route' => '/[:project]/issues',
             		'constraints' => array(
                         'project' => '[0-9]*',
                     ),
