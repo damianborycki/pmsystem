@@ -107,6 +107,23 @@ return array(
                     )
                 ),
             ),
+
+            /**
+             * SCIEZKA DO KONKRETNEGO ZAGADNIENIA
+             */
+            'ShowIssue' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/issue/[:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'show'
+                    )
+                ),
+            ),
             
              /**
              * SCIEZKA DO INDEX PRIORYTETÓW ZAGADNIEŃ ++

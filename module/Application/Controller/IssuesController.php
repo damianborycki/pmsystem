@@ -13,8 +13,13 @@ class IssuesController extends AbstractActionController {
     protected $_objectManager;
 
     public function showAction(){
-        // pokaz pojedynczy
-        return;
+        $id = $this->getEvent()->getRouteMatch()->getParam('id');
+        $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
+       //var_dump($issue);
+        $view   = new ViewModel(array('issue' => $issue));
+        $view->setTemplate('Issues/Show');
+
+        return $view;
     }
 
     public function listAction(){

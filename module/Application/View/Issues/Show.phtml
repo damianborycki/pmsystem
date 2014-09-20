@@ -36,7 +36,7 @@
                             <span class="icon-bar"></span>
 
                         </button>
-                        <span class="navbar-brand brand"><span class="label label-warning">Bug</span> Zadanie pierwsze, coś nie działa</span>
+                        <span class="navbar-brand brand"><span class="label label-warning"><?php echo $issue->getSubject() ?></span> Zadanie pierwsze, coś nie działa</span>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
                         <a href="EditTask.htm">
@@ -76,9 +76,9 @@
                 <h3><span class="glyphicon glyphicon-info-sign"></span> Szczegóły</h3>
                 <div class="row show-grid row-with-space">
                     <div class="col-md-1 col-md-3 details-label">Priorytet:</div>
-                    <div class="col-md-2 col-md-6">Wysoki</div>
+                    <div class="col-md-2 col-md-6"><?php echo $issue->getIssuePriority() ?></div>
                     <div class="col-md-1 col-md-3 details-label">Typ:</div>
-                    <div class="col-md-2 col-md-6">Bug</div>
+                    <div class="col-md-2 col-md-6"><?php echo $issue->getSubject() ?></div>
 
                 </div>
                 <div class="row show-grid row-with-space">
@@ -88,7 +88,7 @@
                     <div class="col-md-1 col-md-3 details-label">Wersje:</div>
                     <div class="col-md-2 col-md-6">2.0</div>
                     <div class="col-md-1 col-md-3 details-label">Status:</div>
-                    <div class="col-md-2 col-md-6">Otwarty</div>
+                    <div class="col-md-2 col-md-6"><?php echo $issue->getIssueStatus() ?></div>
 
                 </div>
                 <div class="row show-grid row-with-space">
@@ -104,7 +104,7 @@
                         </div></div>
                     </div>
                     <h3><span class="glyphicon glyphicon-font"></span> Dokładny opis</h3>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper eros id massa pretium varius. Phasellus iaculis placerat rutrum. Maecenas facilisis odio libero, non tincidunt turpis ultricies id. Nam scelerisque ligula vel est posuere, ultricies imperdiet elit eleifend. Etiam eu nibh sem. Vestibulum laoreet sollicitudin lorem, nec facilisis orci posuere sit amet. Aenean suscipit risus elementum eros vehicula consectetur. Sed eu venenatis nisl, et accumsan lorem. Etiam ac mollis sapien. Fusce scelerisque orci non felis volutpat porta. Suspendisse at nisi.
+                    <?php echo $issue->getDescription() ?>
                     <h3><span class="glyphicon glyphicon-user"></span> Osoby</h3>
                     <div class="row show-grid row-with-space">
                         <div class="col-md-2 col-md-3 details-label">Przypisana osoba:</div>
