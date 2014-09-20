@@ -9,7 +9,8 @@ return array(
 			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
 			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController',
 			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
-            		'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController'
+            'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController',
+        	'Application\Controller\CustomDict' => 'Application\Controller\CustomDictController',
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -75,7 +76,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO LISTY ZAGADNIEŃ
+             * SCIEZKA DO LISTY ZAGADNIEn
              */
             'IssueList' => array(
                 'type' => 'segment',
@@ -92,7 +93,7 @@ return array(
             ),
 
             /**
-             * SCIEZKA DO DODAWANIA ZAGADNIEŃ
+             * SCIEZKA DO DODAWANIA ZAGADNIEĹ�
              */
             'AddIssue' => array(
                 'type' => 'segment',
@@ -109,7 +110,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO INDEX PRIORYTETÓW ZAGADNIEŃ ++
+             * SCIEZKA DO INDEX PRIORYTETĂ“W ZAGADNIEĹ� ++
              */
             'IssuePriority' => array(
                 'type' => 'segment',
@@ -126,7 +127,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO DODAWANIA PRIORYTETÓW ++
+             * SCIEZKA DO DODAWANIA PRIORYTETĂ“W ++
              */
             'AddIssuePriority' => array(
                 'type' => 'segment',
@@ -143,7 +144,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO USUWANIA PRIORYTETÓW ++
+             * SCIEZKA DO USUWANIA PRIORYTETĂ“W ++
              */
             'DeleteIssuePriority' => array(
                 'type' => 'segment',
@@ -160,7 +161,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO EDYCJI PRIORYTETÓW ++
+             * SCIEZKA DO EDYCJI PRIORYTETĂ“W ++
              */
             'UpdateIssuePriority' => array(
                 'type' => 'segment',
@@ -196,7 +197,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO DODAWANIA KATEGORII DOKUMENTÓW --
+             * SCIEZKA DO DODAWANIA KATEGORII DOKUMENTĂ“W --
              */
             'AddIssueCategory' => array(
                 'type' => 'segment',
@@ -213,7 +214,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO EDYTOWANIA KATEGORII DOKUMENTÓW --
+             * SCIEZKA DO EDYTOWANIA KATEGORII DOKUMENTĂ“W --
              */
             'UpdateIssueCategory' => array(
                 'type' => 'segment',
@@ -229,7 +230,7 @@ return array(
                 ),
             ),
             /**
-             * SCIEZKA DO USUWANIA KATEGORII DOKUMENTÓW --
+             * SCIEZKA DO USUWANIA KATEGORII DOKUMENTĂ“W --
              */
             'DeleteIssueCategory' => array(
                 'type' => 'segment',
@@ -248,7 +249,7 @@ return array(
 	
 	
 	/**
-             * SCIEZKA DO DODAWANIA Statusów --
+             * SCIEZKA DO DODAWANIA StatusĂłw --
              */
             'AddIssueStatus' => array(
                 'type' => 'segment',
@@ -265,7 +266,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO USUWANIA Statusów
+             * SCIEZKA DO USUWANIA StatusĂłw
              */
             'DeleteIssueStatus' => array(
                 'type' => 'segment',
@@ -282,7 +283,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO Idex Statusów
+             * SCIEZKA DO Idex StatusĂłw
              */
             'IssueStatus' => array(
                 'type' => 'segment',
@@ -299,7 +300,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO EDYTOWANIA Statusów
+             * SCIEZKA DO EDYTOWANIA StatusĂłw
              */
             'UpdateIssueStatus' => array(
                 'type' => 'segment',
@@ -314,7 +315,22 @@ return array(
                     )
                 ),
             ),
-			
+        		/**
+        		 * SCIEZKA DO EDYTOWANIA slownikow uzytkownika
+        		 */
+        		'CustomDict' => array(
+        				'type' => 'segment',
+        				'options' => array(
+        						'route' => '[:project]/customdict',
+        						'constraints' => array(
+        								'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        						),
+        						'defaults' => array(
+        								'controller' => 'Application\Controller\CustomDict',
+        								'action' => 'index'
+        						)
+        				),
+        		),			
 			/**
              * SCIEZKA DO PRZEJSC STANOW
              */
@@ -330,7 +346,7 @@ return array(
             ),
 		
 	  /**
-             * SCIEZKA DO DODAWANIA DZIAŁAŃ ++
+             * SCIEZKA DO DODAWANIA DZIAĹ�AĹ� ++
              */
             'AddIssueActivity' => array(
                 'type' => 'segment',
@@ -347,7 +363,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO USUWANIA DZIAŁAŃ ++
+             * SCIEZKA DO USUWANIA DZIAĹ�AĹ� ++
              */
             'DeleteIssueActivity' => array(
                 'type' => 'segment',
@@ -364,7 +380,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO EDYCJI DZIAŁAŃ ++
+             * SCIEZKA DO EDYCJI DZIAĹ�AĹ� ++
              */
             'UpdateIssueActivity' => array(
                 'type' => 'segment',
