@@ -81,9 +81,9 @@ return array(
             'IssueList' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '[:project]/issues',
+                    'route' => '/[:project]/issues',
             		'constraints' => array(
-                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'project' => '[0-9]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
@@ -105,6 +105,23 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
                         'action' => 'add'
+                    )
+                ),
+            ),
+
+            /**
+             * SCIEZKA DO KONKRETNEGO ZAGADNIENIA
+             */
+            'ShowIssue' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/issue/[:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'show'
                     )
                 ),
             ),

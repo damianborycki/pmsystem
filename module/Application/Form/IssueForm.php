@@ -1,11 +1,14 @@
 <?php
 
 namespace Application\Form;
-
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\Db\Adapter\Adapter;
 use Zend\Form\Form;
 
 class IssueForm extends Form {
-    public function __construct($name = null) {
+	protected $adapter;
+    public function __construct(AdapterInterface $dbAdapter) {
+    	$this->adapter =$dbAdapter;
         parent::__construct('issue');
 
         $this->setAttribute('method', 'post');
@@ -31,13 +34,8 @@ class IssueForm extends Form {
                 'label_attributes' => array(
                     'for'   => 'inputProject',
                     'class' => 'col-sm-2 control-label'
-                ), # TODO: Trzeba zaimplementowac mapowanie projektow jak juz ta funkcjonalnosc bedzie gotowa
-                'value_options'    => array(
-                    '1' => 'projekt 1',
-                    '2' => 'projekt 2',
-                    '3' => 'projekt 3',
-                    '4' => 'projekt 4'
-                )
+                ), 
+                'value_options' => $this->getProjectsNameForSelect(),
             ),
         ));
 
@@ -75,14 +73,14 @@ class IssueForm extends Form {
                     'class' => 'col-sm-2 control-label'
                 ),
                 'value_options'    => array(
-                    'task'          => 'Zadanie',
-                    'external_task' => 'Zewnętrzne zadanie',
-                    'bug'           => 'Bug',
-                    'requirement'   => 'Wymaganie',
-                    'request'       => 'Żądanie',
-                    'fix'           => 'Poprawka',
-                    'event'         => 'Wydarzenie',
-                    'client'        => 'Klient'
+                    'Task'          => 'Zadanie',
+                    'External' => 'Zewnętrzne zadanie',
+                    'Bug'           => 'Bug',
+                    'Requirement'   => 'Wymaganie',
+                    'Request'       => 'Żądanie',
+                    'Fix'           => 'Poprawka',
+                    'Event'         => 'Wydarzenie',
+                    'Client'        => 'Klient'
                 )
             ),
         ));
@@ -102,16 +100,31 @@ class IssueForm extends Form {
                     'for'   => 'inputPriority',
                     'class' => 'col-sm-2 control-label'
                 ), #TODO: z tego co widac to prioryety beda zapisane w bazie, trzeba zaimplementowac mapowanie
+                'value_options'    => $this->getIssuePriorityForSelect(),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'issueStatus',
+            'type'       => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'id'       => 'inputStatus',
+                'type'     => 'select',
+                'class'    => 'form-control',
+                'required' => 'true'
+            ),
+            'options'    => array(
+                'label'            => 'Status',
+                'label_attributes' => array(
+                    'for'   => 'inputPriority',
+                    'class' => 'col-sm-2 control-label'
+                ),
                 'value_options'    => array(
-                    '1' => 'Blocker',
-                    '2' => 'Krytyczny',
-                    '3' => 'Wysoki',
-                    '4' => 'Normalny',
-                    '5' => 'Niski',
-                    '6' => 'Bardzo niski'
+                    '1' => 'Nowy'
                 )
             ),
         ));
+
 
         $this->add(array(
             'name'       => 'submit',
@@ -120,5 +133,35 @@ class IssueForm extends Form {
                 'value' => 'Dodaj zadanie'
             ),
         )); 
+    }
+    
+    public function getProjectsNameForSelect()
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME FROM PROJECT ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
+    }
+    
+    public function getIssuePriorityForSelect()
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME FROM ISSUEPRIORITY ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
     }
 }
