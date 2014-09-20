@@ -1,11 +1,14 @@
 <?php
 
 namespace Application\Form;
-
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\Db\Adapter\Adapter;
 use Zend\Form\Form;
 
 class IssueForm extends Form {
-    public function __construct($name = null) {
+	protected $adapter;
+    public function __construct(AdapterInterface $dbAdapter) {
+    	$this->adapter =$dbAdapter;
         parent::__construct('issue');
 
         $this->setAttribute('method', 'post');
@@ -31,13 +34,8 @@ class IssueForm extends Form {
                 'label_attributes' => array(
                     'for'   => 'inputProject',
                     'class' => 'col-sm-2 control-label'
-                ), # TODO: Trzeba zaimplementowac mapowanie projektow jak juz ta funkcjonalnosc bedzie gotowa
-                'value_options'    => array(
-                    '1' => 'projekt 1',
-                    '2' => 'projekt 2',
-                    '3' => 'projekt 3',
-                    '4' => 'projekt 4'
-                )
+                ), 
+                'value_options' => $this->getOptionsForSelect(),
             ),
         ));
 
@@ -142,5 +140,20 @@ class IssueForm extends Form {
                 'value' => 'Dodaj zadanie'
             ),
         )); 
+    }
+    
+    public function getOptionsForSelect()
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME FROM PROJECT ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
     }
 }

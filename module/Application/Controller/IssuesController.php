@@ -23,10 +23,13 @@ class IssuesController extends AbstractActionController {
 
         return $view;
     }
-
+    
+    
     public function addAction() {
-        $form = new IssueForm();
-
+    	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+		$form = new IssueForm ($dbAdapter);
+        //$form = new IssueForm();
+        
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
             $form->setInputFilter($issue->getInputFilter());
