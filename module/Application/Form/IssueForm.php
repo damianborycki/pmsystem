@@ -35,7 +35,7 @@ class IssueForm extends Form {
                     'for'   => 'inputProject',
                     'class' => 'col-sm-2 control-label'
                 ), 
-                'value_options' => $this->getOptionsForSelect(),
+                'value_options' => $this->getProjectsNameForSelect(),
             ),
         ));
 
@@ -100,14 +100,7 @@ class IssueForm extends Form {
                     'for'   => 'inputPriority',
                     'class' => 'col-sm-2 control-label'
                 ), #TODO: z tego co widac to prioryety beda zapisane w bazie, trzeba zaimplementowac mapowanie
-                'value_options'    => array(
-                    '1' => 'Blocker',
-                    '2' => 'Krytyczny',
-                    '3' => 'Wysoki',
-                    '4' => 'Normalny',
-                    '5' => 'Niski',
-                    '6' => 'Bardzo niski'
-                )
+                'value_options'    => $this->getIssuePriorityForSelect(),
             ),
         ));
 
@@ -142,10 +135,25 @@ class IssueForm extends Form {
         )); 
     }
     
-    public function getOptionsForSelect()
+    public function getProjectsNameForSelect()
     {
         $dbAdapter = $this->adapter;
         $sql       = 'SELECT ID, NAME FROM PROJECT ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
+    }
+    
+    public function getIssuePriorityForSelect()
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME FROM ISSUEPRIORITY ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result    = $statement->execute();
 
