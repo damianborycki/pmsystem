@@ -127,7 +127,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO INDEX PRIORYTETĂ“W ZAGADNIEĹ� ++
+             * SCIEZKA DO INDEX PRIORYTETÓW ZAGADNIEĹ� ++
              */
             'IssuePriority' => array(
                 'type' => 'segment',
@@ -144,7 +144,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO DODAWANIA PRIORYTETĂ“W ++
+             * SCIEZKA DO DODAWANIA PRIORYTETÓW ++
              */
             'AddIssuePriority' => array(
                 'type' => 'segment',
@@ -161,7 +161,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO USUWANIA PRIORYTETĂ“W ++
+             * SCIEZKA DO USUWANIA PRIORYTETÓW ++
              */
             'DeleteIssuePriority' => array(
                 'type' => 'segment',
@@ -178,7 +178,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO EDYCJI PRIORYTETĂ“W ++
+             * SCIEZKA DO EDYCJI PRIORYTETÓW ++
              */
             'UpdateIssuePriority' => array(
                 'type' => 'segment',
@@ -214,7 +214,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO DODAWANIA KATEGORII DOKUMENTĂ“W --
+             * SCIEZKA DO DODAWANIA KATEGORII DOKUMENTÓW --
              */
             'AddIssueCategory' => array(
                 'type' => 'segment',
@@ -231,7 +231,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO EDYTOWANIA KATEGORII DOKUMENTĂ“W --
+             * SCIEZKA DO EDYTOWANIA KATEGORII DOKUMENTÓW --
              */
             'UpdateIssueCategory' => array(
                 'type' => 'segment',
@@ -247,7 +247,7 @@ return array(
                 ),
             ),
             /**
-             * SCIEZKA DO USUWANIA KATEGORII DOKUMENTĂ“W --
+             * SCIEZKA DO USUWANIA KATEGORII DOKUMENTÓW --
              */
             'DeleteIssueCategory' => array(
                 'type' => 'segment',
@@ -266,7 +266,7 @@ return array(
 	
 	
 	/**
-             * SCIEZKA DO DODAWANIA StatusĂłw --
+             * SCIEZKA DO DODAWANIA Statusów --
              */
             'AddIssueStatus' => array(
                 'type' => 'segment',
@@ -283,7 +283,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO USUWANIA StatusĂłw
+             * SCIEZKA DO USUWANIA Statusów
              */
             'DeleteIssueStatus' => array(
                 'type' => 'segment',
@@ -300,7 +300,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO Idex StatusĂłw
+             * SCIEZKA DO Idex Statusów
              */
             'IssueStatus' => array(
                 'type' => 'segment',
@@ -317,7 +317,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO EDYTOWANIA StatusĂłw
+             * SCIEZKA DO EDYTOWANIA Statusów
              */
             'UpdateIssueStatus' => array(
                 'type' => 'segment',
@@ -363,7 +363,7 @@ return array(
             ),
 		
 	  /**
-             * SCIEZKA DO DODAWANIA DZIAĹ�AĹ� ++
+             * SCIEZKA DO DODAWANIA DZIAŁAŃ ++
              */
             'AddIssueActivity' => array(
                 'type' => 'segment',
@@ -380,7 +380,7 @@ return array(
             ),
             
             /**
-             * SCIEZKA DO USUWANIA DZIAĹ�AĹ� ++
+             * SCIEZKA DO USUWANIA DZIAŁAŃ ++
              */
             'DeleteIssueActivity' => array(
                 'type' => 'segment',
@@ -397,7 +397,7 @@ return array(
             ),
             
              /**
-             * SCIEZKA DO EDYCJI DZIAĹ�AĹ� ++
+             * SCIEZKA DO EDYCJI DZIAŁAŃ ++
              */
             'UpdateIssueActivity' => array(
                 'type' => 'segment',
