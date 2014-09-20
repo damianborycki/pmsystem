@@ -80,9 +80,9 @@ return array(
             'IssueList' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '[:project]/issues',
+                    'route' => '/[:project]/issuess',
             		'constraints' => array(
-                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'project' => '[0-9]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
