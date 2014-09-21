@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pl" ng-app="<?php echo $this->config['ng-app'] ?>">
 <head>
     <!-- start: Meta -->
@@ -93,8 +93,8 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                             <li class="divider"></li>
                             <li><a href="<?php echo $this->url('CustomDict') ?>">Słowniki użytkownika</a></li>
                             <li class="divider"></li>
-                            <li><a href="/statusTransition">Przejścia stanów</a></li>
-                            <li><a href="/fieldsPermission">Uprawnienia pól</a></li>
+                            <li><a href="<?php echo $this->url('statusTransiton') ?>">Przejścia stanów</a></li>
+                            <li><a href="<?php echo $this->url('fieldsPermission') ?>">Uprawnienia pól</a></li>
                         </ul>
                     </li>
                 </ul>

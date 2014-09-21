@@ -354,7 +354,10 @@ return array(
             'statusTransiton' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/statusTransition',
+                    'route' => '[:project]/statusTransition',
+					'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\StatusTransition',
                         'action' => 'statusTransition'
@@ -420,7 +423,10 @@ return array(
             'fieldsPermission' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/fieldsPermission',
+                    'route' => '[:project]/fieldsPermission',
+					'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\FieldsPermission',
                         'action' => 'fieldsPermission'
