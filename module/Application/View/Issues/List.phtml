@@ -9,12 +9,10 @@
                         <div class="form-group">
                                 <label for="inputProject" class="control-label">Pokaż zadania dla&nbsp;</label>
                                 <select class="form-control" id="inputProject">
-                                        <optgroup label="Ostatnio wybierane projekty">
-                                                <option>Projekt testowy</option>
-                                                <option>Most recent one</option>
-                                        </optgroup>
-                                        <optgroup label="Pozostałe">
-                                                <option>Another recent project</option>
+                                        <optgroup label="Projekty">
+                                        	<?php foreach ($this->projects as $project) { ?>
+                                                <option><?php echo $project->getName() ?></option>
+                                            <?php } ?>
                                         </optgroup>
                                 </select>
                         </div>
