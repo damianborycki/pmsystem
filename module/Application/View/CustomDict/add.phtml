@@ -1,0 +1,90 @@
+<style>
+    li.header{
+        margin-top: 20px;
+    }
+    .center-block.table-responsive.table-background-white {
+padding-bottom: 20px;
+}
+</style>
+    
+    <div class="jumbotron">
+        <ol class="breadcrumb container change-pos">                                 
+            <li class="active header"></li>                                    
+        </ol>  
+            
+        <div class="container">
+			<div class="center-block table-responsive table-background-white" >
+                 <?php 
+                       $form = $this->form;                      
+                       $form->prepare();
+                       
+                       echo $this->form()->openTag($form);
+                       
+                       
+                       ?>
+                                    
+                <div class="center-block">
+                    <div ng-controller="Ctrl">
+                        <h3>Słownik użytownika</h3>
+                        <table class="table table-striped table-clickable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 35%">Nazwa</th>
+                                    <th style="width: 25%">Domyślny słownik</th>
+                                    <th style="width: 25%">Aktywny</th>
+                                </tr>
+                            </thead>
+                                          
+                         <tbody>
+                            <tr ng-repeat="status in statuses" class="ng-scope">
+                                <td>
+                                    <span editable-text="status.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, status.id)" e-required="" class="ng-scope ng-binding editable editable-hide editable-empty">
+                                    
+                                    </span>
+                                    <span class="editable-wrap editable-text ng-scope">
+                                        <div class="editable-controls form-group" ng-class="{'has-error': $error}">
+                                            <div class="col-sm-13">
+                                                <?php echo $this->formElement($form->get('name')); ?>
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                            </div>                                            
+                                        </div>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-checkbox="status.default" e-name="default" e-form="rowform" onbeforesave="checkName($data, default.id)" class="ng-scope ng-binding editable editable-hide editable-empty">
+                                    
+                                    </span>
+                                    <span class="editable-wrap editable-checkbox ng-scope">
+                                        <div class="editable-controls form-group" ng-class="{'has-error': $error}">
+                                            <?php echo $this->formRow($form->get('IsDefault')); ?> 
+                                        </div> 
+                                        
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-checkbox="status.close" e-name="default" e-form="rowform" onbeforesave="checkName($data, close.id)" class="ng-scope ng-binding editable editable-hide editable-empty">
+                                    
+                                    </span>
+                                    <span class="editable-wrap editable-checkbox ng-scope">
+                                        <div class="editable-controls form-group" ng-class="{'has-error': $error}">
+                                            <?php echo $this->formRow($form->get('IsActive')); ?> 
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                            </div>                                                
+                                        </div>
+                                    </span>
+                                </td>
+                                
+                                
+                            </tr>
+                        </tbody>
+                        </table>
+
+                        <a href="<?php echo $this->url('AddCustomDict') ?>"><button type="submit" class="btn btn-success" ng-click="addcustomdict()"><i class="fa fa-plus-circle"></i> Stwórz słownik</button></a>
+                    
+                    </div>
+                </div> 
+                <?php echo $this->form()->closeTag(); ?>   
+            </div>
+        </div>
+    </div>
