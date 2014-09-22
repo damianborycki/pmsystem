@@ -16,7 +16,7 @@ padding-bottom: 20px;
             <div class="center-block table-responsive table-background-white" >         
                 <div class="center-block">
                     <div ng-controller="Ctrl">
-                        <h3>Słowniki użytownika</h3>
+                        <h3>Słowniki użytkownika</h3>
                         <table class="table table-striped table-clickable">
                             <thead>
                                 <tr>
@@ -41,7 +41,7 @@ padding-bottom: 20px;
                                                     </div>
                                                 </span>
                                             </td>
-
+                                                
                                             <td>
                                                 <span editable-checkbox="status.close" e-name="default" e-form="rowform" onbeforesave="checkName($data, close.id)" class="ng-scope ng-binding editable editable-hide editable-empty">
                                     
@@ -54,9 +54,10 @@ padding-bottom: 20px;
                                                     </div>
                                                 </span>
                                             </td>
-                                            
+
                                             <td>
-                                    
+                                                <a href="'.  $this->url('DownCustomDict', array('action'=>'edit', 'id'=>$issue->getId())) .'"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                                <a href="'.  $this->url('UpCustomDict', array('action'=>'edit', 'id'=>$issue->getId())) .'"><i class="glyphicon glyphicon-chevron-up"></i></a>
                                             </td>
                                         
                                             <td style="white-space: nowrap">

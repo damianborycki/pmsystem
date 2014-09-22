@@ -20,9 +20,9 @@ class CustomDictController extends AbstractActionController
     }
 
     public function indexAction() {	
-		$objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$objectManager = $this->getObjectManager();
     
-    	$issuelist = $objectManager->createQuery('SELECT u FROM Application\Model\Domain\CustomDictionary u')->getResult();
+    	$issuelist = $objectManager->createQuery('SELECT u FROM Application\Model\Domain\CustomDictionary u ORDER BY u.position ASC')->getResult();
         
     	foreach ($issuelist as $iss) {
         	if($iss->getIsDefault(true)){                            
@@ -38,4 +38,44 @@ class CustomDictController extends AbstractActionController
      	$view->setTemplate('CustomDict/index');
      	return $view;
     }
+
+    public function deleteAction() {
+     	$objectManager = $this->getObjectManager();
+    
+  		$id = (int) $this->params('id', null);
+    	if (null === $id) {
+      		return $this->redirect()->toRoute('CustomDict');
+    	}
+
+    	$issuedelete = $objectManager->find('Application\Model\Domain\CustomDictionary', $id);
+ 
+    	$objectManager->remove($issuedelete);
+   		$objectManager->flush();
+    
+    	return $this->redirect()->toRoute('CustomDict');
+   	}
+
+    public function upAction() {
+    	$objectManager = $this->getObjectManager();
+
+    	$id = (int) $this->params('id', null);
+        if (null === $id) {
+        	return $this->redirect()->toRoute('CustomDict');
+        } 
+
+    	return $this->redirect()->toRoute('CustomDict');
+    }
+
+    public function downAction() {
+    	$objectManager = $this->getObjectManager();
+
+    	$id = (int) $this->params('id', null);
+        if (null === $id) {
+        	return $this->redirect()->toRoute('CustomDict');
+        }
+
+
+
+    	return $this->redirect()->toRoute('CustomDict');
+    } 
 }

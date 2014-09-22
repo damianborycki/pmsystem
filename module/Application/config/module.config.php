@@ -439,7 +439,39 @@ return array(
                                     'action' => 'delete'
                             )
                     ),
-            ),		
+            ),
+             /**
+             * SCIEZKA DO zmiany pozycji o jedna w dol slownikow uzytkownika
+             */
+            'DownCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/down/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'down'
+                            )
+                    ),
+            ),      
+            /**
+             * SCIEZKA DO zmiany pozycji o jedna w gore slownikow uzytkownika
+             */
+            'UpCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/up/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'up'
+                            )
+                    ),
+            ), 		
 			/**
              * SCIEZKA DO PRZEJSC STANOW
              */
