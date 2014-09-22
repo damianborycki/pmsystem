@@ -98,6 +98,25 @@ class FieldForm extends Form {
         ));
 
         $this->add(array(
+            'name'       => 'regex',
+            'type'       => 'Zend\Form\Element\Text',
+            'attributes' => array(
+                'id'       => 'inputRegex',
+                'type'     => 'text',
+                'class'    => 'form-control',
+                'required' => 'true',
+                'value'    => '0'
+            ),
+            'options'    => array(
+                'label'            => 'Wyrażenie regularne',
+                'label_attributes' => array(
+                    'for'   => 'inputRegex',
+                    'class' => 'control-label'
+                ),
+            ),
+        ));
+
+        $this->add(array(
             'name'       => 'types',
             'type'       => 'Zend\Form\Element\Select',
             'attributes' => array(
@@ -117,7 +136,6 @@ class FieldForm extends Form {
                     'number' => 'Liczba',
                     'list'           => 'Lista wartości',
                     'bool'   => 'Tak/Nie',
-                    'regexText'       => 'Wyrażenie regularne'
                 )
             ),
         ));

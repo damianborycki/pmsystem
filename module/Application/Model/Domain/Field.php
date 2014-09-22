@@ -13,12 +13,12 @@ use Doctrine\Common\Collections\Collection;
  */
 class Field 
 {
-    /**
-     * @var FieldContext $fieldContext
-     * @ORM\ManyToOne(targetEntity="FieldContext")
-     * @ORM\JoinColumn(name="FIELDCONTEXTID", referencedColumnName="ID")
-     */
-    protected $fieldContext;
+    //
+     // @var FieldContext $fieldContext
+     // @ORM\ManyToOne(targetEntity="FieldContext")
+     // @ORM\JoinColumn(name="FIELDCONTEXTID", referencedColumnName="ID")
+     //
+    //protected $fieldContext;
 
     /**
      * @var string $name
@@ -27,11 +27,22 @@ class Field
     protected $name;
 
     /**
-     * @var FieldFormat $fieldFormat
-     * @ORM\ManyToOne(targetEntity="FieldFormat")
-     * @ORM\JoinColumn(name="FIELDFORMATID", referencedColumnName="ID")
+     * @var integer $maxValue
+     * @ORM\Column(name="`MAXVALUE`", type="integer", nullable=true)
      */
-    protected $fieldFormat;
+    protected $maxValue;
+
+    /**
+     * @var integer $minValue
+     * @ORM\Column(name="`MINVALUE`", type="integer", nullable=true)
+     */
+    protected $minValue;
+
+    /**
+     * @var boolean $isHidden
+     * @ORM\Column(name="`ISHIDDEN`", type="boolean", nullable=true)
+     */
+    protected $isHidden;
 
     /**
      * @var string $regexp
@@ -83,17 +94,6 @@ class Field
     {
     }
 
-    public function getFieldContext()
-    {
-        return $this->fieldContext;
-    }
-
-    public function setFieldContext($fieldContext)
-    {
-        $this->fieldContext = $fieldContext;
-        return $this;
-    }
-
     public function getName()
     {
         return $this->name;
@@ -105,14 +105,25 @@ class Field
         return $this;
     }
 
-    public function getFieldFormat()
+    public function getMaxValue()
     {
-        return $this->fieldFormat;
+        return $this->maxValue;
     }
 
-    public function setFieldFormat($fieldFormat)
+    public function setMaxValue($maxValue)
     {
-        $this->fieldFormat = $fieldFormat;
+        $this->maxValue = $maxValue;
+        return $this;
+    }
+
+    public function getMinValue()
+    {
+        return $this->minValue;
+    }
+
+    public function setMinValue($minValue)
+    {
+        $this->minValue = $minValue;
         return $this;
     }
 
@@ -135,6 +146,17 @@ class Field
     public function setIsRequired($isRequired)
     {
         $this->isRequired = $isRequired;
+        return $this;
+    }
+
+    public function getIsHidden()
+    {
+        return $this->isHidden;
+    }
+
+    public function setIsHidden($isHidden)
+    {
+        $this->isHidden = $isHidden;
         return $this;
     }
 
