@@ -20,6 +20,22 @@ class IssueForm extends Form {
             ),
         ));
 
+         $this->add(array(
+             'type' => 'Zend\Form\Element\Hidden',
+             'name' => 'User',
+             'attributes' => array(
+                     'value' => '1'
+             )
+         ));
+
+        $this->add(array(
+             'type' => 'Zend\Form\Element\Hidden',
+             'name' => 'issueStatus',
+             'attributes' => array(
+                     'value' => '1'
+             )
+         ));
+
         $this->add(array(
             'name'       => 'project',
             'type'       => 'Zend\Form\Element\Select',
@@ -101,27 +117,6 @@ class IssueForm extends Form {
                     'class' => 'col-sm-2 control-label'
                 ), #TODO: z tego co widac to prioryety beda zapisane w bazie, trzeba zaimplementowac mapowanie
                 'value_options'    => $this->getIssuePriorityForSelect(),
-            ),
-        ));
-
-        $this->add(array(
-            'name'       => 'issueStatus',
-            'type'       => 'Zend\Form\Element\Select',
-            'attributes' => array(
-                'id'       => 'inputStatus',
-                'type'     => 'select',
-                'class'    => 'form-control',
-                'required' => 'true'
-            ),
-            'options'    => array(
-                'label'            => 'Status',
-                'label_attributes' => array(
-                    'for'   => 'inputPriority',
-                    'class' => 'col-sm-2 control-label'
-                ),
-                'value_options'    => array(
-                    '1' => 'Nowy'
-                )
             ),
         ));
 

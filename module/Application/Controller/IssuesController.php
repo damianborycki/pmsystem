@@ -49,7 +49,9 @@ class IssuesController extends AbstractActionController {
                 $project  = $this->getObjectManager()->find('\Application\Model\Domain\Project', $data['project']);
                 $priority = $this->getObjectManager()->find('\Application\Model\Domain\IssuePriority', $data['issuePriority']);
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
+                $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
 
+                $issue->setCreator($creator);
                 $issue->setProject($project);
                 $issue->setSubject($data['subject']);
                 $issue->setDescription($data['description']);
