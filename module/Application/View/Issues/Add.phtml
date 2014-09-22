@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container under-top">
         <ol class="breadcrumb">
-                <li><a href="?page=ListOfTasks">Zadania</a></li>
+                <li><a href="/<?php echo $projectId?>/issues">Zadania</a></li>
                 <li class="active">Dodaj nowe zadanie</li>
         </ol>
 </div>
@@ -10,7 +10,7 @@
                 <div class="center-block">
                         <?php
                         $form = $this->form;
-                        $form->setAttribute('action', $this->url('AddIssue'));
+                        $form->setAttribute('action', $this->url('AddIssue',array('project' => $projectId)));
                         $form->setAttribute('class', 'form-horizontal');
                         $form->prepare();
 

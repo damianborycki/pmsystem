@@ -70,7 +70,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Aktualny projekt</li>
                             <li><a href="/1/issues">Lista zadań</a></li>
-                            <li><a href="<?php echo $this->url('AddIssue') ?>">Dodaj zadanie</a></li>
+                            <li><a href="<?php echo $this->url('AddIssue',array('project' => 1)) ?>">Dodaj zadanie</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Filtry</li>
                             <li><a href="#">Zadania przypisane do mnie</a></li>
@@ -100,7 +100,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                     </li>
                 </ul>
                 <div class="navbar-form navbar-left">
-                    <A href="<?php echo $this->url('AddIssue') ?>"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
+                    <A href="<?php echo $this->url('AddIssue',array('project' => 1)) ?>"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
                 </div>
                 <form class="navbar-form navbar-right" role="form">
                     <div class="form-group">

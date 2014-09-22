@@ -36,8 +36,10 @@ class IssuesController extends AbstractActionController {
     }
     
     public function addAction() {
-    	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-		$form = new IssueForm ($dbAdapter);
+        $projectId = $this->getEvent()->getRouteMatch()->getParam('project');
+
+      	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+		$form = new IssueForm ($dbAdapter, $projectId);
         
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
@@ -67,7 +69,7 @@ class IssuesController extends AbstractActionController {
             }
         }
 
-        $view = new ViewModel(array('form' => $form));
+        $view = new ViewModel(array('form' => $form, 'projectId' => $projectId));
         $view->setTemplate('Issues/Add');
 
         return $view;

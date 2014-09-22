@@ -97,9 +97,12 @@ return array(
              * SCIEZKA DO DODAWANIA ZAGADNIEĹ�
              */
             'AddIssue' => array(
-                'type' => 'Literal',
+                'type' => 'segment',
                 'options' => array(
-                    'route' => '/issues/add',
+                    'route' => '/[:project]/issues/add',
+                    'constraints' => array(
+                        'project' => '[0-9]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
                         'action' => 'add'
