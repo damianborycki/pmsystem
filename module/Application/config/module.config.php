@@ -6,6 +6,7 @@ return array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issues' => 'Application\Controller\IssuesController',
+            'Application\Controller\Fields' => 'Application\Controller\FieldsController',
 			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
 			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController',
 			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
@@ -137,6 +138,34 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
                         'action' => 'edit'
+                    )
+                ),
+            ),
+
+            /**
+             * SCIEZKA DO LISTY CUSTOM FIELDOW
+             */
+            'FieldsList' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/fields',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Fields',
+                        'action' => 'list'
+                    )
+                ),
+            ),
+
+            /**
+             * SCIEZKA DO DODAWANIA CUSTOM FIELDOW
+             */
+            'AddField' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/fields/add',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Fields',
+                        'action' => 'add'
                     )
                 ),
             ),
