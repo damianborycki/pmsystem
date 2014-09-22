@@ -1,28 +1,13 @@
 <div class="container under-top">
-    <div class="half-space-container">
         <ol class="breadcrumb">
-            <li class="active">Zadania</li>
+                <li><a href="/<?php echo $issue->getProject() ?>/issues">Zadania</a></li>
+                <li><a href="?page=ProjectOverview"><?php echo $issue->getProject()->getName() ?></a></li>
+                <li class="active">#<?php echo $issue->getID() ?></li>
         </ol>
-    </div>
-    <div class="half-space-container text-right">
-        <form class="form-group form-inline" role="form">
-            <div class="form-group">
-                <label for="inputProject" class="control-label">Pokaż zadania dla&nbsp;</label>
-                <select class="form-control" id="inputProject">
-                    <optgroup label="Ostatnio wybierane projekty">
-                        <option>Projekt testowy</option>
-                        <option>Most recent one</option>
-                    </optgroup>
-                    <optgroup label="Pozostałe">
-                        <option>Another recent project</option>
-                    </optgroup>
-                </select>
-            </div>
-        </form>
-    </div>
+
 </div>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
+<div class="jumbotron jumbotron-padding-top-10">
     <div class="container">
         <div class="center-block">
             <nav class="navbar navbar-default navbar-margin-top" role="navigation">
