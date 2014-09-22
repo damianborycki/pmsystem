@@ -27,12 +27,6 @@ class IssuesController extends AbstractActionController {
     	
         $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('project' => $id));
 
-        foreach ($issues as $issue) {
-        	if (!empty($issue->getCreator())) {
-        		$issue->setCreator($issue->getCreator()->getFirstName() . ' ' . $issue->getCreator()->getLastName());
-        	}
-        }
-        
         $view   = new ViewModel(array('issues' => $issues));
         $view->setTemplate('Issues/List');
 

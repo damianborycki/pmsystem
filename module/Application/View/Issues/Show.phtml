@@ -97,7 +97,7 @@
                         <div class="col-md-2 col-md-3 details-label">Przypisana osoba:</div>
                         <div class="col-md-2 col-md-6"><?php if($issue->getTracker()){echo $issue->getTracker();}else{echo "brak";} ?></div>
                         <div class="col-md-2 col-md-3 details-label">Utworzone przez:</div>
-                        <div class="col-md-2 col-md-6"><?php echo $issue->getCreator() ?></div>
+                        <div class="col-md-2 col-md-6"><?php echo $issue->getCreator()->getFirstName() . ' ' .  $issue->getCreator()->getLastName() ?></div>
                     </div>
                     <h3><span class="glyphicon glyphicon-calendar"></span> Daty</h3>
                     <div class="row show-grid row-with-space">
