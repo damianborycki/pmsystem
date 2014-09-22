@@ -1,0 +1,62 @@
+<div class="container under-top">
+    <div class="row">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li class="active">Pola formularza</li>
+            </ol>
+        </div>
+
+        <div class="col-xs-12">
+            <br />
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="btn btn-sm btn-success" href="<?php echo $this->url('AddField') ?>">
+                        <span class="glyphicon glyphicon-plus"></span> Dodaj nowe pole
+                    </a>
+                </div>
+            </div>
+            <?php
+            if(count($this->fields) > 0) { ?>
+            <table class="table table-hover table-clickable table-condensed">
+                <thead>
+                <tr>
+                    <th>Nazwa pola</th>
+                    <th>Typ pola</th>
+                    <th>Wymagane</th>
+                    <th>Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($this->fields as $field) { ?>
+                    <tr>
+                        <td><?php echo $field->getName() ?></td>
+                        <td><?php echo $field->getFieldFormat() ?></td>
+                        <td>
+                            <?php
+                            if($field->getIsRequired())
+                                echo '<span class="glyphicon glyphicon-ok"></span>';
+                            else
+                                echo '<span class="glyphicon glyphicon-remove"></span>';
+                            ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-xs btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </a>
+                            <a class="btn btn-xs btn-primary">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+            <?php } else ?>
+            <br />
+            <div class="alert alert-warning">
+                Brak zdefiniowanych pól. Aby dodać nowe pole, kliknij przycisk powyżej.
+            </div>
+
+        </div>
+    </div>
