@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="pl" ng-app="<?php echo $this->config['ng-app'] ?>">
+<html lang="pl">
+<!--<html lang="pl" ng-app="<?php echo $this->config['ng-app'] ?>">-->
 <head>
     <!-- start: Meta -->
     <meta charset="utf-8">
@@ -85,7 +86,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                             <li><a href="?page=EditUser">Dodaj użytkownika</a></li>
                             <li><a href="?page=ListUsers">Lista użytkowników</a></li>
                             <li class="divider"></li>
-                            <li><a href="?page=CustomFields">Pola Formularza</a></li>
+                            <li><a href="<?php echo $this->url('FieldsList') ?>">Pola Formularza</a></li>
                             <li class="divider"></li>
                             <li><a href="?page=TypesOfIssues">Typy Zagadnień</a></li>
                             <li><a href="<?php echo $this->url('IssueStatus') ?>">Statusy zagadnień</a></li>
