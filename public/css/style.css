@@ -209,3 +209,7 @@ label.ng-scope {
 .table-clickable tr:hover { 
    background-color: #f5f5f5;
 }
+
+.query-issue-list strong, .query-issue-list ul li{
+    margin-right: 15px;
+}

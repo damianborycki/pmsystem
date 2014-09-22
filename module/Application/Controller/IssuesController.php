@@ -27,12 +27,13 @@ class IssuesController extends AbstractActionController {
     	
         $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('project' => $id));
 
-        $view   = new ViewModel(array('issues' => $issues));
+		$project  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
+		
+        $view   = new ViewModel(array('issues' => $issues, 'projects' => $project));
         $view->setTemplate('Issues/List');
 
         return $view;
     }
-    
     
     public function addAction() {
     	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
