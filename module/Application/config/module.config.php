@@ -410,7 +410,8 @@ return array(
                                     'action' => 'delete'
                             )
                     ),
-            ),		
+            ),
+	
 			/**
              * SCIEZKA DO PRZEJSC STANOW
              */
