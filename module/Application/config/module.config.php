@@ -347,22 +347,70 @@ return array(
                     )
                 ),
             ),
-        		/**
-        		 * SCIEZKA DO EDYTOWANIA slownikow uzytkownika
-        		 */
-        		'CustomDict' => array(
-        				'type' => 'segment',
-        				'options' => array(
-        						'route' => '[:project]/customdict',
-        						'constraints' => array(
-        								'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
-        						),
-        						'defaults' => array(
-        								'controller' => 'Application\Controller\CustomDict',
-        								'action' => 'index'
-        						)
-        				),
-        		),			
+        	/**
+             * SCIEZKA DO listy slownikow slownikow uzytkownika
+             */
+            'CustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'index'
+                            )
+                    ),
+            ),
+            /**
+             * SCIEZKA DO dodawania slownikow uzytkownika
+             */
+            'AddCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/add',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'add'
+                            )
+                    ),
+            ),  
+            /**
+             * SCIEZKA DO edytowania slownikow uzytkownika
+             */
+            'UpdateCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/edit/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'edit'
+                            )
+                    ),
+            ),  
+            /**
+             * SCIEZKA DO usuwania slownikow uzytkownika
+             */
+            'DeleteCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/delete/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'delete'
+                            )
+                    ),
+            ),		
 			/**
              * SCIEZKA DO PRZEJSC STANOW
              */

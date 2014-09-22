@@ -4,6 +4,10 @@ namespace Application\Model\Domain;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * CustomDictionary 
@@ -11,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Table(name="`CUSTOMDICTIONARY`")
  * @ORM\Entity(repositoryClass="Application\Model\Infrastructure\Repositories\CustomDictionaryRepository")
  */
-class CustomDictionary 
+class CustomDictionary implements InputFilterAwareInterface
 {
     /**
      * @var string $code
@@ -74,6 +78,7 @@ class CustomDictionary
      */
     protected $id;
 
+    protected $inputFilter;
 
     public function __construct()
     {
@@ -198,4 +203,46 @@ class CustomDictionary
         return (string)($this->getName());
     }
 
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory     = new InputFactory();
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'name',
+                    'required' => true,
+                    'options' => array(
+                        'rncoding' => 'UTF-8',
+                        'min' => 2,
+                        'max' => 140,
+                    )
+                ))
+            );
+            
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsDefault',
+                    'required' => false
+                ))
+            );
+          
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsActive',
+                    'required' => false
+                ))
+            );
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
+    }
+
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
 }
