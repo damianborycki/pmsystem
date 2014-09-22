@@ -36,8 +36,10 @@ class IssuesController extends AbstractActionController {
     }
     
     public function addAction() {
-    	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-		$form = new IssueForm ($dbAdapter);
+        $projectId = $this->getEvent()->getRouteMatch()->getParam('project');
+
+      	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+		$form = new IssueForm ($dbAdapter, $projectId);
         
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
@@ -67,7 +69,7 @@ class IssuesController extends AbstractActionController {
             }
         }
 
-        $view = new ViewModel(array('form' => $form));
+        $view = new ViewModel(array('form' => $form, 'projectId' => $projectId));
         $view->setTemplate('Issues/Add');
 
         return $view;
@@ -75,10 +77,21 @@ class IssuesController extends AbstractActionController {
 
     public function editAction(){
         $id = $this->getEvent()->getRouteMatch()->getParam('id');
+        
+        if (!empty($id)) {
+        	$issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
+        } 
+        if (empty($issue)) {
+        	return $this->redirect()->toRoute('AddIssue');
+        }
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        
+        
         $form = new IssueForm ($dbAdapter);
+        
+        $form->get('description')->setAttribute('value', $issue->getDescription());
         
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();

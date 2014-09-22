@@ -16,12 +16,12 @@ padding-bottom: 20px;
             <div class="center-block table-responsive table-background-white" >         
                 <div class="center-block">
                     <div ng-controller="Ctrl">
-                        <h3>Słowniki użytkownika</h3>
+                        <h3>Atrybuty słownika użytownika</h3>
                         <table class="table table-striped table-clickable">
                             <thead>
                                 <tr>
                                     <th style="width: 30%">Nazwa</th>
-                                    <th style="width: 20%">Domyślny słownik</th>
+                                    <th style="width: 20%">Domyślna wartość</th>
                                     <th style="width: 20%">Aktywny</th>
                                     <th style="width: 15%">Sortuj</th>
                                     <th style="width: 15%">Akcja</th>
@@ -41,7 +41,7 @@ padding-bottom: 20px;
                                                     </div>
                                                 </span>
                                             </td>
-                                                
+
                                             <td>
                                                 <span editable-checkbox="status.close" e-name="default" e-form="rowform" onbeforesave="checkName($data, close.id)" class="ng-scope ng-binding editable editable-hide editable-empty">
                                     
@@ -54,10 +54,9 @@ padding-bottom: 20px;
                                                     </div>
                                                 </span>
                                             </td>
-
+                                            
                                             <td>
-                                                <a href="'.  $this->url('DownCustomDict', array('action'=>'edit', 'id'=>$issue->getId())) .'"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                                <a href="'.  $this->url('UpCustomDict', array('action'=>'edit', 'id'=>$issue->getId())) .'"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    
                                             </td>
                                         
                                             <td style="white-space: nowrap">
@@ -71,7 +70,7 @@ padding-bottom: 20px;
                             </tbody>
                         </table>
 
-                        <a href="<?php echo $this->url('AddCustomDict') ?>"><button type="submit" class="btn btn-success" ng-click="addcustomdict()"><i class="fa fa-plus-circle"></i> Stwórz słownik</button></a>
+                        <a href="<?php echo $this->url('AddAttrib') ?>"><button type="submit" class="btn btn-success" ng-click="addattrib()"><i class="fa fa-plus-circle"></i> Stwórz atrybut</button></a>
                     
                     </div>
                 </div> 

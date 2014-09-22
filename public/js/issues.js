@@ -4,7 +4,9 @@ $('.table-clickable tr').click(function (event) {
 	}
 });
 
-$("#inputProject").change(function() {
-	window.location = "/"+$("#inputProject option:selected").val()+"/issues";
+$("#inputProjectList").change(function() {
+	window.location = "/"+$("#inputProjectList option:selected").val()+"/issues";
 });
+
+
 

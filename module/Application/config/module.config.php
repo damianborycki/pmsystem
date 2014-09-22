@@ -6,6 +6,7 @@ return array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issues' => 'Application\Controller\IssuesController',
+            'Application\Controller\Fields' => 'Application\Controller\FieldsController',
 			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
 			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController',
 			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
@@ -96,9 +97,12 @@ return array(
              * SCIEZKA DO DODAWANIA ZAGADNIEĹ�
              */
             'AddIssue' => array(
-                'type' => 'Literal',
+                'type' => 'segment',
                 'options' => array(
-                    'route' => '/issues/add',
+                    'route' => '/[:project]/issues/add',
+                    'constraints' => array(
+                        'project' => '[0-9]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
                         'action' => 'add'
@@ -137,6 +141,34 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
                         'action' => 'edit'
+                    )
+                ),
+            ),
+
+            /**
+             * SCIEZKA DO LISTY CUSTOM FIELDOW
+             */
+            'FieldsList' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/fields',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Fields',
+                        'action' => 'list'
+                    )
+                ),
+            ),
+
+            /**
+             * SCIEZKA DO DODAWANIA CUSTOM FIELDOW
+             */
+            'AddField' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/fields/add',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Fields',
+                        'action' => 'add'
                     )
                 ),
             ),
@@ -410,7 +442,39 @@ return array(
                                     'action' => 'delete'
                             )
                     ),
-            ),		
+            ),
+             /**
+             * SCIEZKA DO zmiany pozycji o jedna w dol slownikow uzytkownika
+             */
+            'DownCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/down/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'down'
+                            )
+                    ),
+            ),      
+            /**
+             * SCIEZKA DO zmiany pozycji o jedna w gore slownikow uzytkownika
+             */
+            'UpCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/up/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'up'
+                            )
+                    ),
+            ), 		
 			/**
              * SCIEZKA DO PRZEJSC STANOW
              */

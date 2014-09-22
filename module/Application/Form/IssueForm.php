@@ -7,7 +7,7 @@ use Zend\Form\Form;
 
 class IssueForm extends Form {
 	protected $adapter;
-    public function __construct(AdapterInterface $dbAdapter) {
+    public function __construct(AdapterInterface $dbAdapter, $projectId) {
     	$this->adapter =$dbAdapter;
         parent::__construct('issue');
 
@@ -43,14 +43,15 @@ class IssueForm extends Form {
                 'id'       => 'inputProject',
                 'type'     => 'select',
                 'class'    => 'form-control',
-                'required' => 'true'
+                'required' => 'true',
+                'value'        => $projectId,
             ),
             'options'    => array(
                 'label'            => 'Projekt',
                 'label_attributes' => array(
                     'for'   => 'inputProject',
                     'class' => 'col-sm-2 control-label'
-                ), 
+                ),
                 'value_options' => $this->getProjectsNameForSelect(),
             ),
         ));
