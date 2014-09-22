@@ -98,9 +98,9 @@ return array(
             'AddIssue' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '[:project]/issues/add',
+                    'route' => '/[:project]/issues/add',
                     'constraints' => array(
-                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'project' => '[0-9]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
