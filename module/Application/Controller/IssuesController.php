@@ -53,6 +53,7 @@ class IssuesController extends AbstractActionController {
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
 
+                //$issue->setAssignedUsers($data['issueAssigned']); - Nie wiem czemu to nie działa
                 $issue->setCreator($creator);
                 $issue->setProject($project);
                 $issue->setSubject($data['subject']);
@@ -63,9 +64,10 @@ class IssuesController extends AbstractActionController {
 
                 $this->getObjectManager()->persist($issue);
                 $this->getObjectManager()->flush();
+
                 $newId = $issue->getId();
 
-                return $this->redirect()->toRoute('home');
+                return $this->redirect()->toUrl('/issue/'.$newId);
             }
         }
 
@@ -80,7 +82,7 @@ class IssuesController extends AbstractActionController {
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $form = new IssueForm ($dbAdapter);
+        $form = new IssueForm ($dbAdapter, 0);
         
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
@@ -106,7 +108,7 @@ class IssuesController extends AbstractActionController {
                 $this->getObjectManager()->flush();
                 $newId = $issue->getId();
 
-                return $this->redirect()->toRoute('home');
+                return $this->redirect()->toUrl('/issue/'.$newId);
             }
         }
 

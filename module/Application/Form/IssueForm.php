@@ -116,8 +116,27 @@ class IssueForm extends Form {
                 'label_attributes' => array(
                     'for'   => 'inputPriority',
                     'class' => 'col-sm-2 control-label'
-                ), #TODO: z tego co widac to prioryety beda zapisane w bazie, trzeba zaimplementowac mapowanie
+                ),
                 'value_options'    => $this->getIssuePriorityForSelect(),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'issueAssigned',
+            'type'       => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'id'       => 'inputAssigned',
+                'type'     => 'select',
+                'class'    => 'form-control',
+                'required' => 'true'
+            ),
+            'options'    => array(
+                'label'            => 'Przypisz do:',
+                'label_attributes' => array(
+                    'for'   => 'inputTracker',
+                    'class' => 'col-sm-2 control-label'
+                ),
+                'value_options'    => $this->getIssueAssignedForSelect(),
             ),
         ));
 
@@ -157,6 +176,22 @@ class IssueForm extends Form {
 
         foreach ($result as $res) {
             $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
+    }
+
+    public function getIssueAssignedForSelect()
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT PROJECTID, USERID, ID FROM MEMBER WHERE PROJECTID = 1 ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['USERID'];
+            //Przydało by się aby ta tablica posiadała Imiona i Nazwiska a nie ID'ki userów...
         }
         return $selectData;
     }
