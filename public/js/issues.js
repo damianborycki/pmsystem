@@ -1,5 +1,7 @@
 $('.table-clickable tr').click(function (event) {
-    window.location = "/issue/"+$(this).attr('id');
+	if($(this).attr('id') != undefined){
+		window.location = "/issue/"+$(this).attr('id');
+	}
 });
 
 $("#inputProject").change(function() {
