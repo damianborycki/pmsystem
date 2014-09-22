@@ -120,6 +120,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
 <?php foreach($this->config['js'] as $jsFile){
         $this->inlineScript()->appendFile($this->basePath() . $jsFile );
     }
+    $this->inlineScript()->appendFile($this->basePath() . '/js/issues.js' );
     echo $this->inlineScript();
 ?>    
 

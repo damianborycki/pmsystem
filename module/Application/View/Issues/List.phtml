@@ -39,7 +39,7 @@
                                         <th>Zamknięto</th>
                                 </tr>
                                 <?php foreach ($this->issues as $issue) { ?>
-                                <tr>
+                                <tr id="<?php echo $issue->getID() ?>">
                                     <td><?php echo $issue->getSubject() ?></td>
                                     <td>#<?php echo $issue->getID() ?></td>
                                     <td><?php echo $issue->getIssuePriority() ?></td>
@@ -67,3 +67,4 @@
             </div>
         </div>
 </div>
+
