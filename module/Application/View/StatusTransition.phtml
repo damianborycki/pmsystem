@@ -6,6 +6,7 @@
 	</div>
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 	<div class="jumbotron">
+	
         <ol class="breadcrumb container change-pos">                                 
             <li class="active">Przejścia stanów</li>  
 	<br>
@@ -14,7 +15,7 @@
 		<div class="half-space-container text-left">
                 <form class="form-group form-inline" role="form">
                         <div class="form-group">
-                                <label for="inputProject" class="control-label">Rola:&nbsp;</label>
+                                <label for="inputProject" class="control-label">Rola:</label>
                                 <select class="form-control" id="inputProject">
                                    <option>Manger</option>
                                    <option>Developer</option>
@@ -36,8 +37,8 @@
                         </div>
 
 			<div class="form-group">
-			<label>&nbsp;&nbsp;&nbsp;</label>
-			<button class="btn btn-info">Edytuj</button>
+			<!--<label>&nbsp;&nbsp;&nbsp;</label>
+			<button class="btn btn-info">Edytuj</button>-->
 			</div>
                 </form>
       		</div>
@@ -65,10 +66,13 @@
 
 			    <tr>
 				<th></th>			
-                                <th ng-repeat="status in statuses">
- 				  <span editable-text="status.name" e-name="name" e-form="rowform"  onbeforesave="checkName($data, status.id)" e-required >
-                                    {{ status.name || '' }}
-                                  </span>
+                                <th>
+								<?php
+									foreach($issuelist as $issue){
+									
+										echo $issue->getName() . "<br>";
+									}
+								?>
 				</th>
                             </tr>
                         </thead>
@@ -78,7 +82,7 @@
                             <tr ng-repeat="status in statuses">
                                 <td>
                                     <span editable-text="status.name" e-name="name" e-form="rowform"  onbeforesave="checkName($data, status.id)" e-required >
-                                    {{ status.name || '' }}
+
                                     </span>
                                 </td>
 				<td ng-repeat="status in statuses" style="text-align:center;">
