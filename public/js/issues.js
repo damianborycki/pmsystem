@@ -1,7 +1,8 @@
-function redirectToIssuesAction(){
-    $('.table-clickable tr').click(function (event) {
-    	window.location = "/issue/"+$(this).attr('id');
-   });
-}
+$('.table-clickable tr').click(function (event) {
+    window.location = "/issue/"+$(this).attr('id');
+});
 
-redirectToIssuesAction();
+$("#inputProject").change(function() {
+	window.location = "/"+$("#inputProject option:selected").val()+"/issues";
+});
+

@@ -11,7 +11,7 @@
                                 <select class="form-control" id="inputProject">
                                         <optgroup label="Projekty">
                                         	<?php foreach ($this->projects as $project) { ?>
-                                                <option><?php echo $project->getName() ?></option>
+                                                <option value="<?php echo $project->getId() ?>" <?php if($this->id == $project->getId()){ echo "selected"; } ?>><?php echo $project->getName() ?></option>
                                             <?php } ?>
                                         </optgroup>
                                 </select>

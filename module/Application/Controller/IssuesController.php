@@ -29,7 +29,7 @@ class IssuesController extends AbstractActionController {
 
 		$project  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
 		
-        $view   = new ViewModel(array('issues' => $issues, 'projects' => $project));
+        $view   = new ViewModel(array('issues' => $issues, 'projects' => $project, 'id' => $id));
         $view->setTemplate('Issues/List');
 
         return $view;
