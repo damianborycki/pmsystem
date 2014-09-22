@@ -36,8 +36,8 @@
                         </div>
 
 			<div class="form-group">
-			<label>&nbsp;&nbsp;&nbsp;</label>
-			<button class="btn btn-info">Edytuj</button>
+			<!--<label>&nbsp;&nbsp;&nbsp;</label>
+			<button class="btn btn-info">Edytuj</button>-->
 			</div>
                 </form>
       		</div>
@@ -67,7 +67,6 @@
 				<th></th>			
                                 <th ng-repeat="status in statuses">
  				  <span editable-text="status.name" e-name="name" e-form="rowform"  onbeforesave="checkName($data, status.id)" e-required >
-                                    {{ status.name || '' }}
                                   </span>
 				</th>
                             </tr>
