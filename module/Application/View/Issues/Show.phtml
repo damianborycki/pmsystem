@@ -39,9 +39,9 @@
                         <span class="navbar-brand brand"><span class="label label-warning"><?php echo $issue->getSubject() ?></span> <?php echo (strlen($issue->getDescription()) > 53) ? substr($issue->getDescription(),0,50).'...' : $issue->getDescription();?></span>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
-                        <a href="EditTask.htm">
+                        <a href="/issue/<?php echo $issue->getID() ?>/edit">
                             <button type="button" class="btn btn-default navbar-btn">Edycja</button>
-                        </a> 
+                        </a>
                         <button type="button" class="btn btn-default navbar-btn">Przydziel osobę</button>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

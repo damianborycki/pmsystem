@@ -125,6 +125,24 @@ return array(
                     )
                 ),
             ),
+
+
+            /**
+             * SCIEZKA DO EDYCJI KONKRETNEGO ZAGADNIENIA
+             */
+            'EditIssue' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/issue/[:id]/edit',
+                    'constraints' => array(
+                        'id' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'edit'
+                    )
+                ),
+            ),
             
              /**
              * SCIEZKA DO INDEX PRIORYTETÓW ZAGADNIEĹ� ++
