@@ -89,6 +89,7 @@ class IssueForm extends Form {
                     'for'   => 'inputSubject',
                     'class' => 'col-sm-2 control-label'
                 ),
+                'empty_option' => 'Wybierz typ zadania',
                 'value_options'    => array(
                     'Task'          => 'Zadanie',
                     'External' => 'Zewnętrzne zadanie',
@@ -113,6 +114,7 @@ class IssueForm extends Form {
             ),
             'options'    => array(
                 'label'            => 'Priorytet',
+                'empty_option' => 'Wybierz priorytet zadania',
                 'label_attributes' => array(
                     'for'   => 'inputPriority',
                     'class' => 'col-sm-2 control-label'
@@ -136,6 +138,7 @@ class IssueForm extends Form {
                     'for'   => 'inputTracker',
                     'class' => 'col-sm-2 control-label'
                 ),
+                'empty_option' => 'Przypisz do użytkownika',
                 'value_options'    => $this->getIssueAssignedForSelect(),
             ),
         ));
