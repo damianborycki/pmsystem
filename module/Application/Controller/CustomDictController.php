@@ -168,7 +168,7 @@ public function addAction()
 			if (isset($data['IsDefault']))
 			{
 				$issuelist = $objectManager
-				->createQuery('SELECT u FROM Application\Model\Domain\CustomDict u')
+				->createQuery('SELECT u FROM Application\Model\Domain\CustomDictionary u')
 				->getResult();
 
 				foreach ($issuelist as $iss)
@@ -178,6 +178,9 @@ public function addAction()
 				}
 				$issue->setIsDefault($data['IsDefault'][0]);
 			}
+
+            $position = count($this->getObjectManager()->getRepository('\Application\Model\Domain\CustomDictionary')->findAll()) + 1;
+            $issue->setPosition($position);
 
 			$this->getObjectManager()->persist($issue);
 			$this->getObjectManager()->flush();
