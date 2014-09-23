@@ -111,7 +111,9 @@ class CustomDictController extends AbstractActionController
     			{
     				$issue->setIsActive($data['IsActive'][0]);
     
-    			}
+    			} else {
+                    $issue->setIsActive(false);
+                }
     			if (isset($data['IsDefault']))
     			{
     				$issuelist = $objectManager
@@ -125,10 +127,11 @@ class CustomDictController extends AbstractActionController
     				}
     				$issue->setIsDefault($data['IsDefault'][0]);
     				 
-    			}
-    			 
+    			} else {
+                    $issue->setIsDefault(false);
+                }
     
-    
+                $issue->setPosition($issueedit->getPosition());
     			$issue->setId($id);
     			$this->getObjectManager()->merge($issue);
     			$this->getObjectManager()->flush();
@@ -164,8 +167,11 @@ public function addAction()
 
 			$issue->setName($data['name']);
 			if (isset($data['IsActive']))
-			{ $issue->setIsActive($data['IsActive'][0]);
-			}
+			{ 
+                $issue->setIsActive($data['IsActive'][0]);
+			} else {
+                $issue->setIsActive(false);
+            }
 
 			if (isset($data['IsDefault']))
 			{
@@ -179,7 +185,9 @@ public function addAction()
 					$this->getObjectManager()->merge($iss);
 				}
 				$issue->setIsDefault($data['IsDefault'][0]);
-			}
+			} else {
+                $issue->setIsDefault(false);
+            }
 
             $position = count($this->getObjectManager()->getRepository('\Application\Model\Domain\CustomDictionary')->findAll()) + 1;
             $issue->setPosition($position);
