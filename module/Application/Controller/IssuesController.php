@@ -52,8 +52,8 @@ class IssuesController extends AbstractActionController {
                 $priority = $this->getObjectManager()->find('\Application\Model\Domain\IssuePriority', $data['issuePriority']);
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
+                $userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
 
-                //$issue->setAssignedUsers($data['issueAssigned']); - Nie wiem czemu to nie działa
                 $issue->setCreator($creator);
                 $issue->setProject($project);
                 $issue->setSubject($data['subject']);
@@ -61,7 +61,8 @@ class IssuesController extends AbstractActionController {
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);
                 $issue->setCreationTime(new \DateTime());
-
+				$issue->setAssignedUsers(array($userAssigned));
+				
                 $this->getObjectManager()->persist($issue);
                 $this->getObjectManager()->flush();
 
