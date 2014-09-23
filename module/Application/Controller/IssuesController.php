@@ -16,7 +16,11 @@ class IssuesController extends AbstractActionController {
         $id = $this->getEvent()->getRouteMatch()->getParam('id');
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
 
-        $view   = new ViewModel(array('issue' => $issue));
+        $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+
+        $form = new IssueStatusChangeForm($dbAdapter);
+        
+        $view   = new ViewModel(array('issue' => $issue, 'form' => $form));
         $view->setTemplate('Issues/Show');
 
         return $view;
