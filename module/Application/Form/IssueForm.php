@@ -183,14 +183,14 @@ class IssueForm extends Form {
     public function getIssueAssignedForSelect()
     {
         $dbAdapter = $this->adapter;
-        $sql       = 'SELECT PROJECTID, USERID, ID FROM MEMBER WHERE PROJECTID = 1 ORDER BY ID ASC';
+        $sql       = 'SELECT m.ID, u.LOGIN FROM MEMBER m JOIN USER u ON m.USERID = u.ID WHERE m.PROJECTID = 1 ORDER BY m.ID ASC';
         $statement = $dbAdapter->query($sql);
         $result    = $statement->execute();
 
         $selectData = array();
 
         foreach ($result as $res) {
-            $selectData[$res['ID']] = $res['USERID'];
+            $selectData[$res['ID']] = $res['LOGIN'];
             //Przydało by się aby ta tablica posiadała Imiona i Nazwiska a nie ID'ki userów...
         }
         return $selectData;
