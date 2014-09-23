@@ -5,6 +5,8 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\IssueStatus;
+use Application\Model\Domain\Tracker;
+use Application\Model\Domain\MemberRole;
 
 class StatusTransitionController extends AbstractActionController 
 {
@@ -23,8 +25,12 @@ class StatusTransitionController extends AbstractActionController
 			->get('Doctrine\ORM\EntityManager');
 		$issStat = $objectManager->getRepository('Application\Model\Domain\IssueStatus');
 		$issuelist = $issStat->findAll();
-		//return $issuelist;
-		$view = new ViewModel(array('issuelist'=> $issuelist));
+		
+		$roleList =  $objectManager->getRepository('Application\Model\Domain\MemberRole')->findAll();
+		$trackerList =  $objectManager->getRepository('Application\Model\Domain\Tracker')->findAll();
+		
+		
+		$view = new ViewModel(array('issuelist'=> $issuelist, 'roleList'=> $roleList, 'trackerList'=> $trackerList));
 		$view->setTemplate('StatusTransition');
 		return $view;
 	}

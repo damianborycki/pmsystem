@@ -17,22 +17,22 @@
                         <div class="form-group">
                                 <label for="inputProject" class="control-label">Rola:</label>
                                 <select class="form-control" id="inputProject">
-                                   <option>Manger</option>
-                                   <option>Developer</option>
-				   <option>Reporter</option>
-				   <option>Non member</option>
-				   <option>Anonymous</option>
+									<?php
+										foreach($roleList as $rola){
+											echo "<option value=" . $rola->getId() . ">" . $rola->getName() . "</option>";
+										}
+									?>
                                 </select>
                         </div>
 
                         <div class="form-group">
                                 <label for="inputProject" class="control-label">&nbsp;Typ zagadnienia:&nbsp;</label>
                                 <select class="form-control" id="inputProject">
-                                   <option>Bug</option>
-                                   <option>Extension</option>
-				   <option>Support</option>
-				   <option>Technical writing</option>
-				   <option>Meeting</option>
+									<?php
+										foreach($trackerList as $track){
+											echo "<option value=" . $track->getId() . ">" . $track->getName() . "</option>";
+										}
+									?>
                                 </select>
                         </div>
 
