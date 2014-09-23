@@ -158,8 +158,11 @@ class IssuesController extends AbstractActionController {
                 $data     = $form->getData();
                 
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
-
+				
                 $issue->setIssueStatus($status);
+                if ($status->getIsClosed()) {
+	                $issue->setCloseTime(new \DateTime());
+                }
 
                 $this->getObjectManager()->merge($issue);
                 $this->getObjectManager()->flush();
