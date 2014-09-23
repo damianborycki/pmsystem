@@ -21,7 +21,11 @@
                             <span class="icon-bar"></span>
 
                         </button>
-                        <span class="navbar-brand brand"><span class="label label-warning"><?php echo $issue->getSubject() ?></span> <?php echo (strlen($issue->getDescription()) > 53) ? substr($issue->getDescription(),0,50).'...' : $issue->getDescription();?></span>
+                        <span class="navbar-brand brand">
+                            <span class="label label-default <?php echo "label-".$issue->getSubject() ?> label-show-task">
+                                        <?php echo $issue->getSubject() ?>
+                                        </span>
+                                         <?php echo (strlen($issue->getDescription()) > 53) ? substr($issue->getDescription(),0,50).'...' : $issue->getDescription();?></span>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
                         <a href="/issue/<?php echo $issue->getID() ?>/edit">

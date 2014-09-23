@@ -35,26 +35,29 @@
                         <thead>
                                 <tr>
                                         <th>Typ</th>
-                                        <th>Klucz</th>
                                         <th>Priorytet</th>
+                                        <th>Status</th>
                                         <th>Podsumowanie</th>
                                         <th>Os. przypisana</th>
                                         <th>Os. zgłaszająca</th>
-                                        <th>Status</th>
                                         <th>Utworzono</th>
                                         <th>Zamknięto</th>
+                                        <th>Klucz</th>
                                 </tr>
                                 <?php foreach ($this->issues as $issue) { ?>
                                 <tr id="<?php echo $issue->getID() ?>">
-                                    <td><?php echo $issue->getSubject() ?></td>
-                                    <td>#<?php echo $issue->getID() ?></td>
+                                    <td><span class="label label-default <?php echo "label-".$issue->getSubject() ?>">
+                                        <?php echo $issue->getSubject() ?>
+                                        </span>
+                                    </td>
                                     <td><?php echo $issue->getIssuePriority() ?></td>
-                                    <td><?php echo (strlen($issue->getDescription()) > 28) ? substr($issue->getDescription(),0,25).'...' : $issue->getDescription();?></td>
+                                    <td><?php echo $issue->getIssueStatus() ?></td>
+                                    <td><b><?php echo (strlen($issue->getDescription()) > 28) ? substr($issue->getDescription(),0,25).'...' : $issue->getDescription();?></b></td>
                                     <td><?php if($issue->getTracker()){echo $issue->getTracker();}else{echo "brak";} ?></td>
                                     <td><?php echo $issue->getCreator()->getFirstName() . ' ' .  $issue->getCreator()->getLastName() ?></td>
-                                    <td><?php echo $issue->getIssueStatus() ?></td>
                                     <td><?php echo date_format($issue->getCreationTime(), 'Y-m-d H:i:s') ?></td>
                                     <td><?php if($issue->getCloseTime()){echo date_format($issue->getCloseTime(), 'Y-m-d H:i:s');}else{echo "Otwarte";} ?></td>
+                                    <td>#<?php echo $issue->getID() ?></td>
                                 </tr>
                                 <?php } ?>
                         </thead>
