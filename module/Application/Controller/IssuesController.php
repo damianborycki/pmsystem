@@ -120,7 +120,7 @@ class IssuesController extends AbstractActionController {
         } 
         
 		$form->get('description')->setAttribute('value', $issue->getDescription());
-        
+        $form->get('subject')->setValue($issue->getSubject());
         $form->get('project')->setValue($issue->getProject()->getId());
         $form->get('issuePriority')->setValue($issue->getIssuePriority()->getCode());
         
