@@ -260,3 +260,7 @@ label.ng-scope {
 .label-Event{
     background: purple !important;
 }
+
+.upper-desc{
+    margin-top: 30px;
+}

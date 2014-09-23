@@ -58,44 +58,42 @@
         <!-- Tab panes -->
         <div class="tab-content tab-content-white">
             <div class="tab-pane active" id="home">
-                <h3><span class="glyphicon glyphicon-info-sign"></span> Szczegóły</h3>
-                <div class="row show-grid row-with-space">
-                    <div class="col-md-1 col-md-3 details-label">Priorytet:</div>
-                    <div class="col-md-2 col-md-6"><?php echo $issue->getIssuePriority() ?></div>
-                    <div class="col-md-1 col-md-3 details-label">Typ:</div>
-                    <div class="col-md-2 col-md-6"><?php echo $issue->getSubject() ?></div>
-
-                </div>
-                <div class="row show-grid row-with-space">
-
-                </div>
-                <div class="row show-grid row-with-space">
-                    <div class="col-md-1 col-md-3 details-label">Status:</div>
-                    <div class="col-md-2 col-md-6"><?php echo $issue->getIssueStatus() ?></div>
-
-                </div>
-                <div class="row show-grid row-with-space">
-
-                </div>
-                <div class="row show-grid row-with-space">
-                    </div>
-                    <h3><span class="glyphicon glyphicon-font"></span> Dokładny opis</h3>
-                    <?php echo $issue->getDescription() ?>
-                    <h3><span class="glyphicon glyphicon-user"></span> Osoby</h3>
+                    <div class="col-md-3 col-md-3"><h3><span class="glyphicon glyphicon-info-sign"></span> Szczegóły</h3></div>
+                    <div class="col-md-1 col-md-3 details-label upper-desc">Priorytet:</div>
+                    <div class="col-md-2 col-md-6 upper-desc"><?php echo $issue->getIssuePriority() ?></div>
+                    <div class="col-md-1 col-md-3 details-label upper-desc">Typ:</div>
+                    <div class="col-md-2 col-md-6 upper-desc"><?php echo $issue->getSubject() ?></div>
+                    <div class="col-md-1 col-md-3 details-label upper-desc">Status:</div>
+                    <div class="col-md-1 col-md-6 upper-desc"><?php echo $issue->getIssueStatus() ?></div>
                     <div class="row show-grid row-with-space">
-                        <div class="col-md-2 col-md-3 details-label">Przypisana osoba:</div>
-                        <div class="col-md-2 col-md-6"><?php if($issue->getTracker()){echo $issue->getTracker();}else{echo "brak";} ?></div>
-                        <div class="col-md-2 col-md-3 details-label">Utworzone przez:</div>
-                        <div class="col-md-2 col-md-6"><?php echo $issue->getCreator()->getFirstName() . ' ' .  $issue->getCreator()->getLastName() ?></div>
                     </div>
-                    <h3><span class="glyphicon glyphicon-calendar"></span> Daty</h3>
+                    <div class="well"><?php echo $issue->getDescription() ?></div>
                     <div class="row show-grid row-with-space">
-                        <div class="col-md-2 col-md-3 details-label">Data utworzenia:</div>
-                        <div class="col-md-2 col-md-6"><?php echo date_format($issue->getCreationTime(), 'Y-m-d H:i:s') ?></div>
-                        <div class="col-md-2 col-md-3 details-label">Data zamknięcia:</div>
-                        <div class="col-md-2 col-md-6"><?php if($issue->getCloseTime()){echo date_format($issue->getCloseTime(), 'Y-m-d H:i:s');}else{echo "Wciąż Otwarte";} ?></div>
                     </div>
-                    
+                    <div class="col-md-6 col-md-6">
+                        <h3><span class="glyphicon glyphicon-user"></span> Osoby</h3>
+                        <div class="row show-grid row-with-space">
+                            <div class="col-md-4 col-md-4 details-label">Utworzone przez:</div>
+                            <div class="col-md-6 col-md-6"><?php echo $issue->getCreator()->getFirstName() . ' ' .  $issue->getCreator()->getLastName() ?></div>
+                            <div class="row show-grid row-with-space">
+                            </div>
+                            <div class="col-md-4 col-md-4 details-label">Przypisane osoby:</div>
+                            <div class="col-md-6 col-md-6"><?php if($issue->getTracker()){echo $issue->getTracker();}else{echo "brak";} ?></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-6">
+                        <h3><span class="glyphicon glyphicon-calendar"></span> Daty</h3>
+                        <div class="row show-grid row-with-space">
+                            <div class="col-md-4 col-md-4 details-label">Data utworzenia:</div>
+                            <div class="col-md-6 col-md-6"><?php echo date_format($issue->getCreationTime(), 'Y-m-d H:i:s') ?></div>
+                            <div class="row show-grid row-with-space">
+                            </div>
+                            <div class="col-md-4 col-md-4 details-label">Data zamknięcia:</div>
+                            <div class="col-md-6 col-md-6"><?php if($issue->getCloseTime()){echo date_format($issue->getCloseTime(), 'Y-m-d H:i:s');}else{echo "Wciąż Otwarte";} ?></div>
+                        </div>
+                    </div>
+                     <div class="row show-grid row-with-space">
+                            </div>
                 </div>
                 <div class="tab-pane" id="profile">...</div>
             </div>
