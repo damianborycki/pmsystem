@@ -50,7 +50,14 @@
                                     <td>#<?php echo $issue->getID() ?></td>
                                     <td><?php echo $issue->getIssuePriority() ?></td>
                                     <td><?php echo (strlen($issue->getDescription()) > 28) ? substr($issue->getDescription(),0,25).'...' : $issue->getDescription();?></td>
-                                    <td><?php if($issue->getTracker()){echo $issue->getTracker();}else{echo "brak";} ?></td>
+                                    <td><?php foreach ($issue->getAssignedUsers() as $user){
+                                    				$userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
+                                    				if(!empty($user)){
+                                    					echo $userName;
+                                    				}else{
+                                    					echo "brak";
+                                    				}
+                                    		  }?>
                                     <td><?php echo $issue->getCreator()->getFirstName() . ' ' .  $issue->getCreator()->getLastName() ?></td>
                                     <td><?php echo $issue->getIssueStatus() ?></td>
                                     <td><?php echo date_format($issue->getCreationTime(), 'Y-m-d H:i:s') ?></td>
