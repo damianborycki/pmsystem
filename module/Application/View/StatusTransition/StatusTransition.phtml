@@ -9,8 +9,13 @@
 	<div class="jumbotron">
 	
         <ol class="breadcrumb container change-pos">                                 
-            <li class="active">Przejścia stanów <?php echo $controler->test()?></li>  
+            <li class="active">Przejścia stanów </li>  
 	<br>
+	<?php if(isset($_POST['tracker'])){
+			echo $controler->addNewStatusTransition($_POST);			
+		}
+		
+	?>
 	<br>
 		<div class="half-space-container text-left">
                 <form class="form-group form-inline" role="form">
@@ -64,7 +69,7 @@
 									echo "<tr>
 									<th class='breadcrumb'>" . $issue->getName() . "</th>";			
 									foreach($issuelist as $issueStatus){
-										echo "<th><input type='checkbox'> </th>";//" . $issueStatus->getName() . "
+										echo "<th><input type='checkbox' name='check_list[]' value=" . $issue->getId() . "-" .$issueStatus->getId(). "> </th>";//" . $issueStatus->getName() . " value: lewe-prawe
 									}
 									echo "</tr>";
 								}
@@ -73,7 +78,7 @@
                         </thead>
 
                     </table>
-					<a href="<?php echo $this->url('add') ?>"><button class="btn btn-success">Zapisz</button></a>
+					<a href="<?php echo $this->url('addStatusTransiton') ?>"><button class="btn btn-success">Zapisz</button></a>
                     </div>
 			     </div>
 			</div>
