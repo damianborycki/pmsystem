@@ -9,7 +9,7 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 	protected $_objectManager;
-	
+
     public function indexAction(){
         $projects  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
         

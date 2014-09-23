@@ -134,7 +134,42 @@ class IssuesController extends AbstractActionController {
 
         return $view;
     }
+	
+    public function statusChangeAction() {
+    	$id = $this->getEvent()->getRouteMatch()->getParam('id');
+        
+        if (!empty($id)) {
+        	$issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
+        } 
+        if (empty($issue)) {
+        	return $this->redirect()->toRoute('home');
+        }
+        
+        $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
+		
+        $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
+        $form = new IssueStatusChangeForm($dbAdapter);
+        
+        if ($this->getRequest()->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+			
+            if ($form->isValid()) {
+                $data     = $form->getData();
+                
+                $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
+
+                $issue->setIssueStatus($status);
+
+                $this->getObjectManager()->merge($issue);
+                $this->getObjectManager()->flush();
+                $id = $issue->getId();
+
+            }
+        } 
+        return $this->redirect()->toRoute('ShowIssue', array('id' => $id));
+    }
+    
     protected function getObjectManager() {
         if (!$this->_objectManager) {
             $this->_objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
