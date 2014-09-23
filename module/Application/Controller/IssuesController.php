@@ -91,15 +91,12 @@ class IssuesController extends AbstractActionController {
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
-        $form = new IssueForm ($dbAdapter, 0);
-        
-        $form->get('description')->setAttribute('value', $issue->getDescription());
+        $form = new IssueForm ($dbAdapter, $issue->getProject()->getId());
         
         if ($this->getRequest()->isPost()) {
-            $issue = new Issue();
             $form->setInputFilter($issue->getInputFilter());
             $form->setData($this->getRequest()->getPost());
-
+			
             if ($form->isValid()) {
                 $data     = $form->getData();
                 $project  = $this->getObjectManager()->find('\Application\Model\Domain\Project', $data['project']);
@@ -113,16 +110,20 @@ class IssuesController extends AbstractActionController {
                 $issue->setDescription($data['description']);
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);
-                $issue->setCreationTime(new \DateTime());
 
-                $this->getObjectManager()->persist($issue);
+                $this->getObjectManager()->merge($issue);
                 $this->getObjectManager()->flush();
-                $newId = $issue->getId();
+                $id = $issue->getId();
 
-                return $this->redirect()->toUrl('/issue/'.$newId);
+                return $this->redirect()->toUrl('/issue/'.$id);
             }
-        }
-
+        } 
+        
+		$form->get('description')->setAttribute('value', $issue->getDescription());
+        
+        $form->get('project')->setValue($issue->getProject()->getId());
+        $form->get('issuePriority')->setValue($issue->getIssuePriority()->getCode());
+        
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form));
         $view->setTemplate('Issues/Edit');
 
