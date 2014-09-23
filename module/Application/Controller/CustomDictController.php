@@ -51,6 +51,8 @@ class CustomDictController extends AbstractActionController
  
     	$objectManager->remove($issuedelete);
    		$objectManager->flush();
+
+        $this->rebuild_positions();
     
     	return $this->redirect()->toRoute('CustomDict');
    	}
@@ -266,4 +268,19 @@ public function addAttribAction()
 	$view->setTemplate('CustomDict/add_attribute');
 	return $view;
 }
+
+    public function rebuild_positions(){
+        $objectManager = $this->getObjectManager();
+        $rebuild_positions = $objectManager->createQuery('SELECT u FROM Application\Model\Domain\CustomDictionary u ORDER BY u.position ASC')->getResult();
+         
+        $i=1;
+
+        foreach($rebuild_positions as $positions){
+            $id = $positions->getId();
+            $objectManager ->createQuery("UPDATE Application\Model\Domain\CustomDictionary u SET u.position = $i  WHERE u.id=$id")->execute();    
+            
+            $i++;     
+        }
+    } 
+
 }
