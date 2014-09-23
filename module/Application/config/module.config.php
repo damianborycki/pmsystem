@@ -481,18 +481,36 @@ return array(
             'statusTransiton' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '[:project]/statusTransition',
+                    'route' => '[:project]/statustransition/statustransition',
 					'constraints' => array(
                         'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\StatusTransition',
-                        'action' => 'statusTransition'
+                        'action' => 'StatusTransition'
+                    )
+                ),
+            ),
+			
+			/*
+			Dodanie nowego przejścia stanów 
+			*/
+			
+			'addStatusTransiton' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/statustransition/add',
+					'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\StatusTransition',
+                        'action' => 'add'
                     )
                 ),
             ),
 		
-	  /**
+			/**
              * SCIEZKA DO DODAWANIA DZIAŁAŃ ++
              */
             'AddIssueActivity' => array(

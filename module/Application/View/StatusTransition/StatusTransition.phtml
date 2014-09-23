@@ -5,18 +5,23 @@
 		</ol>
 	</div>
 	<!-- Main jumbotron for a primary marketing message or call to action -->
+	<form method='POST'>
 	<div class="jumbotron">
 	
         <ol class="breadcrumb container change-pos">                                 
-            <li class="active">Przejścia stanów</li>  
+            <li class="active">Przejścia stanów </li>  
 	<br>
+	<?php if(isset($_POST['tracker'])){
+			echo $controler->addNewStatusTransition($_POST);			
+		}
+		
+	?>
 	<br>
-
 		<div class="half-space-container text-left">
                 <form class="form-group form-inline" role="form">
                         <div class="form-group">
-                                <label for="inputProject" class="control-label">Rola:</label>
-                                <select class="form-control" id="inputProject">
+                                <label for="memberRole" class="control-label">Rola:</label>
+                                <select class="form-control" name="memberRole" id="memberRole">
 									<?php
 										foreach($roleList as $rola){
 											echo "<option value=" . $rola->getId() . ">" . $rola->getName() . "</option>";
@@ -26,8 +31,8 @@
                         </div>
 
                         <div class="form-group">
-                                <label for="inputProject" class="control-label">&nbsp;Typ zagadnienia:&nbsp;</label>
-                                <select class="form-control" id="inputProject">
+                                <label for="tracker" class="control-label">&nbsp;Typ zagadnienia:&nbsp;</label>
+                                <select class="form-control" name="tracker" id="tracker">
 									<?php
 										foreach($trackerList as $track){
 											echo "<option value=" . $track->getId() . ">" . $track->getName() . "</option>";
@@ -36,10 +41,6 @@
                                 </select>
                         </div>
 
-			<div class="form-group">
-			<!--<label>&nbsp;&nbsp;&nbsp;</label>
-			<button class="btn btn-info">Edytuj</button>-->
-			</div>
                 </form>
       		</div>
 
@@ -68,7 +69,7 @@
 									echo "<tr>
 									<th class='breadcrumb'>" . $issue->getName() . "</th>";			
 									foreach($issuelist as $issueStatus){
-										echo "<th><input type='checkbox'> </th>";//" . $issueStatus->getName() . "
+										echo "<th><input type='checkbox' name='check_list[]' value=" . $issue->getId() . "-" .$issueStatus->getId(). "> </th>";//" . $issueStatus->getName() . " value: lewe-prawe
 									}
 									echo "</tr>";
 								}
@@ -77,9 +78,10 @@
                         </thead>
 
                     </table>
-                    <button class="btn btn-success">Zapisz</button>
+					<a href="<?php echo $this->url('addStatusTransiton') ?>"><button class="btn btn-success">Zapisz</button></a>
                     </div>
 			     </div>
 			</div>
 		</div>
 	</div>
+	</form>

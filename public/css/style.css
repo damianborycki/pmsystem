@@ -213,3 +213,50 @@ label.ng-scope {
 .query-issue-list strong, .query-issue-list ul li{
     margin-right: 15px;
 }
+
+/*labelki*/
+
+.label-default{
+    font-size: 12px !important;
+}
+
+.label-Task{
+    background: green !important;
+}
+
+.label-Client{
+    background: blue !important;
+}
+
+.label-Bug{
+    background: red !important;
+}
+
+.label-Client{
+    background: blue !important;
+}
+
+.label-External{
+    background: orange !important;
+}
+
+.label-Requirement{
+    background: black !important;
+}
+
+.label-Request{
+    background: pink !important;
+}
+
+.label-Fix{
+    background: yellow !important;
+}
+
+.label-show-task{
+    margin-right: 10px !important;
+    font-size: 14px !important;
+}
+
+.label-Event{
+    background: purple !important;
+}

@@ -12,7 +12,7 @@ class StatusTransitionController extends AbstractActionController
 {
 	protected $_objectManager;
 	
-    protected function getObjectManager() {
+    public function getObjectManager() {
     if (!$this->_objectManager) {
         $this->_objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
@@ -30,9 +30,48 @@ class StatusTransitionController extends AbstractActionController
 		$trackerList =  $objectManager->getRepository('Application\Model\Domain\Tracker')->findAll();
 		
 		
-		$view = new ViewModel(array('issuelist'=> $issuelist, 'roleList'=> $roleList, 'trackerList'=> $trackerList));
-		$view->setTemplate('StatusTransition');
+		$view = new ViewModel(array('issuelist'=> $issuelist, 'roleList'=> $roleList, 'trackerList'=> $trackerList, 'controler'=> $this));
+		$view->setTemplate('StatusTransition/StatusTransition');
 		return $view;
+	}
+	
+	public function addNewStatusTransition($post){
+		
+		$objectManager = $this
+			->getServiceLocator()
+			->get('Doctrine\ORM\EntityManager');
+			
+		$queryDelete = "DELETE FROM `STATUSTRANSITION`";
+			
+		$stmt = $objectManager->getConnection()->prepare($queryDelete);
+		$params = array();
+		$stmt->execute($params);
+		//$query = $objectManager->createQuery($queryDelete);
+		//$query->execute();
+		
+		
+		foreach($post['check_list'] as $check){
+			$ids = explode("-", $check);
+		
+			$queryInsert = "INSERT INTO STATUSTRANSITION (`TRACKERID`, `MEMBERROLEID`,	`PREVSTATUSID`, `NEXTSTATUSID`) VALUES ('" . $post['tracker'] . "',  '" . $post['memberRole'] . "', '" 
+			. $ids[0] . "',  '" . $ids[1] . "')";
+			
+			//return $queryUpdate;
+			//echo "<script>alert('" . $queryUpdate . "');</script>";
+			
+			//$db = $this->$objectManager->getConnection();
+			//$query = "INSERT INTO table2 (myfield) SELECT table1.myfield FROM table1 WHERE table1.id < 1000";
+			$stmt = $objectManager->getConnection()->prepare($queryInsert);
+			$params = array();
+			$stmt->execute($params);
+			
+			//$query = $objectManager->createQuery($queryInsert);
+			//$query->execute();
+		
+		}
+		
+		//$ret = $post['tracker'] . ", " . $post['memberRole'] . ", " . implode(" ", $post['check_list']);
+		//return $ret;
 	}
 	
     
@@ -43,33 +82,22 @@ class StatusTransitionController extends AbstractActionController
     }
 
     /**
-     * Sprawdzanie mozliwych stanow do przejscia przy danej konfiguracji
-     *
-     * @access public
-     * 
-     * @param int $taskType typ taska
-     * @param int $taskState stan taska
-     * @param int $userRole rola usera - w postaci id ze slownika
-     * 
-     * @return int[] id stanow ze slownika, na ktore mozna zmienic stan taska
-     */
-    public function getPossibleStates($taskType, $taskState, $userRole)
-    {
-    }
-
-    /**
      * Dodawanie nowego przejscia
      *
      * @access public
      * 
-     * @param int $taskType typ taska
-     * @param int $oldTaskState wyjsciowy stan taska
-     * @param int $oldUserRole wyjsciowa rola usera - w postaci id ze slownika
-     * @param int $newTaskState nowy stan, do ktorego task moze przejsc
-     * @param int $newUserRole rola, z ktorymi user moze zostac przypisany do taska po zmianie stanu na ten nowy
      */
-    public function addNewTransition($taskType, $oldTaskState, $oldUserRole, $newTaskState, $newUserRole)
+    public function addAction()
     {
+		$objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');  
+        
+		//$id = $this->getRequest()->getPost('tracker', null);
+		
+        //$view = new ViewModel(array('statusId'=> $id, 'controler'=> $this));
+		//$view->setTemplate('StatusTransition/add');
+		//return $view;
     }
 
 }
