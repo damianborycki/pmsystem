@@ -6,6 +6,7 @@ return array(
             /* generator-begin-controllers.invokables */
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issues' => 'Application\Controller\IssuesController',
+            'Application\Controller\Project' => 'Application\Controller\ProjectController',
             'Application\Controller\Fields' => 'Application\Controller\FieldsController',
 			'Application\Controller\FieldsPermission' => 'Application\Controller\FieldsPermissionController',
 			'Application\Controller\StatusTransition' => 'Application\Controller\StatusTransitionController',
@@ -75,7 +76,23 @@ return array(
                     )
                 ),
             ),
-            
+            /**
+             * SCIEZKA DO KONKRETNEGO PROJEKTU
+             */
+            'ShowProject' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/[:project]',
+                    'constraints' => array(
+                        'project' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Project',
+                        'action' => 'show'
+                    )
+                ),
+            ),
+
             /**
              * SCIEZKA DO LISTY ZAGADNIEn
              */
