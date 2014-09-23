@@ -78,6 +78,67 @@ class CustomDictController extends AbstractActionController
 
     	return $this->redirect()->toRoute('CustomDict');
     } 
+    public function editAction()
+    {
+    	 
+    	$objectManager = $this
+    	->getServiceLocator()
+    	->get('Doctrine\ORM\EntityManager');
+    	 
+    	$id = (int) $this->params('id', null);
+    	if (null === $id) {
+    		return $this->redirect()->toRoute('CustomDict');
+    	}
+    
+    	$issueedit = $objectManager->find('Application\Model\Domain\CustomDictionary', $id);
+    
+    	$form = new CustomDictForm();
+    
+    	if ($this->getRequest()->isPost()) {
+    
+    		$issue = new CustomDictionary();
+    		$form->setInputFilter($issue->getInputFilter());
+    		$form->setData($this->getRequest()->getPost());
+    		 
+    		if ($form->isValid()) {
+    			$data = $form->getData();
+    			print_r($data);
+    
+    			$issue->setName($data['name']);
+    			if (isset($data['IsActive']))
+    			{
+    				$issue->setIsActive($data['IsActive'][0]);
+    
+    			}
+    			if (isset($data['IsDefault']))
+    			{
+    				$issuelist = $objectManager
+    				->createQuery('SELECT u FROM Application\Model\Domain\CustomDictionary u')
+    				->getResult();
+    
+    				foreach ($issuelist as $iss)
+    				{
+    					$iss->setIsDefault(false);
+    					$this->getObjectManager()->merge($iss);
+    				}
+    				$issue->setIsDefault($data['IsDefault'][0]);
+    				 
+    			}
+    			 
+    
+    
+    			$issue->setId($id);
+    			$this->getObjectManager()->merge($issue);
+    			$this->getObjectManager()->flush();
+    
+    			return $this->redirect()->toRoute('CustomDict');
+    		}
+    	}
+    
+    	$view = new ViewModel(array('issueedit' => $issueedit, 'form2' => $form));
+    	$view->setTemplate('CustomDict/edit');
+    	return $view;
+    }
 
 public function addAction()
 {
@@ -90,7 +151,7 @@ public function addAction()
 	$form = new CustomDictForm();
 
 	if ($this->getRequest()->isPost()) {
-		$issue = new IssueCategory();
+		$issue = new CustomDictionary();
 		$form->setInputFilter($issue->getInputFilter());
 		$form->setData($this->getRequest()->getPost());
 
@@ -128,6 +189,10 @@ public function addAction()
 	$view->setTemplate('CustomDict/add');
 	return $view;
 }
+
+
+// -----   attributes of dictionary  	-----
+
 
 public function indexAttribAction() {
 	$objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
