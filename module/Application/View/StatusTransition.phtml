@@ -55,43 +55,26 @@
 			
 			<thead>
                             <tr class="breadcrumb">
-                                <th>Obecny Status</th>
-                                <th></th>
-                                <th></th>
-                                <th>Uprawnione nowe statusy</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-
-			    <tr>
-				<th></th>			
-                                <th>
-								<?php
+							<th></th>
+                                <?php
 									foreach($issuelist as $issue){
-									
-										echo $issue->getName() . "<br>";
+										echo "<th>" . $issue->getName() . "</th>";
 									}
 								?>
-				</th>
+								
                             </tr>
+							<?php
+								foreach($issuelist as $issue){
+									echo "<tr>
+									<th class='breadcrumb'>" . $issue->getName() . "</th>";			
+									foreach($issuelist as $issueStatus){
+										echo "<th><input type='checkbox'> </th>";//" . $issueStatus->getName() . "
+									}
+									echo "</tr>";
+								}
+							?>
+			    
                         </thead>
-
-
-                        <tbody>
-                            <tr ng-repeat="status in statuses">
-                                <td>
-                                    <span editable-text="status.name" e-name="name" e-form="rowform"  onbeforesave="checkName($data, status.id)" e-required >
-
-                                    </span>
-                                </td>
-				<td ng-repeat="status in statuses" style="text-align:center;">
-				    <input type="checkbox"> 
-				</td>				
-                            </tr>
-                        </tbody>
-
-
 
                     </table>
                     <button class="btn btn-success">Zapisz</button>
