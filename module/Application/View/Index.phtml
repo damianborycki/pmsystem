@@ -21,18 +21,14 @@
                                  </tr> 
                         </thead>
                         <tbody>
-                            <tr>                               
-                                    <td>1</td>
-                                    <td><b>Testowy Projekt</b></td>
-                                    <td>Opis</td>
-                                    <td>Aktywny</td>
-                                </tr>
-                            <tr>                               
-                                    <td>1</td>
-                                    <td><b>Testowy Projekt</b></td>
-                                    <td>Opis</td>
-                                    <td>Aktywny</td>
-                                </tr>
+						<?php foreach ($this->projects as $project) { ?>
+							<tr>
+								<td><?php echo $project->getId() ?></td>
+								<td><b><?php echo $project->getName() ?></b></td>
+								<td><?php echo $project->getDescription() ?></td>
+								<td><?php echo $project->getProjectStatus() ?></td>
+							</tr>
+						<?php }?>
                         </tbody>
                 </table>
             </div>
