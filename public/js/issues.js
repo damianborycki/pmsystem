@@ -1,4 +1,4 @@
-$('.table-clickable tr').click(function (event) {
+$('.table-clickable.issues-list-table tr').click(function (event) {
 	if($(this).attr('id') != undefined){
 		window.location = "/issue/"+$(this).attr('id');
 	}
@@ -7,6 +7,3 @@ $('.table-clickable tr').click(function (event) {
 $("#inputProjectList").change(function() {
 	window.location = "/"+$("#inputProjectList option:selected").val()+"/issues";
 });
-
-
-
