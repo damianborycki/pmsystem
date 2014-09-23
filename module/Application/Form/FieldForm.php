@@ -85,8 +85,8 @@ class FieldForm extends Form {
                 'id'       => 'inputDefaultValue',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'true',
-                'value'    => '0'
+                'required' => 'false',
+                'placeholder'    => 'Wpisz wartość domyślną pola'
             ),
             'options'    => array(
                 'label'            => 'Wartość domyślna',
@@ -104,8 +104,8 @@ class FieldForm extends Form {
                 'id'       => 'inputRegex',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'true',
-                'value'    => '0'
+                'required' => 'false',
+                'placeholder'    => 'Wpisz wyrażenie regularne'
             ),
             'options'    => array(
                 'label'            => 'Wyrażenie regularne',
@@ -146,6 +146,26 @@ class FieldForm extends Form {
                 'type'  => 'submit',
                 'value' => 'Zapisz'
             ),
+        ));
+    }
+
+    public function setProjectsList ($projectsList) {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'projects',
+            'attributes' => array(
+                'id'       => 'inputProjects',
+                'type'     => 'select',
+                'required' => 'false'
+            ),
+            'options' => array(
+                'label' => 'Przypisz pole do',
+                'label_attributes' => array(
+                    'for'   => 'inputProjects',
+                    'class' => 'checkbox'
+                ),
+                'value_options' => $projectsList
+            )
         ));
     }
 }

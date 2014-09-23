@@ -227,3 +227,7 @@ footer {
     color: #3278b3;
     width: 100%;
 }
+
+body {
+    padding-bottom: 70px;
+}

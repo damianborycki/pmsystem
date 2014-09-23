@@ -7,6 +7,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Model\Domain\Project;
+use Doctrine\DBAL\DriverManager;
 use Application\Form\FieldForm;
 
 class FieldsController extends AbstractActionController {
@@ -16,7 +17,6 @@ class FieldsController extends AbstractActionController {
     public function listAction(){
 
         $fields = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->find('Field');
-
         $view = new ViewModel(array('fields' => $fields));
         $view->setTemplate('Fields/List');
 
@@ -28,40 +28,40 @@ class FieldsController extends AbstractActionController {
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $form = new FieldForm ($dbAdapter);
 
+        $projectSql = "SELECT id, name FROM PROJECT";
+        $projects = $this->getObjectManager()->getConnection()->query($projectSql)->fetchAll();
+
+        foreach ($projects as $project) {
+            $projectsRes[$project['id']] = $project['name'];
+        }
+
+        $form->setProjectsList($projectsRes);
+
         if ($this->getRequest()->isPost()) {
             $field = new Field();
-            $form->setInputFilter($field->getInputFilter());
+            //$form->setInputFilter($field->getInputFilter());
             $form->setData($this->getRequest()->getPost());
 
             if ($form->isValid()) {
-                $data     = $form->getData();
+                $data = $form->getData();
 
-                $project  = $this->getObjectManager()->find('\Application\Model\Domain\Project', $data['project']);
-                $priority = $this->getObjectManager()->find('\Application\Model\Domain\IssuePriority', $data['issuePriority']);
-                $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
-                $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
-
+                $projects  = $this->getObjectManager()->find('\Application\Model\Domain\Project');
+                var_dump($projects);
 
                 $field->setName($data['name']);
                 $field->setDefaultValue($data['defaultValue']);
-                $field->
-                $issue->setCreator($creator);
-                $issue->setProject($project);
-                $issue->setSubject($data['subject']);
-                $issue->setDescription($data['description']);
-                $issue->setIssueStatus($status);
-                $issue->setIssuePriority($priority);
-                $issue->setCreationTime(new \DateTime());
+                $field->setMaxValue($data['maxValue']);
+                $field->setMinValue($data['minValue']);
+                $field->setIsHidden($data['isHidden']);
 
-                $this->getObjectManager()->persist($issue);
+                $this->getObjectManager()->persist($field);
                 $this->getObjectManager()->flush();
-                $newId = $issue->getId();
 
-                return $this->redirect()->toRoute('home');
+                return $this->redirect()->toRoute('FieldsList');
             }
         }
 
-        $view = new ViewModel(array('form' => $form));
+        $view = new ViewModel(array('form' => $form, 'dump' => $projectsRes));
         $view->setTemplate('Fields/Add');
 
         return $view;
