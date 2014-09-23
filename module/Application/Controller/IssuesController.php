@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Model\Domain\Project;
 use Application\Form\IssueForm;
+use Application\Form\IssueStatusChangeForm;
 
 class IssuesController extends AbstractActionController {
 
@@ -15,7 +16,7 @@ class IssuesController extends AbstractActionController {
     public function showAction(){
         $id = $this->getEvent()->getRouteMatch()->getParam('id');
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
-
+		
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
         $form = new IssueStatusChangeForm($dbAdapter);

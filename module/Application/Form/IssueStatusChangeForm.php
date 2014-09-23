@@ -40,7 +40,7 @@ class IssueStatusChangeForm extends Form {
             'options'    => array(
                 'label'            => 'Priorytet',
                 'empty_option' => 'Zmień status',
-                'value_options'    => $this->getIssuePriorityForSelect(),
+                'value_options'    => $this->getIssueStatusForSelect(),
             ),
         ));
 
@@ -56,6 +56,7 @@ class IssueStatusChangeForm extends Form {
     
     public function getIssueStatusForSelect()
     {
+    	return;
         $dbAdapter = $this->adapter;
         $sql       = 'SELECT ID, NAME FROM ISSUESTATUS ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
