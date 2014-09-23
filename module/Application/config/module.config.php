@@ -431,6 +431,41 @@ return array(
                     )
                 ),
             ),
+            
+             /**
+             * SCIEZKA DO PRZEMIESZCZANIA W DÓŁ Statusów
+             */
+            'DownIssueStatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuestatus/down/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\IssueStatus',
+                        'action' => 'down'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO PRZEMIESZCZANIA W GÓRĘ Statusów
+             */
+            'UpIssueStatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuestatus/up/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\IssueStatus',
+                        'action' => 'up'
+                    )
+                ),
+            ),
+            
         	/**
              * SCIEZKA DO listy slownikow slownikow uzytkownika
              */
