@@ -65,6 +65,13 @@ class CustomDictController extends AbstractActionController
         	return $this->redirect()->toRoute('CustomDict');
         } 
 
+        $issueposition = $objectManager->find('Application\Model\Domain\CustomDictionary', $id);  
+        $getposition = $issueposition->getPosition();
+     
+        $objectManager ->createQuery("UPDATE Application\Model\Domain\CustomDictionary u SET u.position = $getposition  WHERE u.position=$getposition-1")->execute();              
+        $objectManager ->createQuery("UPDATE Application\Model\Domain\CustomDictionary u SET u.position = $getposition-1  WHERE u.id=$id")->execute(); 
+        $this->rebuild_positions();
+
     	return $this->redirect()->toRoute('CustomDict');
     }
 
@@ -76,10 +83,16 @@ class CustomDictController extends AbstractActionController
         	return $this->redirect()->toRoute('CustomDict');
         }
 
-
-
+        $issueposition = $objectManager->find('Application\Model\Domain\CustomDictionary', $id);  
+        $getposition = $issueposition->getPosition();
+     
+        $objectManager ->createQuery("UPDATE Application\Model\Domain\CustomDictionary u SET u.position = $getposition  WHERE u.position=$getposition+1")->execute();              
+        $objectManager ->createQuery("UPDATE Application\Model\Domain\CustomDictionary u SET u.position = $getposition+1  WHERE u.id=$id")->execute();   
+        $this->rebuild_positions();
+     
     	return $this->redirect()->toRoute('CustomDict');
     } 
+
     public function editAction()
     {
     	 
@@ -194,7 +207,8 @@ public function addAction()
 
 			$this->getObjectManager()->persist($issue);
 			$this->getObjectManager()->flush();
-			return $this->redirect()->toRoute('CustomDict');
+			
+            return $this->redirect()->toRoute('AddAttributesToCustomDict');
 		}
 	}
 
@@ -272,7 +286,7 @@ public function addAttribAction()
 		}
 	}
 
-	$view = new ViewModel(array('form' => $form));
+    $view = new ViewModel(array('form' => $form));
 	$view->setTemplate('CustomDict/add_attribute');
 	return $view;
 }

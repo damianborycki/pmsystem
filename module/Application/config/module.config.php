@@ -483,6 +483,22 @@ return array(
                     ),
             ),
             /**
+             * SCIEZKA DO dodawania pozycji w slowniku uzytkownika
+             */
+            'AddAttributesToCustomDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/add/addAttr',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'addAttrib'
+                            )
+                    ),
+            ),
+            /**
              * SCIEZKA DO dodawania slownikow uzytkownika
              */
             'AddCustomDict' => array(
