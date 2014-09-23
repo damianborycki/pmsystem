@@ -11,9 +11,11 @@ class ProjectController extends AbstractActionController {
     protected $_objectManager;
 
     public function showAction(){
-        $id = $this->getEvent()->getRouteMatch()->getParam('id');
-
-        $view   = new ViewModel();
+        $id = $this->getEvent()->getRouteMatch()->getParam('project');
+		$project = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->find($id);
+		$issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('project' => $id));
+		
+        $view   = new ViewModel(array('project' => $project, 'issues' => $issues));
         $view->setTemplate('Project/Show');
 
         return $view;
