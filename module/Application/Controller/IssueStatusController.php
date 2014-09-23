@@ -18,13 +18,34 @@ class IssueStatusController extends AbstractActionController{
         return $this->_objectManager;
     }
     
+    
+     public function rebuild_positions(){
+       $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager'); 
+        $rebuild_positions = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueStatus u ORDER BY u.position ASC')
+                        ->getResult();
+     
+     $i=1;
+     foreach($rebuild_positions as $positions){
+
+        $id = $positions->getId();
+        $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueStatus u SET u.position = $i  WHERE u.id=$id")
+                            ->execute();    
+        
+             $i++;     
+        }
+   } 
+    
+    
      public function indexAction() {
     $objectManager = $this
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');
     
-    $issuelist = $objectManager
-                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueStatus u')
+     $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueStatus u ORDER BY u.position ASC')
                         ->getResult();
         
     foreach ($issuelist as $iss)
@@ -42,6 +63,7 @@ class IssueStatusController extends AbstractActionController{
                      
      $view = new ViewModel(array('issuelist'=> $issuelist));
      $view->setTemplate('IssueStatus/index');
+     $this->rebuild_positions();
      return $view;
 }  
   
@@ -84,9 +106,14 @@ class IssueStatusController extends AbstractActionController{
                      }  
                      $issue->setIsDefault($data['IsDefault'][0]);
                     }
+                    
+                $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\IssueStatus u');
+                $count = $query->getSingleScalarResult();     
+                $issue->setPosition($count+1);
                 
                 $this->getObjectManager()->persist($issue);                             
-                $this->getObjectManager()->flush();         
+                $this->getObjectManager()->flush();     
+                $this->rebuild_positions();
                 return $this->redirect()->toRoute('IssueStatus');
             }
       }
@@ -112,7 +139,7 @@ class IssueStatusController extends AbstractActionController{
  
     $objectManager->remove($issuedelete);
     $objectManager->flush();
-    
+     $this->rebuild_positions();
     return $this->redirect()->toRoute('IssueStatus');
    } 
  
@@ -165,17 +192,17 @@ class IssueStatusController extends AbstractActionController{
        
                     }
                     
-                    // gdzie ten kod ktory wyciaga ci wszyskie rkordy
                     
                     
+                $issue->setPosition($data['position']);    
                 $issue->setId($id);
             
-                // !!!!!!
+                
                 $this->getObjectManager()->merge($issue);   
-                // !!!!!
+                
                 
                 $this->getObjectManager()->flush();        
-                
+                $this->rebuild_positions();
                 return $this->redirect()->toRoute('IssueStatus');
             }
       }
@@ -185,14 +212,48 @@ class IssueStatusController extends AbstractActionController{
       return $view;
     }
     
-       
-       
-   
+    public function downAction()  {
+     $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
     
-  
+  $id = (int) $this->params('id', null);
+    if (null === $id) {
+      return $this->redirect()->toRoute('IssueStatus');
+    }
+
+    $issueposition = $objectManager->find('Application\Model\Domain\IssueStatus', $id);  
+        $getposition = $issueposition->getPosition();
+     
+     $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueStatus u SET u.position = $getposition  WHERE u.position=$getposition+1")
+                            ->execute();              
+     $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueStatus u SET u.position = $getposition+1  WHERE u.id=$id")
+                            ->execute();   
+     $this->rebuild_positions();
+     return $this->redirect()->toRoute('IssueStatus');
+   } 
+   
+    public function upAction()   {
+     $objectManager = $this
+        ->getServiceLocator()
+        ->get('Doctrine\ORM\EntityManager');   
     
-   
-   
+    $id = (int) $this->params('id', null);
+    if (null === $id) {
+      return $this->redirect()->toRoute('IssueStatus');
+    }
+
+    $issueposition = $objectManager->find('Application\Model\Domain\IssueStatus', $id);  
+    $getposition = $issueposition->getPosition();
+     
+     $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueStatus u SET u.position = $getposition  WHERE u.position=$getposition-1")
+                            ->execute();              
+     $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueStatus u SET u.position = $getposition-1  WHERE u.id=$id")
+                            ->execute(); 
+     $this->rebuild_positions();
+     return $this->redirect()->toRoute('IssueStatus');
+   }    
+
     
   } 
 
