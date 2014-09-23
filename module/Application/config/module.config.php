@@ -82,7 +82,7 @@ return array(
             'ShowProject' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/[:project]',
+                    'route' => '/[:project]/',
                     'constraints' => array(
                         'project' => '[0-9]*',
                     ),

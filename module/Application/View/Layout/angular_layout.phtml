@@ -47,7 +47,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                 <a class="navbar-brand brand" href="/">PMS</a>
                 <p class="navbar-text actual-project-cont">
                     <span class="navbar-brand-separator">/</span> 
-                    <a href="?page=ProjectOverview" class="navbar-actual-project">Projekt Testowy</a>
+                    <a href="<?php echo $this->url('ShowProject',array('project' => 1)) ?>" class="navbar-actual-project">Testowy Projekt nr 1</a>
                 </p>
             </div>
             <div class="navbar-collapse collapse">
@@ -56,7 +56,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projekty <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Aktualny projekt</li>
-                            <li><a href="?page=ProjectOverview">Projekt testowy</a></li>
+                            <li><a href="<?php echo $this->url('ShowProject',array('project' => 1)) ?>">Testowy Projekt nr 1</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Ostatnie projekty</li>
                             <li><a href="#">Most recent one</a></li>

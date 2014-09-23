@@ -26,6 +26,7 @@ hr {
         margin: 14px 0;
 	padding: 14px 14px 2px 14px;
 	width: 100%;
+    font-size: 14px;
 }
 
 .table-clickable tr, .table-clickable-user tr {
