@@ -44,7 +44,9 @@
                                         <th>Zamknięto</th>
                                         <th>Klucz</th>
                                 </tr>
-                                <?php foreach ($this->issues as $issue) { ?>
+                        </thead>
+                        <tbody>
+                                                            <?php foreach ($this->issues as $issue) { ?>
                                 <tr id="<?php echo $issue->getID() ?>">
                                     <td><span class="label label-default <?php echo "label-".$issue->getSubject() ?>">
                                         <?php echo $issue->getSubject() ?>
@@ -54,22 +56,19 @@
                                     <td><?php echo $issue->getIssueStatus() ?></td>
                                     <td><b><?php echo (strlen($issue->getDescription()) > 28) ? substr($issue->getDescription(),0,25).'...' : $issue->getDescription();?></b></td>
                                     <td><?php foreach ($issue->getAssignedUsers() as $user){
-                                    				$userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
-                                    				if(!empty($user)){
-                                    					echo $userName;
-                                    				}else{
-                                    					echo "brak";
-                                    				}
-                                    		  }?>
+                                                    $userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
+                                                    if(!empty($user)){
+                                                        echo $userName;
+                                                    }else{
+                                                        echo "brak";
+                                                    }
+                                              }?>
                                     <td><?php echo $issue->getCreator()->getFirstName() . ' ' .  $issue->getCreator()->getLastName() ?></td>
                                     <td><?php echo date_format($issue->getCreationTime(), 'Y-m-d H:i:s') ?></td>
                                     <td><?php if($issue->getCloseTime()){echo date_format($issue->getCloseTime(), 'Y-m-d H:i:s');}else{echo "Otwarte";} ?></td>
                                     <td>#<?php echo $issue->getID() ?></td>
                                 </tr>
                                 <?php } ?>
-                        </thead>
-                        <tbody>
-
                         </tbody>
                 </table>
             </div>
