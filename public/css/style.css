@@ -265,3 +265,7 @@ label.ng-scope {
 .upper-desc{
     margin-top: 30px;
 }
+
+.change-status-form{
+    padding-top: 50px !important;
+}
