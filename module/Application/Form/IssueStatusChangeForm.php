@@ -14,21 +14,6 @@ class IssueStatusChangeForm extends Form {
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-            'name'       => 'id',
-            'attributes' => array(
-                'type'  => 'hidden'
-            ),
-        ));
-
-         $this->add(array(
-             'type' => 'Zend\Form\Element\Hidden',
-             'name' => 'User',
-             'attributes' => array(
-                     'value' => '1'
-             )
-         ));
-
-        $this->add(array(
             'name'       => 'issueStatus',
             'type'       => 'Zend\Form\Element\Select',
             'attributes' => array(
@@ -38,7 +23,7 @@ class IssueStatusChangeForm extends Form {
                 'required' => 'true'
             ),
             'options'    => array(
-                'label'            => 'Priorytet',
+                'label'            => 'Status',
                 'empty_option' => 'Zmień status',
                 'value_options'    => $this->getIssueStatusForSelect(),
             ),
@@ -56,7 +41,6 @@ class IssueStatusChangeForm extends Form {
     
     public function getIssueStatusForSelect()
     {
-    	return;
         $dbAdapter = $this->adapter;
         $sql       = 'SELECT ID, NAME FROM ISSUESTATUS ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);

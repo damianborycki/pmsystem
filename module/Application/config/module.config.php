@@ -161,7 +161,24 @@ return array(
                     )
                 ),
             ),
-
+			
+            /**
+             * SCIEZKA DO ZMIANY STATUSU KONKRETNEGO ZAGADNIENIA
+             */
+            'IssueStatusChange' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/issue/[:id]/statusChange',
+                    'constraints' => array(
+                        'id' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'statusChange'
+                    )
+                ),
+            ),
+            
             /**
              * SCIEZKA DO LISTY CUSTOM FIELDOW
              */
