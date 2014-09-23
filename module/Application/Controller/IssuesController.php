@@ -52,8 +52,8 @@ class IssuesController extends AbstractActionController {
                 $priority = $this->getObjectManager()->find('\Application\Model\Domain\IssuePriority', $data['issuePriority']);
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
+                $userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
 
-                //$issue->setAssignedUsers($data['issueAssigned']); - Nie wiem czemu to nie działa
                 $issue->setCreator($creator);
                 $issue->setProject($project);
                 $issue->setSubject($data['subject']);
@@ -61,7 +61,8 @@ class IssuesController extends AbstractActionController {
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);
                 $issue->setCreationTime(new \DateTime());
-
+				$issue->setAssignedUsers(array($userAssigned));
+				
                 $this->getObjectManager()->persist($issue);
                 $this->getObjectManager()->flush();
 
@@ -90,15 +91,12 @@ class IssuesController extends AbstractActionController {
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
-        $form = new IssueForm ($dbAdapter, 0);
-        
-        $form->get('description')->setAttribute('value', $issue->getDescription());
+        $form = new IssueForm ($dbAdapter, $issue->getProject()->getId());
         
         if ($this->getRequest()->isPost()) {
-            $issue = new Issue();
             $form->setInputFilter($issue->getInputFilter());
             $form->setData($this->getRequest()->getPost());
-
+			
             if ($form->isValid()) {
                 $data     = $form->getData();
                 $project  = $this->getObjectManager()->find('\Application\Model\Domain\Project', $data['project']);
@@ -112,16 +110,20 @@ class IssuesController extends AbstractActionController {
                 $issue->setDescription($data['description']);
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);
-                $issue->setCreationTime(new \DateTime());
 
-                $this->getObjectManager()->persist($issue);
+                $this->getObjectManager()->merge($issue);
                 $this->getObjectManager()->flush();
-                $newId = $issue->getId();
+                $id = $issue->getId();
 
-                return $this->redirect()->toUrl('/issue/'.$newId);
+                return $this->redirect()->toUrl('/issue/'.$id);
             }
-        }
-
+        } 
+        
+		$form->get('description')->setAttribute('value', $issue->getDescription());
+        
+        $form->get('project')->setValue($issue->getProject()->getId());
+        $form->get('issuePriority')->setValue($issue->getIssuePriority()->getCode());
+        
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form));
         $view->setTemplate('Issues/Edit');
 

@@ -214,20 +214,49 @@ label.ng-scope {
     margin-right: 15px;
 }
 
-.breadcrumb {
-    margin-bottom: 0 !important;
+/*labelki*/
+
+.label-default{
+    font-size: 12px !important;
 }
 
-footer {
-    position: fixed;
-    bottom: 0; left: 0;
-    padding: 12px;
-    background-color: #e9e9e9;
-    opacity: 0.8;
-    color: #3278b3;
-    width: 100%;
+.label-Task{
+    background: green !important;
 }
 
-body {
-    padding-bottom: 70px;
+.label-Client{
+    background: blue !important;
+}
+
+.label-Bug{
+    background: red !important;
+}
+
+.label-Client{
+    background: blue !important;
+}
+
+.label-External{
+    background: orange !important;
+}
+
+.label-Requirement{
+    background: black !important;
+}
+
+.label-Request{
+    background: pink !important;
+}
+
+.label-Fix{
+    background: yellow !important;
+}
+
+.label-show-task{
+    margin-right: 10px !important;
+    font-size: 14px !important;
+}
+
+.label-Event{
+    background: purple !important;
 }
