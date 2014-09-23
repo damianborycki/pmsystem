@@ -42,7 +42,7 @@ class IssuesController extends AbstractActionController {
     
     public function addAction() {
         $projectId = $this->getEvent()->getRouteMatch()->getParam('project');
-
+        $parentId = $this->getEvent()->getRouteMatch()->getParam('id');
       	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 		$form = new IssueForm ($dbAdapter, $projectId);
         
@@ -58,7 +58,13 @@ class IssuesController extends AbstractActionController {
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
                 $userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
-
+				
+                if (!empty($parentId)) {
+                	$parent = $this->getObjectManager()->find('\Application\Model\Domain\Issue', $parentId);
+                	if (!empty($parent)) {
+                		$issue->setParent($parent);
+                	}
+                }
                 $issue->setCreator($creator);
                 $issue->setProject($project);
                 $issue->setSubject($data['subject']);
@@ -77,7 +83,7 @@ class IssuesController extends AbstractActionController {
             }
         }
 
-        $view = new ViewModel(array('form' => $form, 'projectId' => $projectId));
+        $view = new ViewModel(array('form' => $form, 'projectId' => $projectId, 'parentId' => $parentId));
         $view->setTemplate('Issues/Add');
 
         return $view;

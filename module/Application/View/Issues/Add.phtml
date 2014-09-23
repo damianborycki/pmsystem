@@ -10,7 +10,12 @@
                 <div class="center-block">
                         <?php
                         $form = $this->form;
-                        $form->setAttribute('action', $this->url('AddIssue',array('project' => $projectId)));
+                        if (!empty($parentId)) {
+                        	$form->setAttribute('action', $this->url('AddChildIssue',array('project' => $projectId, 'id' => $parentId)));
+                        	
+                        } else {
+                        	$form->setAttribute('action', $this->url('AddIssue',array('project' => $projectId)));
+                        }
                         $form->setAttribute('class', 'form-horizontal');
                         $form->prepare();
 

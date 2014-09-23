@@ -180,6 +180,24 @@ return array(
             ),
             
             /**
+             * SCIEZKA DO STWORZENIA PODZADANIA
+             */
+            'AddChildIssue' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/[:project]/issue/[:id]/child/add',
+                    'constraints' => array(
+                        'project' => '[0-9]*',
+                        'id' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'add'
+                    )
+                ),
+            ),
+            
+            /**
              * SCIEZKA DO LISTY CUSTOM FIELDOW
              */
             'FieldsList' => array(

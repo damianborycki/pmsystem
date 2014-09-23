@@ -37,7 +37,7 @@
                                 Więcej <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Utwórz podzadanie</a></li>
+                                <li><a href="<?php echo $this->url('AddChildIssue',array('project' => $issue->getProject()->getId(), 'id' => $issue->getId())) ?>">Utwórz podzadanie</a></li>
                                 <li><a href="#">Zmień w podzadanie</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Przenieś</a></li>
