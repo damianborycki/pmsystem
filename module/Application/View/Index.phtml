@@ -25,7 +25,7 @@
 							<tr id="<?php echo $project->getId() ?>">
 								<td><?php echo $project->getId() ?></td>
 								<td><b><?php echo $project->getName() ?></b></td>
-								<td><?php echo $project->getDescription() ?></td>
+								<td><?php echo (strlen($project->getDescription()) > 58) ? substr($project->getDescription(),0,55).'...' : $project->getDescription();?></td>
 								<td><?php echo $project->getProjectStatus() ?></td>
 							</tr>
 						<?php }?>

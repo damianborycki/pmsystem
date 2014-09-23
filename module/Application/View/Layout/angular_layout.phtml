@@ -69,7 +69,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zadania <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Aktualny projekt</li>
-                            <li><a href="/1/issues">Lista zadań</a></li>
+                            <li><a href="<?php echo $this->url('IssueList',array('project' => 1)) ?>">Lista zadań</a></li>
                             <li><a href="<?php echo $this->url('AddIssue',array('project' => 1)) ?>">Dodaj zadanie</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Filtry</li>
