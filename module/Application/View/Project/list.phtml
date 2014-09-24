@@ -1,0 +1,27 @@
+<div class="container under-top">
+        <div class="half-space-container">
+                <ol class="breadcrumb">
+                        <li class="active">Projekty</li>
+                </ol>
+        </div>       
+</div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+        <div class="container">
+            <div class="col-md-12 table-responsive table-background-white center-block">
+                <table class="table table-hover table-clickable issues-list-table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Nazwa projektu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <?php foreach ($this->projects as $project) { 
+                                 	var_dump($project);								 
+								}?>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+

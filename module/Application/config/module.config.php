@@ -94,6 +94,35 @@ return array(
                 ),
             ),
 
+			/**
+             * SCIEZKA DO DODAWANIA PROJEKTU
+             */
+            'AddProject' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/add_project/',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Project',
+                        'action' => 'add'
+                    )
+                ),
+            ),
+
+			/**
+             * SCIEZKA DO LISTY PROJEKTÓW
+             */
+            'ListProjects' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/projects/',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Project',
+                        'action' => 'list'
+                    )
+                ),
+            ),
+			
+
             /**
              * SCIEZKA DO LISTY ZAGADNIEn
              */
