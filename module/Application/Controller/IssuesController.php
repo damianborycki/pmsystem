@@ -240,6 +240,10 @@ class IssuesController extends AbstractActionController {
 				
                 $issue->setIssueStatus($status);
                 if ($status->getIsClosed()) {
+                	$children = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('parent' => $issue->getId())); 
+                	foreach ($children as $child) {
+	               		$child->setCloseTime(new \DateTime());
+                	}
 	                $issue->setCloseTime(new \DateTime());
                 }
 
