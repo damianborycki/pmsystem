@@ -24,6 +24,21 @@ class IssueCategoryForm extends Form {
             
         ));
         
+         $this->add(array(
+            'name'       => 'position',
+            'attributes' => array(
+                'type'  => 'hidden'
+            ),
+        ));
+        
+         $this->add(array(
+            'type' => 'Zend\Form\Element\Textarea',
+            'name'       => 'description',
+            'attributes' => array(               
+                'placeholder' => 'Opis kategorii dokumentów...'
+            )
+        ));
+        
         $this->add(array(
             'type' => 'Zend\Form\Element\MultiCheckbox',
             'name' => 'IsActive',
