@@ -4,6 +4,10 @@ namespace Application\Model\Domain;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * Tracker 
@@ -11,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Table(name="`TRACKER`")
  * @ORM\Entity(repositoryClass="Application\Model\Infrastructure\Repositories\TrackerRepository")
  */
-class Tracker 
+class Tracker implements InputFilterAwareInterface
 {
     /**
      * @var string $code
