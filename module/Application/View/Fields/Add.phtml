@@ -13,7 +13,6 @@
      <div class="container">
         <div class="col-xs-12">
             <?php
-            var_dump($this->dump);
             $form = $this->form;
             $form->setAttribute('action', $this->url('AddField'));
             $form->prepare();
@@ -68,6 +67,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <div class="alert alert-info">
+                            Informacja: Dla typu 'lista wartości', oddziel kolejne wartości przecinkiem.
+                        </div>
+                    </div>
                     <div class="col-sm-3 text-right">
                         <?php echo $this->formLabel($form->get('defaultValue')); ?>
                     </div>
@@ -83,6 +87,43 @@
                         <?php echo $this->formText($form->get('regex')); ?>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3 text-right">
+                        <?php echo $this->formLabel($form->get('isRequired')); ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?php echo $this->formCheckbox($form->get('isRequired')); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3 text-right">
+                        <?php echo $this->formLabel($form->get('isForAll')); ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?php echo $this->formCheckbox($form->get('isForAll')); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3 text-right">
+                        <?php echo $this->formLabel($form->get('isHidden')); ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?php echo $this->formCheckbox($form->get('isHidden')); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3 text-right">
+                        <?php echo $this->formLabel($form->get('isFilter')); ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?php echo $this->formCheckbox($form->get('isFilter')); ?>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-sm-3 text-right">
                         <!--<?php echo $this->formLabel($form->get('projects')); ?>-->
@@ -90,10 +131,10 @@
                     </div>
                     <div class="col-sm-9">
                         <?php
-                            if(count($form->get('projects')->getValueOptions()) > 0)
+                            if($form->get('projects') && count($form->get('projects')->getValueOptions()) > 0)
                                 echo $this->formMultiCheckbox($form->get('projects'));
                             else
-                                echo '<span class="btn btn-link disabled">Brak projektów</span>';
+                                echo '<span class="btn btn-link disabled">Brak projektów.</span>';
                         ?>
                     </div>
                 </div>
@@ -105,10 +146,10 @@
                     </div>
                     <div class="col-sm-9">
                         <?php
-                        if(count($form->get('trackers')->getValueOptions()) > 0)
+                        if($form->get('trackers') && count($form->get('trackers')->getValueOptions()) > 0)
                             echo $this->formMultiCheckbox($form->get('trackers'));
                         else
-                            echo '<span class="btn btn-link disabled">Brak zdefiniowanych trackerów</span>';
+                            echo '<span class="btn btn-link disabled">Brak zdefiniowanych trackerów. Aby móc dodać pole, dodaj tracker.</span>';
                         ?>
                     </div>
                 </div>
