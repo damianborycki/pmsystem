@@ -3,83 +3,68 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Application\Model\Domain\IssueStatus;
+use Application\Model\Domain\Tracker;
+use Application\Model\Domain\MemberRole;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class FieldsPermissionController extends AbstractActionController {
-    /**
-     * Constructor.
-     *
-     * @access public
-     */
+    
     public function __construct($ProjectId=null)
     {
     }
 	
 	public function fieldsPermissionAction(){
-		return;
+		$objectManager = $this
+			->getServiceLocator()
+			->get('Doctrine\ORM\EntityManager');
+		
+		$issuelist = $objectManager->getRepository('Application\Model\Domain\IssueStatus')->findAll();
+		$roleList =  $objectManager->getRepository('Application\Model\Domain\MemberRole')->findAll();
+		$trackerList =  $objectManager->getRepository('Application\Model\Domain\Tracker')->findAll();
+		$fieldPermission = $objectManager->getRepository('Application\Model\Domain\FieldPermission')->findAll();
+		$fplist = $objectManager->getRepository('Application\Model\Domain\FieldsPermission')->findAll();
+		
+		
+		$view = new ViewModel(array('fplist'=> $fplist, 'roleList'=> $roleList, 'trackerList'=> $trackerList, 'issuelist'=> $issuelist, 'fieldPermission' => $fieldPermission, 'controller' => $this));
+		$view->setTemplate('FieldsPermission/FieldsPermission');
+		return $view;
 	}
-
-    /**
-     * Prawa do danego pola przy zadanej kombinacji typu zadania, stanu zadania i roli usera.
-     *
-     * @access public
-     * 
-     * @param int $taskType typ taska
-     * @param int $taskState stan taska
-     * @param int $userRole rola usera - w postaci id ze slownika
-     * @param int $fieldId id pola do wypelnienia
-     * 
-     * @return int flaga prawa do pola
-     */
-    public function getFieldPermission($taskType, $taskState, $userRole, $fieldId)
-    {
-    }
-
-    /**
-     * Dodawanie nowego prawa (dla nowych stanow, nowych rol, etc.
-     *
-     * @access public
-     * 
-     * @param int $taskType typ taska
-     * @param int $taskState stan taska
-     * @param int $userRole rola usera - w postaci id ze slownika
-     * @param int $fieldId id pola do wypelnienia
-     * @param int $permission flaga prawa, jakie ma nadane podane pole przy podanej konfiguracji
-     */
-    public function addNewPermission($taskType, $taskState, $userRole, $fieldId, $permission)
-    {
-        
-//       TEST SZYMON
-        
-    }
-
-    /**
-     * Zapytanie o wszystkie obowiazkowe pola dla danego typu i stanu zadania, oraz dla danej roli pytajacego usera.
-     *
-     * @access public
-     * 
-     * @param int $taskType typ taska
-     * @param int $taskState stan taska
-     * @param int $userRole rola usera - w postaci id ze slownika
-     * 
-     * @return int[] tablica z ID wszystkich pol obowiazowych (tzn ktore user musi wypelnic)
-     */
-    public function getRequiredFields($taskType, $taskState, $userRole)
-    {
-    }
-
-    /**
-     * Zapytanie o wszystkie pola, ktore user tylko widzi,
-     * a ktorych nie moze edytowac - dla danego typu i stanu zadania, oraz dla danej roli pytajacego usera.
-     *
-     * @access public
-     * 
-     * @param int $taskType typ taska
-     * @param int $taskState stan taska
-     * @param int $userRole rola usera - w postaci id ze slownika
-     * 
-     * @return int[] tablica z ID wszystkich pol obowiazowych (tzn ktore user musi wypelnic)
-     */
-    public function getReadOnlyFields($taskType, $taskState, $userRole)
-    {
-    }
+	
+	public function addFieldPermissions($post){
+	
+		//Usuwanie śmieci
+		$objectManager = $this
+			->getServiceLocator()
+			->get('Doctrine\ORM\EntityManager');
+			
+		$issuelist = $objectManager->getRepository('Application\Model\Domain\IssueStatus')->findAll();
+		$fplist = $objectManager->getRepository('Application\Model\Domain\FieldsPermission')->findAll();
+		
+		$memberRole = $post['memberRole'];
+		$tracker = $post['tracker'];
+		
+		$queryDelete = "DELETE FROM `FIELDSPERMISSION` WHERE TRACKERID = " . $tracker . " AND MEMBERROLEID = " . $memberRole;
+			
+		$stmt = $objectManager->getConnection()->prepare($queryDelete);
+		$params = array();
+		$stmt->execute($params);
+		
+		//Teraz tylko dodać
+		foreach($fplist as $fp){
+			$id = $fp->getField()->getId();
+			foreach($issuelist as $il){
+				$ilId = $il->getId();
+				$selected = $post["field" . $fp->getField()->getId() . "issue" . $il->getId()];
+				
+				$query = "INSERT INTO `FIELDSPERMISSION` (TRACKERID, MEMBERROLEID, FIELDID, ISSUESTATUSID, FIELDPERMISSIONID) VALUES (" . $tracker . "," . $memberRole . "," . $id . "," . $ilId . "," . $selected . ")";
+				$stmt = $objectManager->getConnection()->prepare($query);
+				$params = array();
+				$stmt->execute($params);
+			}
+		}
+		
+		echo "</tr>";
+	}
 }

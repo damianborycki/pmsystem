@@ -1,0 +1,92 @@
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="#">Strona Główna</a></li>
+            		<li class="active">Uprawnienia pól</li>
+		</ol>
+	</div>
+	
+	<form method="post">
+		<div class="jumbotron">
+			<ol class="breadcrumb container change-pos">                                 
+				<li class="active">Uprawnienia pól</li>  
+		<br>
+		<br>
+		<?php if(isset($_POST['tracker'])){
+				echo $controller->addFieldPermissions($_POST);			
+			}
+		?>
+			<div class="half-space-container text-left">
+					<form class="form-group form-inline">
+							<div class="form-group">
+									<label for="memberRole" class="control-label">Rola:</label>
+									<select class="form-control" name="memberRole" id="memberRole">
+									   <?php
+											foreach($roleList as $role){
+												echo "<option value=" . $role->getId() . ">" . $role->getName() . "</option>";
+											}
+										?>
+									</select>
+							</div>
+
+							<div class="form-group">
+									<label for="tracker" class="control-label">Typ zagadnienia:</label>
+									<select class="form-control" name="tracker" id="tracker">
+										<?php
+											foreach($trackerList as $track){
+												echo "<option value=" . $track->getId() . ">" . $track->getName() . "</option>";
+											}
+										?>
+									</select>
+							</div>
+
+				<div class="form-group">
+				</div>
+					</form>
+				</div>
+			</ol>  
+			<div class="container">
+				<div class="center-block table-responsive table-background-white" >
+					<div class="center-block">
+						<div ng-app="app" ng-controller="Ctrl">
+						<table class="table table-striped">
+							
+				
+							<thead>
+								<tr class="breadcrumb">
+								<th></th>
+									<?php
+										foreach($issuelist as $issue){
+											echo "<th>" . $issue->getName() . "</th>";
+										}
+									?>
+									
+								</tr>
+								<?php
+									foreach($fplist as $fp){
+										echo "<tr>
+										<th class='breadcrumb'>" . $fp->getField()->getName() . "</th>";			
+										foreach($issuelist as $issue){
+										
+											$newId = "field" . $fp->getField()->getId() . "issue" . $issue->getId();
+											echo "<th>";
+											echo "<select name='" . $newId . "' id='" . $newId . "'>";
+											foreach($fieldPermission as $field){
+												echo "<option value=" . $field->getId() . ">" . $field->getName() . "</option>";
+											}
+											echo "</select>";
+											echo "</th>";
+										}
+										echo "</tr>";
+									}
+								?>
+					
+							</thead>
+
+						</table>
+						<a href="<?php echo $this->url('addStatusTransiton') ?>"><button class="btn btn-success">Zapisz</button></a>
+						</div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</form>
