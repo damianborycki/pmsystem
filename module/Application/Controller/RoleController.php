@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Role;
+use Application\Model\Domain\MemberRole;
 use Application\Model\Domain\Permission;
 use Application\Form\RoleForm;
 
@@ -50,7 +51,7 @@ class RoleController extends AbstractActionController {
                 $role->setDescription($data['description']);
                 $role->setPosition($position);
                 $role->setIsActive($data['isActive']);
-                $role->setIsDefault($data['isDeafuly']);
+                $role->setIsDefault($data['isDeafult']);
                 $role->setPermissions(array($permission));
 
                 $this->getObjectManager()->persist($role);
@@ -69,11 +70,34 @@ class RoleController extends AbstractActionController {
     }
 
     public function getAllRole() {
-        
+        $id = $this->getEvent()->getRouteMatch()->getParam('project');
+
+        $roles = $this->getObjectManager()->getRepository('\Application\Model\Domain\Member')->findBy(array('memberRoles' => $id));
+
+        $memberRoles = $this->getObjectManager()->getRepository('\Application\Model\Domain\MemberRoles')->findAll();
+
+        $view = new ViewModel(array('roles' => $roles, 'memberRoles' => $memberRoles, 'id' => $id));
+        $view->setTemplate('Roles/List');
+
+        return $view;
     }
 
     public function removeRole() {
-        
+        $objectManager = $this->getObjectManager();
+
+        $id = (int) $this->params('id', null);
+        if (null === $id) {
+            return $this->redirect()->toRoute('Role');
+        }
+
+        $roledelete = $objectManager->find('Application\Model\Domain\Role', $id);
+
+        $objectManager->remove($roledelete);
+        $objectManager->flush();
+
+        $this->rebuild_positions();
+
+        return $this->redirect()->toRoute('Role');        
     }
 
 }
