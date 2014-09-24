@@ -269,3 +269,7 @@ label.ng-scope {
 .change-status-form{
     padding-top: 50px !important;
 }
+
+.main-task-title{
+    font-weight: normal;
+}

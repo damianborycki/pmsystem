@@ -25,7 +25,7 @@
                             <span class="label label-default <?php echo "label-".$issue->getTracker() ?> label-show-task">
                                         <?php echo $issue->getTracker() ?>
                                         </span>
-                                         <?php echo $issue->getSubject() ?></span>
+                                         <?php echo $issue->getSubject() ?> <?php if($parent){ ?><span class="main-task-title">(<a href="/issue/<?php echo $parent->getId() ?>"><?php echo $parent->getSubject() ?></a>)</span> <?php } ?></span>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
                         <a href="/issue/<?php echo $issue->getID() ?>/edit">
