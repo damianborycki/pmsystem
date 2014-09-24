@@ -1,8 +1,24 @@
-<div class="container under-top">
-        <ol class="breadcrumb">
-                <li class="active"><?php echo $project->getName() ?> - Przegląd Projektu</li>
-        </ol>
-</div>
+<div class="container under-top">	
+	<div class="half-space-container">
+	        <ol class="breadcrumb">
+	                <li class="active"><?php echo $project->getName() ?> - Przegląd Projektu</li>
+	        </ol>
+	</div>
+       	<div class="half-space-container text-right">
+                <form class="form-group form-inline" role="form">
+                        <div class="form-group">
+                                <label for="inputProject" class="control-label">Pokaż projekt&nbsp;</label>
+                                <select class="form-control" id="inputMainProjectList">
+                                        <optgroup label="Projekty">
+                                        	<?php foreach ($this->projects as $pro) { ?>
+                                                <option value="<?php echo $pro->getId() ?>" <?php if($this->id == $pro->getId()){ echo "selected"; } ?>><?php echo $pro->getName() ?></option>
+                                            <?php } ?>
+                                        </optgroup>
+                                </select>
+                        </div>
+                </form>
+        </div>
+</div>        
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
         <div class="container">
