@@ -225,6 +225,23 @@ return array(
                     )
                 ),
             ),
+
+            /**
+             * SCIEZKA DO ZMIANY STATUSU KONKRETNEGO ZAGADNIENIA
+             */
+            'RemoveField' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/fields/remove/[:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Fields',
+                        'action' => 'remove'
+                    )
+                ),
+            ),
             
              /**
              * SCIEZKA DO INDEX PRIORYTETÓW ZAGADNIEĹ� ++

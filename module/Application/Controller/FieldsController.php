@@ -6,6 +6,7 @@ use Application\Model\Domain\Field;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\ProjectFields;
+use Application\Model\Domain\TrackerFields;
 use Application\Model\Domain\Project;
 use Doctrine\DBAL\DriverManager;
 use Application\Form\FieldForm;
@@ -90,7 +91,13 @@ class FieldsController extends AbstractActionController {
                     $this->getObjectManager()->flush();
                 }
 
-                // TODO to samo foreach dla trackerow
+                foreach ($data['trackers'] as $trackerId) {
+                    $trackerField = new TrackerFields();
+                    $trackerField->setFieldId($newId);
+                    $trackerField->setTrackerId($trackerId);
+                    $this->getObjectManager()->persist($trackerField);
+                    $this->getObjectManager()->flush();
+                }
 
                 return $this->redirect()->toRoute('FieldsList');
             }
