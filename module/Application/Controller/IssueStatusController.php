@@ -56,7 +56,11 @@ class IssueStatusController extends AbstractActionController{
                           
                           if($iss->getIsClosed(true)){                           
                             $iss->setIsClosed('<i class="fa fa-check"></i>');
-                          }                         
+                          }   
+                          
+                          if($iss->getIsActive(true)){                           
+                            $iss->setIsActive('<i class="fa fa-check"></i>');
+                          } 
                      } 
                      
                                 
@@ -89,9 +93,14 @@ class IssueStatusController extends AbstractActionController{
                                
                 
                 $issue->setName($data['name']);
+                $issue->setDescription($data['description']);
                 if (isset($data['IsClosed'])) 
                     { $issue->setIsClosed($data['IsClosed'][0]);                                        
                     }
+                if (isset($data['IsActive'])) 
+                    { 
+                     $issue->setIsActive($data['IsActive'][0]);                                                        
+                    }    
                     
                  if (isset($data['IsDefault'])) 
                     { 
@@ -111,6 +120,15 @@ class IssueStatusController extends AbstractActionController{
                 $count = $query->getSingleScalarResult();     
                 $issue->setPosition($count+1);
                 
+                 if((isset($data['IsClosed'])) and (isset($data['IsActive']))){
+                   
+                    $ex = 'visible';
+                    
+                    $view = new ViewModel(array('form' => $form, 'ex' => $ex));
+                    $view->setTemplate('IssueStatus/add');
+                    return $view;
+                }
+                
                 $this->getObjectManager()->persist($issue);                             
                 $this->getObjectManager()->flush();     
                 $this->rebuild_positions();
@@ -118,7 +136,9 @@ class IssueStatusController extends AbstractActionController{
             }
       }
 
-      $view = new ViewModel(array('form' => $form));
+      $ex = 'hidden';
+      
+      $view = new ViewModel(array('form' => $form, 'ex' => $ex));
       $view->setTemplate('IssueStatus/add');
       return $view;
     }
