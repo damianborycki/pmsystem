@@ -2,6 +2,25 @@
     li.header{
         margin-top: 20px;
     }
+    textarea {
+        width: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        min-height: 34px;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
 </style>
     
 	<div class="jumbotron">
@@ -19,10 +38,6 @@
                         echo $this->form()->openTag($form);
 
                        ?>
-                    
-                            
-                            
-                            
                             
                 <div class="center-block">
                     <div ng-app="app" ng-controller="Ctrl">
@@ -30,9 +45,10 @@
 				    <table class="table table-striped table-clickable">
                         <thead>
                             <tr>
-                                <th style="width: 35%">Kategoria dokumentów</th>
-                                <th style="width: 25%">Domyślny Status</th>
-                                <th style="width: 25%">Aktywne</th>
+                                <th style="width: 25%">Kategoria dokumentów</th>
+                                <th style="width: 45%">Opis</th>
+                                <th style="width: 15%">Domyślna Kategoria</th>
+                                <th style="width: 15%">Aktywne</th>
                                 
                             </tr>
                         </thead>
@@ -44,8 +60,13 @@
                                       <input type="text" name="name" required="required" value="<?php echo  $issueedit->getName('id')?>" class="editable-input form-control ng-pristine ng-invalid ng-invalid-required" ng-model="$data">                                    
                                   </div>
                                 </td>
+                                <td>
+                                  <div class="editable-controls form-group">
+                                       <textarea name = "description" placeholder='Opis statusu...'><?php echo  $issueedit->getDescription('id')?></textarea>     
+                                  </div>
+                                </td>
 		                <td>
-                                    
+                                    <input name="position" type="hidden" value="<?php echo $issueedit->getPosition('id'); ?>   ">   
                                     <span class="editable-wrap editable-checkbox ">
                                         <div class="editable-controls form-group">
                                             <?php echo $this->formRow($form->get('IsDefault')->setChecked($issueedit->getIsDefault())); ?>                                            
