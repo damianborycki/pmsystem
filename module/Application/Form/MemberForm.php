@@ -58,7 +58,7 @@ class MemberForm extends Form {
 
     public function getMemberRolesForSelect() {
         $dbAdapter = $this->adapter;
-        $sql = 'SELECT ID, NAME FROM MEMBERROLES ORDER BY ID ASC';
+        $sql = 'SELECT ID, NAME FROM MEMBERROLE ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result = $statement->execute();
 
