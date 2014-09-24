@@ -124,6 +124,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
     }
     $this->inlineScript()->appendFile($this->basePath() . '/js/issues.js' );
     $this->inlineScript()->appendFile($this->basePath() . '/js/projects.js' );
+    $this->inlineScript()->appendFile($this->basePath() . '/js/user-assignment.js' );
     echo $this->inlineScript();
 ?>    
 

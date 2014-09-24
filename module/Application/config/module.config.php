@@ -13,7 +13,8 @@ return array(
 			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
             'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController',
         	'Application\Controller\CustomDict' => 'Application\Controller\CustomDictController',
-        	'Application\Controller\Tracker' => 'Application\Controller\TrackerController'
+        	'Application\Controller\Tracker' => 'Application\Controller\TrackerController',
+            'Application\Controller\UserAssignment' => 'Application\Controller\UserAssignmentController'
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -188,6 +189,17 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Issues',
                         'action' => 'edit'
+                    )
+                ),
+            ),
+
+            'AssignUser' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/issue/[:id]/assignuser',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Issues',
+                        'action' => 'assignUser'
                     )
                 ),
             ),
@@ -830,6 +842,17 @@ return array(
                     )
                 ),
             ),
+
+            'FetchUsers' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/userassignment/fetchusers/[:issueID]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\UserAssignment',
+                        'action' => 'fetchUsers'
+                    )
+                ),
+            ),
 			
         ),
     ),
@@ -877,11 +900,11 @@ return array(
             'orm_default' => array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => array(
-                    'host'     => 'localhost',
+                    'host'     => 'justidea.pl',
                     'port'     => '3306',
-                    'user'     => 'root',
-                    'password' => '',
-                    'dbname'   => 'pmsystem',
+                    'user'     => 'xawier_pmsystem',
+                    'password' => '5eAC3Tba',
+                    'dbname'   => 'xawier_pmsystem',
                 )
             )
         )

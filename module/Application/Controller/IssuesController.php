@@ -251,6 +251,20 @@ class IssuesController extends AbstractActionController {
         } 
         return $this->redirect()->toRoute('ShowIssue', array('id' => $id));
     }
+
+    public function assignUserAction() {
+        $id     = $this->getEvent()->getRouteMatch()->getParam("id");
+        $userID = $this->getRequest()->getPost("userId", null);
+
+        $issue  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
+        $user   = $this->getObjectManager()->getRepository('\Application\Model\Domain\User')->find($userID);
+
+        $issue->addAssignedUser($user);
+        $this->getObjectManager()->merge($issue);
+        $this->getObjectManager()->flush();
+
+        return $this->response;
+    }
     
     protected function getObjectManager() {
         if (!$this->_objectManager) {

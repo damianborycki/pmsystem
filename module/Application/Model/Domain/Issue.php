@@ -263,10 +263,15 @@ class Issue implements InputFilterAwareInterface
         return $this;
     }
 
+    public function addAssignedUser($user)
+    {
+        $this->assignedUsers->add($user);
+    }
+
     public function addAssignedUsers(Collection $collection)
     {
         foreach ($collection as $item) {
-            $this->assignedUsers->add($item);
+            $this->addAssignedUser($item);
         }
     }
 

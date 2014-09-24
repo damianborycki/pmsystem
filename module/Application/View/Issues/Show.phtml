@@ -31,7 +31,13 @@
                         <a href="/issue/<?php echo $issue->getID() ?>/edit">
                             <button type="button" class="btn btn-default navbar-btn">Edycja</button>
                         </a>
-                        <button type="button" class="btn btn-default navbar-btn">Przydziel osobę</button>
+                        <div class="btn-group" id="assignment" data-issue-id="<?php echo $issue->getId() ?>">
+                          <button type="button" id="assign-user" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Przydziel osobę <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" id="users" role="menu">
+                          </ul>
+                        </div>
                         <a href="<?php echo $this->url('AddChildIssue',array('project' => $issue->getProject()->getId(), 'id' => $issue->getId())) ?>">
                             <button type="button" class="btn btn-default navbar-btn">Utwórz podzadanie</button>
                         </a>
@@ -69,14 +75,16 @@
                             <div class="row show-grid row-with-space">
                             </div>
                             <div class="col-md-4 col-md-4 details-label">Przypisane osoby:</div>
-                            <div class="col-md-6 col-md-6"><?php foreach ($issue->getAssignedUsers() as $user){
-                                    								$userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
-                                    								if(!empty($user)){
-                                    									echo $userName;
-                                    								}else{
-                                    									echo "brak";
-                                    							  	}
-                            }?></div>
+                            <div id="assigned-users" class="col-md-6 col-md-6">
+                            <?php foreach ($issue->getAssignedUsers() as $user){
+								$userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
+								if(!empty($user)){
+									echo $userName;
+								}else{
+									echo "brak";
+                                }
+                            }?>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-md-6">
