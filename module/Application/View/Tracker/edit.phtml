@@ -1,0 +1,186 @@
+<style>
+    li.header{
+        margin-top: 20px;
+    }
+     textarea {
+        width: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        min-height: 34px;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    p.bg-danger{
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    div#table{
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+        /*status*/
+    .default-fields {
+        float:left;
+    }
+    .default-fields label{
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+        padding: 8px;
+        line-height: 1.428571429;
+        font-size: 16px;
+        margin-bottom: 0px;
+        width: 100%;
+    }
+    .input-bg{
+        background-color: #f9f9f9;
+        padding: 8px;
+    } 
+    .input-bg{
+        float: left
+    }
+    .default-fields-status, .default-fields-status .input-bg{
+        width: 300px;
+    }
+     /*opis*/
+     
+     .default-fields-opis{
+        width: 439px;
+    }
+    .default-fields.default-fields-opis{
+        text-align: center;
+    }
+    .default-fields.default-fields-opis .input-bg,  .default-fields-checkbox .input-bg{
+        width: 100%;
+    }
+    .default-fields.default-fields-opis label{
+        text-align: center;
+    }
+    /*isDefauld, isActive*/
+    .default-fields-checkbox{
+        width: 174px;
+    }
+    .default-fields-checkbox .input-bg label{
+        border-bottom: 0;
+        text-align: center;
+        padding-bottom: 10px;
+    } 
+    /* pola*/
+    .default-fields.default-fields-pola{
+    width: 100%;
+    margin-top: 20px;
+    }
+    
+    .default-fields.default-fields-pola .input-bg {
+        width: 100%;
+    }
+    
+    .default-fields.default-fields-pola .input-bg label{
+        border-bottom: 0;
+        text-align: left;
+        padding-bottom: 10px;
+        font-size: 14px;
+        font-weight: 100;
+    } 
+    .default-fields.default-fields-pola .input-bg label input{
+        float: left;
+        margin-right: 10px;
+    }
+    /* workflow */
+</style>
+    
+	<div class="jumbotron">
+        <ol class="breadcrumb container change-pos">                                 
+            <li class="active header"></li>                                    
+        </ol>  
+            
+		<div class="container">
+			<div class="center-block table-responsive table-background-white" >
+                <?php 
+                       $form = $this->form2;                      
+                       $form->prepare();
+                       
+ 
+                        echo $this->form()->openTag($form);               
+                       ?>
+      
+                <div class="center-block">
+                    <div ng-app="app" ng-controller="Ctrl">
+                       <div id="table" class='table-class-wd'>
+                          <div class='default-fields default-fields-status'>
+                              <label>Status</label>                              
+                                   <div class="input-bg">
+                                            <div class="col-sm-13">
+                                                <input type="text" name="name" required="required" value="<?php echo  $issueedit->getName('id')?>" class="editable-input form-control ng-pristine ng-invalid ng-invalid-required" ng-model="$data">                                                                     
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                   </div>                                            
+                             </div>                                   
+                          </div>  
+                          
+                          <div class='default-fields default-fields-opis'>
+                              <label>Opis</label>                              
+                                   <div class="input-bg">
+                                            <div class="col-sm-13">
+                                                <textarea name = "description" placeholder='Opis zagadnienia...'><?php echo  $issueedit->getDescription('id')?></textarea>
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                   </div>                                            
+                             </div>                                   
+                          </div> 
+                          
+                           <div class='default-fields default-fields-checkbox'>
+                              <label>Domyślny typ</label>                              
+                                   <div class="input-bg">
+                                            <div class="col-sm-13">
+                                                <?php echo $this->formRow($form->get('IsDefault')->setChecked($issueedit->getIsDefault())); ?>                                            
+                                                
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                   </div>                                            
+                             </div>                                   
+                          </div> 
+                          
+                           <div class='default-fields default-fields-checkbox'>
+                              <label>Typy otwarte</label>                              
+                                   <div class="input-bg">
+                                            <div class="col-sm-13">
+                                                <input name="position" type="hidden" value="<?php echo $issueedit->getPosition('id'); ?>   ">  
+                                                <?php echo $this->formRow($form->get('IsActive')->setChecked($issueedit->getIsActive())); ?> 
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                   </div>                                            
+                             </div>                                   
+                          </div> 
+                        
+                      </div>
+                         <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Zaktualizuj typ zagadnienia</button>
+                    
+                    </div>
+			<?php 
+                        
+                        
+                        echo $this->form()->closeTag(); ?>    
+                </div>
+                           
+			</div>
+		</div>
+            
+	</div>
+
+
+
+    
+
+
