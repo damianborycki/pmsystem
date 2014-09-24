@@ -28,9 +28,11 @@ class StatusTransitionController extends AbstractActionController
 		
 		$roleList =  $objectManager->getRepository('Application\Model\Domain\MemberRole')->findAll();
 		$trackerList =  $objectManager->getRepository('Application\Model\Domain\Tracker')->findAll();
+				
+		$statusTransitions = $objectManager->getRepository('Application\Model\Domain\StatusTransition')->findAll();
 		
 		
-		$view = new ViewModel(array('issuelist'=> $issuelist, 'roleList'=> $roleList, 'trackerList'=> $trackerList, 'controler'=> $this));
+		$view = new ViewModel(array('issuelist'=> $issuelist, 'roleList'=> $roleList, 'trackerList'=> $trackerList, 'przejscia'=> $statusTransitions, 'controler'=> $this));
 		$view->setTemplate('StatusTransition/StatusTransition');
 		return $view;
 	}
@@ -41,37 +43,27 @@ class StatusTransitionController extends AbstractActionController
 			->getServiceLocator()
 			->get('Doctrine\ORM\EntityManager');
 			
-		$queryDelete = "DELETE FROM `STATUSTRANSITION`";
+		$queryDelete = "DELETE FROM STATUSTRANSITION WHERE TRACKERID = " . $post['tracker'] . " and MEMBERROLEID = " . $post['memberRole'];
 			
 		$stmt = $objectManager->getConnection()->prepare($queryDelete);
 		$params = array();
-		$stmt->execute($params);
-		//$query = $objectManager->createQuery($queryDelete);
-		//$query->execute();
+		$stmt->execute($params);		
 		
-		
-		foreach($post['check_list'] as $check){
-			$ids = explode("-", $check);
-		
-			$queryInsert = "INSERT INTO STATUSTRANSITION (`TRACKERID`, `MEMBERROLEID`,	`PREVSTATUSID`, `NEXTSTATUSID`) VALUES ('" . $post['tracker'] . "',  '" . $post['memberRole'] . "', '" 
-			. $ids[0] . "',  '" . $ids[1] . "')";
+		if(isset($post['check_list'])){ 
+			foreach($post['check_list'] as $check){
+				$ids = explode("-", $check);
 			
-			//return $queryUpdate;
-			//echo "<script>alert('" . $queryUpdate . "');</script>";
+				$queryInsert = "INSERT INTO STATUSTRANSITION (`TRACKERID`, `MEMBERROLEID`,	`PREVSTATUSID`, `NEXTSTATUSID`) VALUES ('" . $post['tracker'] . "',  '" . $post['memberRole'] . "', '" 
+				. $ids[0] . "',  '" . $ids[1] . "')";
+
+				$stmt = $objectManager->getConnection()->prepare($queryInsert);
+				$params = array();
+				$stmt->execute($params);
+			}
 			
-			//$db = $this->$objectManager->getConnection();
-			//$query = "INSERT INTO table2 (myfield) SELECT table1.myfield FROM table1 WHERE table1.id < 1000";
-			$stmt = $objectManager->getConnection()->prepare($queryInsert);
-			$params = array();
-			$stmt->execute($params);
 			
-			//$query = $objectManager->createQuery($queryInsert);
-			//$query->execute();
-		
 		}
-		
-		//$ret = $post['tracker'] . ", " . $post['memberRole'] . ", " . implode(" ", $post['check_list']);
-		//return $ret;
+		return "OK";
 	}
 	
     
@@ -92,12 +84,6 @@ class StatusTransitionController extends AbstractActionController
 		$objectManager = $this
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');  
-        
-		//$id = $this->getRequest()->getPost('tracker', null);
-		
-        //$view = new ViewModel(array('statusId'=> $id, 'controler'=> $this));
-		//$view->setTemplate('StatusTransition/add');
-		//return $view;
     }
 
 }

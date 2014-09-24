@@ -1,3 +1,35 @@
+	<script>
+		function test(){
+			alert("SIEMA");
+		};
+		function zaznaczacz(){
+			var checkboxes = new Array(); 
+			checkboxes = document.getElementsByTagName('input');
+			 
+			for (var i=0; i<checkboxes.length; i++)  {
+				if (checkboxes[i].type == 'checkbox')   {
+				  checkboxes[i].checked = false;
+				}
+			}
+			
+			var trID = document.getElementById("tracker").value;
+			//alert(trID);
+			var mrID = document.getElementById("memberRole").value;
+			//alert(mrID);
+			var divContent = document.getElementById("trzymacz").innerText;
+			var transitiony = divContent.split("\n");
+			//alert(transitiony.length);
+			for (index = 0; index < transitiony.length; ++index) {
+				var temp = transitiony[index].split(",");
+				if(temp[0] == trID){
+					if(temp[1] == mrID){
+						document.getElementById(temp[2]).checked = true;
+					}
+				}
+			}
+		};
+    </script>
+	
 	<div class="container">
 		<ol class="breadcrumb">
 			<li><a href="#">Strona Główna</a></li>
@@ -11,20 +43,22 @@
         <ol class="breadcrumb container change-pos">                                 
             <li class="active">Przejścia stanów </li>  
 	<br>
-	<?php if(isset($_POST['tracker'])){
-			echo $controler->addNewStatusTransition($_POST);			
-		}
 		
-	?>
 	<br>
 		<div class="half-space-container text-left">
                 <form class="form-group form-inline" role="form">
                         <div class="form-group">
                                 <label for="memberRole" class="control-label">Rola:</label>
-                                <select class="form-control" name="memberRole" id="memberRole">
+                                <select class="form-control" name="memberRole" id="memberRole" onchange="zaznaczacz()">
 									<?php
 										foreach($roleList as $rola){
-											echo "<option value=" . $rola->getId() . ">" . $rola->getName() . "</option>";
+											echo "<option value=" . $rola->getId();
+											if (isset($_POST['memberRole'])) {
+												if($_POST['memberRole'] == $rola->getId()) {
+													echo " selected";
+												}
+											}
+											echo ">" . $rola->getName() . "</option>";
 										}
 									?>
                                 </select>
@@ -32,10 +66,16 @@
 
                         <div class="form-group">
                                 <label for="tracker" class="control-label">&nbsp;Typ zagadnienia:&nbsp;</label>
-                                <select class="form-control" name="tracker" id="tracker">
+                                <select class="form-control" name="tracker" id="tracker" onchange="zaznaczacz()">
 									<?php
 										foreach($trackerList as $track){
-											echo "<option value=" . $track->getId() . ">" . $track->getName() . "</option>";
+											echo "<option value=" . $track->getId();
+											if (isset($_POST['tracker'])) {
+												if($_POST['tracker'] == $track->getId()) {
+													echo " selected";
+												}
+											}
+											echo ">" . $track->getName() . "</option>";
 										}
 									?>
                                 </select>
@@ -43,6 +83,32 @@
 
                 </form>
       		</div>
+			<?php 
+			if(isset($_POST['tracker'])){
+				$czyOk = $controler->addNewStatusTransition($_POST);	
+				//echo $czyOk;
+				if($czyOk == "OK") {
+			?>
+						<script>
+							var trID = document.getElementById("tracker").selectedIndex ;
+							var mrID = document.getElementById("memberRole").selectedIndex ;
+							localStorage.setItem('track', trID);
+							localStorage.setItem('role', mrID);
+							location.reload();
+						</script>;
+			<?php
+				}
+			}?>
+			<script>
+			//alert(localStorage.getItem('track'));
+			if(localStorage.getItem('track') != ''){
+				document.getElementById("memberRole").selectedIndex = localStorage.getItem('role');
+				document.getElementById("tracker").selectedIndex = localStorage.getItem('track');
+				localStorage.setItem('track', '');
+				localStorage.setItem('role', '');
+			}		
+			</script>
+			
 
 
                                   
@@ -69,7 +135,7 @@
 									echo "<tr>
 									<th class='breadcrumb'>" . $issue->getName() . "</th>";			
 									foreach($issuelist as $issueStatus){
-										echo "<th><input type='checkbox' name='check_list[]' value=" . $issue->getId() . "-" .$issueStatus->getId(). "> </th>";//" . $issueStatus->getName() . " value: lewe-prawe
+										echo "<th><input type='checkbox' name='check_list[]' value=" . $issue->getId() . "-" .$issueStatus->getId(). " id='" . $issue->getId() . "-" .$issueStatus->getId(). "'> </th>";//" . $issueStatus->getName() . " value: lewe-prawe	visibility: hidden
 									}
 									echo "</tr>";
 								}
@@ -85,3 +151,25 @@
 		</div>
 	</div>
 	</form>
+	<div style="display: none;" id="trzymacz">
+	<?php //display: none
+		foreach($przejscia as $przej){
+			echo $przej->getTracker()->getId() . "," . $przej->getMemberRole()->getId() . "," . $przej->getPrevStatus()->getId() . "-" . $przej->getNextStatus()->getId() . "<br>";
+		}
+	?>
+	</div>
+	
+	<script>
+		zaznaczacz();
+	/*
+		var trID = document.getElementById("tracker").value;
+		alert(trID);
+		var mrID = document.getElementById("memberRole").value;
+		alert(mrID);
+		var divContent = document.getElementById("trzymacz").innerText;
+		var transitiony = divContent.split(";\n");
+		for (index = 0; index < transitiony.length; ++index) {
+			console.log(transitiony[index]);
+		}
+	*/
+	</script>
