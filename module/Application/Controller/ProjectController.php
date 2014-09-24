@@ -19,7 +19,7 @@ class ProjectController extends AbstractActionController {
 		$projects  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
 		$project = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->find($id);
 		
-        $view = new ViewModel(array('project' => $project));
+        $view = new ViewModel(array('project' => $project, 'projects' => $projects, 'id' => $id));
         $view->setTemplate('Project/show');
 
         return $view;
