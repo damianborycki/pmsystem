@@ -192,6 +192,10 @@ class IssueStatusController extends AbstractActionController{
                 print_r($data);
                 
                 $issue->setName($data['name']);
+                 if (isset($data['IsActive'])) 
+                    { 
+                        $issue->setIsActive($data['IsActive'][0]);                                         
+                    }
                  if (isset($data['IsClosed'])) 
                     { 
                         $issue->setIsClosed($data['IsClosed'][0]);
@@ -212,11 +216,19 @@ class IssueStatusController extends AbstractActionController{
        
                     }
                     
+                 if((isset($data['IsClosed'])) and (isset($data['IsActive']))){
+                   
+                    $ex = 'visible';
                     
+                    $view = new ViewModel(array('issueedit' => $issueedit,'form2' => $form, 'ex' => $ex));
+                    $view->setTemplate('IssueStatus/edit');
+                    return $view;
+                }    
                     
                 $issue->setPosition($data['position']);    
+                $issue->setDescription($data['description']);
                 $issue->setId($id);
-            
+              
                 
                 $this->getObjectManager()->merge($issue);   
                 
@@ -227,7 +239,9 @@ class IssueStatusController extends AbstractActionController{
             }
       }
 
-      $view = new ViewModel(array('issueedit' => $issueedit, 'form2' => $form));
+      $ex = 'hidden';
+      
+      $view = new ViewModel(array('issueedit' => $issueedit, 'form2' => $form, 'ex'=>$ex));
       $view->setTemplate('IssueStatus/edit');
       return $view;
     }
