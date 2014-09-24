@@ -6,6 +6,7 @@ use Application\Model\Domain\Field;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\ProjectFields;
+use Application\Model\Domain\TrackerFields;
 use Application\Model\Domain\Project;
 use Doctrine\DBAL\DriverManager;
 use Application\Form\FieldForm;
@@ -23,11 +24,22 @@ class FieldsController extends AbstractActionController {
         return $view;
     }
 
+    public function removeAction(){
+        $id = $this->params('id', null);
+        $field = $this->getObjectManager()->find('Application\Model\Domain\Field', $id);
+
+        $this->getObjectManager()->remove($field);
+        $this->getObjectManager()->flush();
+
+        return $this->redirect()->toRoute('FieldsList');
+    }
+
     public function addAction(){
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $form = new FieldForm ($dbAdapter);
 
+        $projectsRes = [];
         $projectSql = "SELECT id, name FROM PROJECT";
         $projects = $this->getObjectManager()->getConnection()->query($projectSql)->fetchAll();
 
@@ -35,7 +47,8 @@ class FieldsController extends AbstractActionController {
             $projectsRes[$project['id']] = $project['name'];
         }
 
-        $form->setProjectsList($projectsRes);
+        if($projectsRes)
+            $form->setProjectsList($projectsRes);
 
         $trackerSql = "SELECT id, name FROM TRACKER";
         $trackers = $this->getObjectManager()->getConnection()->query($trackerSql)->fetchAll();
@@ -44,13 +57,16 @@ class FieldsController extends AbstractActionController {
             $trackersRes[$tracker['id']] = $tracker['name'];
         }
 
-        $form->setTrackersList($trackersRes);
+        if($trackersRes)
+            $form->setTrackersList($trackersRes);
 
         if ($this->getRequest()->isPost()) {
             $field = new Field();
+
             $form->setData($this->getRequest()->getPost());
-            //$projectsRes = $this->getRequest()->getPost();
-            if (!$form->isValid()) {
+            $form->isValid();
+
+            if ($form->hasValidated()) {
                 $data = $form->getData();
 
                 $field->setName($data['name']);
@@ -58,6 +74,9 @@ class FieldsController extends AbstractActionController {
                 $field->setMaxValue($data['maxValue']);
                 $field->setMinValue($data['minValue']);
                 $field->setIsHidden($data['isHidden']);
+                $field->setIsRequired($data['isRequired']);
+                $field->setIsForAll($data['isForAll']);
+                $field->setIsFilter($data['isFilter']);
                 $field->setType($data['types']);
                 $this->getObjectManager()->persist($field);
                 $this->getObjectManager()->flush();
@@ -72,13 +91,19 @@ class FieldsController extends AbstractActionController {
                     $this->getObjectManager()->flush();
                 }
 
-                //TODO zaimplementowac takiego samego foreacha dla trackerow
+                foreach ($data['trackers'] as $trackerId) {
+                    $trackerField = new TrackerFields();
+                    $trackerField->setFieldId($newId);
+                    $trackerField->setTrackerId($trackerId);
+                    $this->getObjectManager()->persist($trackerField);
+                    $this->getObjectManager()->flush();
+                }
 
                 return $this->redirect()->toRoute('FieldsList');
             }
         }
 
-        $view = new ViewModel(array('form' => $form, 'dump' => $projectsRes));
+        $view = new ViewModel(array('form' => $form));
         $view->setTemplate('Fields/Add');
 
         return $view;

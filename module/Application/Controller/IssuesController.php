@@ -6,8 +6,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Model\Domain\Project;
+<<<<<<< HEAD
 use Application\Model\Domain\Field;
 use Application\Model\Domain\FieldValue;
+=======
+use Application\Model\Domain\Tracker;
+>>>>>>> FETCH_HEAD
 use Application\Form\IssueForm;
 use Application\Form\IssueStatusChangeForm;
 
@@ -70,6 +74,7 @@ class IssuesController extends AbstractActionController {
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
                 $userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
+                $tracker = $this->getObjectManager()->find('\Application\Model\Domain\Tracker', $data['issueTracker']);
 				
                 if (!empty($parentId)) {
                 	$parent = $this->getObjectManager()->find('\Application\Model\Domain\Issue', $parentId);
@@ -79,6 +84,7 @@ class IssuesController extends AbstractActionController {
                 }
                 $issue->setCreator($creator);
                 $issue->setProject($project);
+                $issue->setTracker($tracker);
                 $issue->setSubject($data['subject']);
                 $issue->setDescription($data['description']);
                 $issue->setIssueStatus($status);
@@ -175,6 +181,7 @@ class IssuesController extends AbstractActionController {
 		$form->get('description')->setAttribute('value', $issue->getDescription());
         $form->get('subject')->setValue($issue->getSubject());
         $form->get('project')->setValue($issue->getProject()->getId());
+        $form->get('issueTracker')->setValue($issue->getTracker()->getId());
         $form->get('issuePriority')->setValue($issue->getIssuePriority()->getCode());
         
         foreach ($additionalFields as $field) {

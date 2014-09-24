@@ -7,6 +7,7 @@ use Zend\Form\Form;
 
 class FieldForm extends Form {
 	protected $adapter;
+
     public function __construct(AdapterInterface $dbAdapter) {
     	$this->adapter =$dbAdapter;
         parent::__construct('field');
@@ -27,7 +28,7 @@ class FieldForm extends Form {
                 'id'       => 'inputName',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'true',
+                'required' => true,
                 'placeholder' => 'Wpisz nazwę pola'
             ),
             'options'    => array(
@@ -46,7 +47,7 @@ class FieldForm extends Form {
                 'id'       => 'inputMinValue',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'true',
+                'required' => true,
                 'value'    => '0'
             ),
             'options'    => array(
@@ -65,7 +66,7 @@ class FieldForm extends Form {
                 'id'       => 'inputMaxValue',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'true',
+                'required' => true,
                 'value'    => '0'
 
             ),
@@ -85,6 +86,7 @@ class FieldForm extends Form {
                 'id'       => 'inputDefaultValue',
                 'type'     => 'text',
                 'class'    => 'form-control',
+                'required' => false,
                 'placeholder'    => 'Wpisz wartość domyślną pola'
             ),
             'options'    => array(
@@ -103,6 +105,7 @@ class FieldForm extends Form {
                 'id'       => 'inputRegex',
                 'type'     => 'text',
                 'class'    => 'form-control',
+                'required' => false,
                 'placeholder'    => 'Wpisz wyrażenie regularne'
             ),
             'options'    => array(
@@ -133,16 +136,86 @@ class FieldForm extends Form {
                     'text'          => 'Tekst',
                     'number' => 'Liczba',
                     'list'           => 'Lista wartości',
-                    'bool'   => 'Tak/Nie',
                 )
             ),
         ));
 
         $this->add(array(
-            'name'       => 'submit',
+            'name'       => 'regex',
+            'type'       => 'Zend\Form\Element\Text',
             'attributes' => array(
-                'type'  => 'submit',
-                'value' => 'Zapisz'
+                'id'       => 'inputRegex',
+                'type'     => 'text',
+                'class'    => 'form-control',
+                'placeholder'    => 'Wpisz wyrażenie regularne'
+            ),
+            'options'    => array(
+                'label'            => 'Wyrażenie regularne',
+                'label_attributes' => array(
+                    'for'   => 'inputRegex',
+                    'class' => 'control-label'
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'isRequired',
+            'type'       => 'Zend\Form\Element\Checkbox',
+            'attributes' => array(
+                'id'       => 'inputIsRequired',
+            ),
+            'options'    => array(
+                'label'            => 'Czy jest wymagane',
+                'label_attributes' => array(
+                    'for'   => 'inputIsRequired',
+                    'class' => 'checkbox'
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'isFilter',
+            'type'       => 'Zend\Form\Element\Checkbox',
+            'attributes' => array(
+                'id'       => 'inputIsFilter',
+            ),
+
+            'options'    => array(
+                'label'            => 'Czy jest filtrem',
+                'label_attributes' => array(
+                    'for'   => 'inputIsFilter',
+                    'class' => 'checkbox'
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'isForAll',
+            'type'       => 'Zend\Form\Element\Checkbox',
+            'attributes' => array(
+                'id'       => 'inputIsForAll',
+            ),
+            'options'    => array(
+                'label'            => 'Czy jest dla wszystkich',
+                'label_attributes' => array(
+                    'for'   => 'inputIsForAll',
+                    'class' => 'checkbox'
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'isHidden',
+            'type'       => 'Zend\Form\Element\Checkbox',
+            'attributes' => array(
+                'id'       => 'inputIsHidden',
+            ),
+            'options'    => array(
+                'label'            => 'Czy jest ukryte',
+                'label_attributes' => array(
+                    'for'   => 'inputIsHidden',
+                    'class' => 'checkbox'
+                ),
             ),
         ));
     }
@@ -151,9 +224,9 @@ class FieldForm extends Form {
         $this->add(array(
             'type' => 'Zend\Form\Element\MultiCheckbox',
             'name' => 'projects',
+            'required' => false,
             'attributes' => array(
                 'id'       => 'inputProjects',
-                'type'     => 'select',
             ),
             'options' => array(
                 'label' => 'Przypisz do projektu',
@@ -170,9 +243,9 @@ class FieldForm extends Form {
         $this->add(array(
             'type' => 'Zend\Form\Element\MultiCheckbox',
             'name' => 'trackers',
+            'required' => false,
             'attributes' => array(
                 'id'       => 'inputTrackers',
-                'type'     => 'select',
             ),
             'options' => array(
                 'label' => 'Przypisz do trackerów',
