@@ -34,7 +34,7 @@
                 foreach ($this->fields as $field) { ?>
                     <tr>
                         <td><?php echo $field->getName() ?></td>
-                        <td><?php echo $field->getFieldFormat() ?></td>
+                        <td><?php echo $field->getType() ?></td>
                         <td>
                             <?php
                             if($field->getIsRequired())

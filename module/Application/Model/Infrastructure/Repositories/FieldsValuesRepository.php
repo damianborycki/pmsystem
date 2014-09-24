@@ -5,7 +5,7 @@ namespace Application\Model\Infrastructure\Repositories;
 use Application\Library\BaseRepository;
 
 
-class FieldFormatRepository extends BaseRepository 
+class FieldValuesRepository extends BaseRepository
 {
 
 }

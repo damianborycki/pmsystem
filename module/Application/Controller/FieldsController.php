@@ -5,7 +5,7 @@ namespace Application\Controller;
 use Application\Model\Domain\Field;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Model\Domain\Issue;
+use Application\Model\Domain\ProjectFields;
 use Application\Model\Domain\Project;
 use Doctrine\DBAL\DriverManager;
 use Application\Form\FieldForm;
@@ -16,7 +16,7 @@ class FieldsController extends AbstractActionController {
 
     public function listAction(){
 
-        $fields = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->find('Field');
+        $fields = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findAll();
         $view = new ViewModel(array('fields' => $fields));
         $view->setTemplate('Fields/List');
 
@@ -37,25 +37,42 @@ class FieldsController extends AbstractActionController {
 
         $form->setProjectsList($projectsRes);
 
+        $trackerSql = "SELECT id, name FROM TRACKER";
+        $trackers = $this->getObjectManager()->getConnection()->query($trackerSql)->fetchAll();
+
+        foreach ($trackers as $tracker) {
+            $trackersRes[$tracker['id']] = $tracker['name'];
+        }
+
+        $form->setTrackersList($trackersRes);
+
         if ($this->getRequest()->isPost()) {
             $field = new Field();
-            //$form->setInputFilter($field->getInputFilter());
             $form->setData($this->getRequest()->getPost());
-
-            if ($form->isValid()) {
+            //$projectsRes = $this->getRequest()->getPost();
+            if (!$form->isValid()) {
                 $data = $form->getData();
-
-                $projects  = $this->getObjectManager()->find('\Application\Model\Domain\Project');
-                var_dump($projects);
 
                 $field->setName($data['name']);
                 $field->setDefaultValue($data['defaultValue']);
                 $field->setMaxValue($data['maxValue']);
                 $field->setMinValue($data['minValue']);
                 $field->setIsHidden($data['isHidden']);
-
+                $field->setType($data['types']);
                 $this->getObjectManager()->persist($field);
                 $this->getObjectManager()->flush();
+
+                $newId = $field->getId();
+
+                foreach ($data['projects'] as $projectId) {
+                    $projectField = new ProjectFields();
+                    $projectField->setFieldId($newId);
+                    $projectField->setProjectId($projectId);
+                    $this->getObjectManager()->persist($projectField);
+                    $this->getObjectManager()->flush();
+                }
+
+                //TODO zaimplementowac takiego samego foreacha dla trackerow
 
                 return $this->redirect()->toRoute('FieldsList');
             }

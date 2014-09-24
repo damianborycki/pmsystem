@@ -85,7 +85,6 @@ class FieldForm extends Form {
                 'id'       => 'inputDefaultValue',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'false',
                 'placeholder'    => 'Wpisz wartość domyślną pola'
             ),
             'options'    => array(
@@ -104,7 +103,6 @@ class FieldForm extends Form {
                 'id'       => 'inputRegex',
                 'type'     => 'text',
                 'class'    => 'form-control',
-                'required' => 'false',
                 'placeholder'    => 'Wpisz wyrażenie regularne'
             ),
             'options'    => array(
@@ -156,15 +154,33 @@ class FieldForm extends Form {
             'attributes' => array(
                 'id'       => 'inputProjects',
                 'type'     => 'select',
-                'required' => 'false'
             ),
             'options' => array(
-                'label' => 'Przypisz pole do',
+                'label' => 'Przypisz do projektu',
                 'label_attributes' => array(
                     'for'   => 'inputProjects',
-                    'class' => 'checkbox'
+                    'class' => 'checkbox col-md-4'
                 ),
                 'value_options' => $projectsList
+            )
+        ));
+    }
+
+    public function setTrackersList ($trackersList) {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'trackers',
+            'attributes' => array(
+                'id'       => 'inputTrackers',
+                'type'     => 'select',
+            ),
+            'options' => array(
+                'label' => 'Przypisz do trackerów',
+                'label_attributes' => array(
+                    'for'   => 'inputTrackers',
+                    'class' => 'checkbox col-md-4'
+                ),
+                'value_options' => $trackersList
             )
         ));
     }

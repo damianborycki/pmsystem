@@ -51,6 +51,12 @@ class Field
     protected $regexp;
 
     /**
+     * @var string $type
+     * @ORM\Column(name="`TYPE`", type="string", length=25, nullable=false)
+     */
+    protected $type;
+
+    /**
      * @var boolean $isRequired
      * @ORM\Column(name="`ISREQUIRED`", type="boolean", nullable=true)
      */
@@ -190,6 +196,17 @@ class Field
     public function setDefaultValue($defaultValue)
     {
         $this->defaultValue = $defaultValue;
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 
