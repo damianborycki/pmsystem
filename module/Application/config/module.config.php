@@ -13,6 +13,7 @@ return array(
 			'Application\Controller\IssueStatus' => 'Application\Controller\IssueStatusController',
             'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController',
         	'Application\Controller\CustomDict' => 'Application\Controller\CustomDictController',
+        	'Application\Controller\Tracker' => 'Application\Controller\TrackerController'
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -663,7 +664,109 @@ return array(
                     )
                 ),
             ),
-		
+	
+	/**
+             * SCIEZKA DO WYŚWIETLANIA TRACKERS
+             */
+            'Tracker' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/tracker',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Tracker',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO DODAWANIA TRACKERS
+             */
+            'AddTracker' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/tracker/add',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Tracker',
+                        'action' => 'add'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO USUWANIA TRACKERS
+             */
+            'DeleteTracker' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/tracker/delete/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Tracker',
+                        'action' => 'delete'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO EDYTOWANIA TRACKERS
+             */
+            'UpdateTracker' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/tracker/edit/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Tracker',
+                        'action' => 'edit'
+                    )
+                ),
+            ),
+            
+            
+             /**
+             * SCIEZKA DO PRZEMIESZCZANIA W DÓŁ TRACKER
+             */
+            'DownTracker' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/tracker/down/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Tracker',
+                        'action' => 'down'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO PRZEMIESZCZANIA W GÓRĘ  TRACKER
+             */
+            'UpTracker' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/tracker/up/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Tracker',
+                        'action' => 'up'
+                    )
+                ),
+            ),	
 			
 			/**
              * SCIEZKA DO PRAW DO POL
