@@ -22,10 +22,10 @@
 
                         </button>
                         <span class="navbar-brand brand">
-                            <span class="label label-default <?php echo "label-".$issue->getSubject() ?> label-show-task">
-                                        <?php echo $issue->getSubject() ?>
+                            <span class="label label-default <?php echo "label-".$issue->getTracker() ?> label-show-task">
+                                        <?php echo $issue->getTracker() ?>
                                         </span>
-                                         <?php echo (strlen($issue->getDescription()) > 53) ? substr($issue->getDescription(),0,50).'...' : $issue->getDescription();?></span>
+                                         <?php echo $issue->getSubject() ?></span>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
                         <a href="/issue/<?php echo $issue->getID() ?>/edit">
@@ -62,7 +62,7 @@
                     <div class="col-md-1 col-md-3 details-label upper-desc">Priorytet:</div>
                     <div class="col-md-2 col-md-6 upper-desc"><?php echo $issue->getIssuePriority() ?></div>
                     <div class="col-md-1 col-md-3 details-label upper-desc">Typ:</div>
-                    <div class="col-md-2 col-md-6 upper-desc"><?php echo $issue->getSubject() ?></div>
+                    <div class="col-md-2 col-md-6 upper-desc"><?php echo $issue->getTracker() ?></div>
                     <div class="col-md-1 col-md-3 details-label upper-desc">Status:</div>
                     <div class="col-md-1 col-md-6 upper-desc"><?php echo $issue->getIssueStatus() ?></div>
                     <div class="row show-grid row-with-space">

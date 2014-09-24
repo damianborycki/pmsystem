@@ -48,13 +48,13 @@
                         <tbody>
                                                             <?php foreach ($this->issues as $issue) { ?>
                                 <tr id="<?php echo $issue->getID() ?>">
-                                    <td><span class="label label-default <?php echo "label-".$issue->getSubject() ?>">
-                                        <?php echo $issue->getSubject() ?>
+                                    <td><span class="label label-default <?php echo "label-".$issue->getTracker() ?>">
+                                        <?php echo $issue->getTracker() ?>
                                         </span>
                                     </td>
                                     <td><?php echo $issue->getIssuePriority() ?></td>
                                     <td><?php echo $issue->getIssueStatus() ?></td>
-                                    <td><b><?php echo (strlen($issue->getDescription()) > 28) ? substr($issue->getDescription(),0,25).'...' : $issue->getDescription();?></b></td>
+                                    <td><b><?php echo $issue->getSubject()?></b></td>
                                     <td><?php foreach ($issue->getAssignedUsers() as $user){
                                                     $userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
                                                     if(!empty($user)){
