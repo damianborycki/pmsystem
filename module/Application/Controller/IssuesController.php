@@ -70,6 +70,7 @@ class IssuesController extends AbstractActionController {
                 $issue->setCreator($creator);
                 $issue->setProject($project);
                 $issue->setTracker($tracker);
+                $issue->setSubject($data['subject']);
                 $issue->setDescription($data['description']);
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);

@@ -73,6 +73,24 @@ class IssueForm extends Form {
                 ),
             ),
         ));
+        
+       $this->add(array(
+            'name'       => 'subject',
+            'attributes' => array(
+                'id'          => 'inputSubject',
+                'class'       => 'form-control',
+                'placeholder' => 'Temat zadania',
+                'rows'        => '1',
+                'required'    => 'true'
+            ),
+            'options'    => array(
+                'label'            => 'Temat',
+                'label_attributes' => array(
+                    'for'   => 'inputSubject',
+                    'class' => 'col-sm-2 control-label'
+                ),
+            ),
+        ));
 
         $this->add(array(
             'name'       => 'issueTracker',
