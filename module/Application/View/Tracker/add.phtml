@@ -111,6 +111,17 @@
         float: left;
         margin-right: 10px;
     }
+     /*pola standardowe*/
+    .input-bg fieldset{
+        position: relative;
+    }
+    .input-bg fieldset legend{
+        position: absolute;
+        top: 9px;
+        left: 30px;
+        font-size: 14px;
+        border: 0px;
+    }
     /* workflow */
 </style>
     
@@ -176,7 +187,25 @@
                                    </div>                                            
                              </div>                                   
                           </div> 
-
+			
+			<div class='default-fields default-fields-pola'>
+                              <label>Pola standardowe</label>                              
+                                   <div class="input-bg">
+                                            <div class="col-sm-13">
+                                                <?php echo $this->formRow($form->get('Assigned')); ?>
+                                                <?php echo $this->formRow($form->get('Category')); ?>
+                                                <?php echo $this->formRow($form->get('FiedVersion')); ?>
+                                                <?php echo $this->formRow($form->get('ParentIssue')); ?>
+                                                <?php echo $this->formRow($form->get('StartDate')); ?>
+                                                <?php echo $this->formRow($form->get('DueDate')); ?>
+                                                <?php echo $this->formRow($form->get('EstimateHours')); ?>
+                                                <?php echo $this->formRow($form->get('DoneRadio')); ?>
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                   </div>                                            
+                             </div>                                   
+                          </div>	
+				
                       </div>
                   
                     <button type="submit" class="btn btn-success" ng-click="addstatus()"><i class="fa fa-plus-circle"></i> Stwórz typ zagadnienia</button>
