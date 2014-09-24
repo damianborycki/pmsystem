@@ -14,6 +14,8 @@ class FieldValue
 {
     /**
      * @var integer $id
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="`ID`", type="int", length=10, nullable=false)
      */
     protected $id;
