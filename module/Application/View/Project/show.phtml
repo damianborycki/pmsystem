@@ -10,8 +10,8 @@
                                 <label for="inputProject" class="control-label">Pokaż projekt&nbsp;</label>
                                 <select class="form-control" id="inputMainProjectList">
                                         <optgroup label="Projekty">
-                                        	<?php foreach ($this->projects as $project) { ?>
-                                                <option value="<?php echo $project->getId() ?>" <?php if($this->id == $project->getId()){ echo "selected"; } ?>><?php echo $project->getName() ?></option>
+                                        	<?php foreach ($this->projects as $pro) { ?>
+                                                <option value="<?php echo $pro->getId() ?>" <?php if($this->id == $pro->getId()){ echo "selected"; } ?>><?php echo $pro->getName() ?></option>
                                             <?php } ?>
                                         </optgroup>
                                 </select>
