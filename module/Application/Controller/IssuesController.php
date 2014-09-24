@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Model\Domain\Project;
+use Application\Model\Domain\Field;
+use Application\Model\Domain\FieldValue;
 use Application\Form\IssueForm;
 use Application\Form\IssueStatusChangeForm;
 
@@ -44,7 +46,17 @@ class IssuesController extends AbstractActionController {
         $projectId = $this->getEvent()->getRouteMatch()->getParam('project');
         $parentId = $this->getEvent()->getRouteMatch()->getParam('id');
       	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-		$form = new IssueForm ($dbAdapter, $projectId);
+      	$projectFields =  $this->getObjectManager()->getRepository('\Application\Model\Domain\ProjectFields')->findBy(array('projectId' => $projectId));
+    	$additionalFields = array();
+      	foreach ($projectFields as $projectField) {
+        	$fieldId = $projectField->getFieldId();
+        	$field = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findBy(array('id' => $fieldId));
+        	if (!empty($field)) {
+        		array_push($additionalFields, $field[0]);
+        	}
+        }
+        
+      	$form = new IssueForm ($dbAdapter, $projectId, $additionalFields);
         
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
@@ -74,16 +86,27 @@ class IssuesController extends AbstractActionController {
                 $issue->setCreationTime(new \DateTime());
 				$issue->setAssignedUsers(array($userAssigned));
 				
+            	
+        		
                 $this->getObjectManager()->persist($issue);
                 $this->getObjectManager()->flush();
 
                 $newId = $issue->getId();
-
+            	foreach ($additionalFields as $field) {
+        	 		$fieldValue = new FieldValue();
+        	 		$fieldValue->setContextId($newId);
+        	 		$fieldValue->setContext('0');
+        	 		$fieldValue->setFieldId($field->getId());
+        	 		$fieldValue->setValue($data[$field->getName()]);
+        	 		
+        	 		$this->getObjectManager()->persist($fieldValue);
+                	$this->getObjectManager()->flush();
+        		}
                 return $this->redirect()->toUrl('/issue/'.$newId);
             }
         }
 
-        $view = new ViewModel(array('form' => $form, 'projectId' => $projectId, 'parentId' => $parentId));
+        $view = new ViewModel(array('form' => $form, 'projectId' => $projectId, 'parentId' => $parentId, 'additionalFields' => $additionalFields));
         $view->setTemplate('Issues/Add');
 
         return $view;
@@ -99,10 +122,21 @@ class IssuesController extends AbstractActionController {
         	return $this->redirect()->toRoute('AddIssue');
         }
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
-
-        $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-
-        $form = new IssueForm ($dbAdapter, $issue->getProject()->getId());
+		
+        
+        $fieldsValue = $this->getObjectManager()->getRepository('\Application\Model\Domain\FieldValue')->findBy(array('contextId' => $id));
+       
+		$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+    	$projectFields =  $this->getObjectManager()->getRepository('\Application\Model\Domain\ProjectFields')->findBy(array('projectId' => $issue->getProject()->getId()));
+    	$additionalFields = array();
+      	foreach ($projectFields as $projectField) {
+        	$fieldId = $projectField->getFieldId();
+        	$field = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findBy(array('id' => $fieldId));
+        	if (!empty($field)) {
+        		array_push($additionalFields, $field[0]);
+        	}
+        }
+        $form = new IssueForm ($dbAdapter, $issue->getProject()->getId(), $additionalFields);
         
         if ($this->getRequest()->isPost()) {
             $form->setInputFilter($issue->getInputFilter());
@@ -125,7 +159,15 @@ class IssuesController extends AbstractActionController {
                 $this->getObjectManager()->merge($issue);
                 $this->getObjectManager()->flush();
                 $id = $issue->getId();
-
+	            foreach ($additionalFields as $field) {
+		        	$fieldValue = $this->getObjectManager()->getRepository('\Application\Model\Domain\FieldValue')->findOneBy(array('contextId' => $id, 'fieldId' => $field->getId()));
+	            	if (!empty($fieldValue)) {
+        	 			$fieldValue->setValue($data[$field->getName()]);
+	        	 		$this->getObjectManager()->merge($fieldValue);
+	                	$this->getObjectManager()->flush();
+        	 		}
+		        }
+            	
                 return $this->redirect()->toUrl('/issue/'.$id);
             }
         } 
@@ -135,7 +177,15 @@ class IssuesController extends AbstractActionController {
         $form->get('project')->setValue($issue->getProject()->getId());
         $form->get('issuePriority')->setValue($issue->getIssuePriority()->getCode());
         
-        $view   = new ViewModel(array('issue' => $issue, 'form' => $form));
+        foreach ($additionalFields as $field) {
+        	 $fieldValue = $this->getObjectManager()->getRepository('\Application\Model\Domain\FieldValue')->findOneBy(array('contextId' => $id, 'fieldId' => $field->getId()));
+        	 
+        	 if (!empty($fieldValue)) {
+        	 	$form->get($field->getName())->setValue($fieldValue->getValue());	
+        	 }
+        }
+        
+        $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'additionalFields' => $additionalFields));
         $view->setTemplate('Issues/Edit');
 
         return $view;

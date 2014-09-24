@@ -14,13 +14,15 @@ class FieldValue
 {
     /**
      * @var integer $id
-     * @ORM\Column(name="`ID`", type="int", length=10, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="`ID`", type="integer", length=10, nullable=false)
      */
     protected $id;
 
     /**
      * @var integer $fieldId
-     * @ORM\Column(name="`FIELDID`", type="int", length=10, nullable=false)
+     * @ORM\Column(name="`FIELDID`", type="integer", length=10, nullable=false)
      */
     protected $fieldId;
 
@@ -38,7 +40,7 @@ class FieldValue
 
     /**
      * @var integer $contextId
-     * @ORM\Column(name="`CONTEXTID`", type="int", length=10, nullable=false)
+     * @ORM\Column(name="`CONTEXTID`", type="integer", length=10, nullable=false)
      */
     protected $contextId;
 
@@ -65,7 +67,7 @@ class FieldValue
     }
 
     public function setContext ($context) {
-        $this->contextId = $context;
+        $this->context = $context;
         return $this;
     }
 

@@ -7,7 +7,7 @@ use Zend\Form\Form;
 
 class IssueForm extends Form {
 	protected $adapter;
-    public function __construct(AdapterInterface $dbAdapter, $projectId) {
+    public function __construct(AdapterInterface $dbAdapter, $projectId, $additionalFields = array()) {
     	$this->adapter =$dbAdapter;
         parent::__construct('issue');
 
@@ -142,8 +142,24 @@ class IssueForm extends Form {
                 'value_options'    => $this->getIssueAssignedForSelect(),
             ),
         ));
-
-
+		
+      
+        foreach ($additionalFields as $field) {
+        	$this->add(array(
+	            'name'       => $field->getName(),
+	            'attributes' => array(
+	                'class'       => 'form-control',
+	                'placeholder' => $field->getName(),
+	            ),
+	            'options'    => array(
+	                'label'            => $field->getName(),
+	                'label_attributes' => array(
+	                    'class' => 'col-sm-2 control-label'
+	                ),
+	            ),
+	        ));
+        }
+        
         $this->add(array(
             'name'       => 'submit',
             'attributes' => array(
