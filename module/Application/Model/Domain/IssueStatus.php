@@ -223,7 +223,41 @@ class IssueStatus implements InputFilterAwareInterface
                     'required' => false
                 ))
             );
-
+        
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsActive',
+                    'required' => false
+                ))
+            );  
+        
+            $inputFilter->add(
+                  $factory->createInput(array(
+                      'name' => 'description',
+                      'required' => false,
+                      'filters'  => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim'),
+                    ),
+                      'validators' => array(
+                        array(
+                            'name'    => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min'      => 2,
+                                'max'      => 200,
+                            ),
+                        ),
+                    ),
+                  ))
+           );
+          
+          $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'position',
+                    'required' => false
+                ))
+            );  
 
             $this->inputFilter = $inputFilter;
         }
