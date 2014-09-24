@@ -39,6 +39,29 @@ class CustomDictController extends AbstractActionController
      	return $view;
     }
 
+    public function showAction() { 
+        $objectManager = $this->getObjectManager();
+
+        $id = (int) $this->params('id', null);
+        if (null === $id) {
+            return $this->redirect()->toRoute('CustomDict');
+        } 
+        
+        $issue = $objectManager->find('Application\Model\Domain\CustomDictionary', $id);
+
+        if($issue->getIsDefault()){                            
+                $issue->setIsDefault('<i class="fa fa-check"></i>');
+            }
+                          
+        if($issue->getIsActive()){                           
+                $issue->setIsActive('<i class="fa fa-check"></i>');
+        }      
+                 
+        $view = new ViewModel(array('issue'=> $issue));
+        $view->setTemplate('CustomDict/show');
+        return $view;
+    }
+
     public function deleteAction() {
      	$objectManager = $this->getObjectManager();
     

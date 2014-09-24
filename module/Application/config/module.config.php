@@ -637,6 +637,22 @@ return array(
                             )
                     ),
             ), 		
+            /**
+             * SCIEZKA DO wyswietlania pelnego slownika uzytkownika
+             */
+            'ShowDict' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                            'route' => '[:project]/customdict/show/[:id]',
+                            'constraints' => array(
+                                    'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                    'controller' => 'Application\Controller\CustomDict',
+                                    'action' => 'show'
+                            )
+                    ),
+            ),
 			/**
              * SCIEZKA DO PRZEJSC STANOW
              */
