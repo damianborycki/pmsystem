@@ -421,6 +421,109 @@ return array(
                 ),
             ),
 	
+	    /**
+             * SCIEZKA DO PRZEMIESZCZANIA W DÓŁ KATEGORII DOKUMENTÓW
+             */
+            'DownIssueCategory' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecategory/down/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'downcategory'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO PRZEMIESZCZANIA W GÓRĘ KATEGORII DOKUMENTÓW
+             */
+            'UpIssueCategory' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuecategory/up/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                       'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'upcategory'
+                    )
+                ),
+            ),   
+            
+            
+             /**
+             * SCIEZKA DO PRZEMIESZCZANIA W DÓŁ PRIORYTETÓW ZAGADNIEŃ
+             */
+            'DownIssuePriority' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuepriority/down/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'downpriority'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO PRZEMIESZCZANIA W GÓRĘ PRIORYTETÓW ZAGADNIEŃ
+             */
+            'UpIssuePriority' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issuepriority/up/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'uppriority'
+                    )
+                ),
+            ),
+            
+            
+             /**
+             * SCIEZKA DO PRZEMIESZCZANIA W DÓŁ DZIAŁAŃ
+             */
+            'DownIssueActivity' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issueactivity/down/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                      'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'downactivity'
+                    )
+                ),
+            ),
+            
+            /**
+             * SCIEZKA DO PRZEMIESZCZANIA W GÓRĘ DZIAŁAŃ
+             */
+            'UpIssueActivity' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '[:project]/issueactivity/up/[:id]',
+                    'constraints' => array(
+                        'project' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enumeration',
+                        'action' => 'upactivity'
+                    )
+                ),
+            ),
 	
 	
 	/**
