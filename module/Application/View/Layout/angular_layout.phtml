@@ -31,7 +31,6 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
         ->setStylesheet($this->basePath() . '/css/ie9.css', 'screen', 'IE 9') ?>
     <! -->      
 </head>
-
 <body>
 
 <!-- HEADER -->
@@ -46,8 +45,10 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                 </button>
                 <a class="navbar-brand brand" href="/">PMS</a>
                 <p class="navbar-text actual-project-cont">
+                    <?php if($this->layout()->Cookie){ ?>
                     <span class="navbar-brand-separator">/</span> 
-                    <a href="<?php echo $this->url('ShowProject',array('project' => 1)) ?>" class="navbar-actual-project">Testowy Projekt nr 1</a>
+                    <a href="<?php echo $this->url('ShowProject',array('project' =>  $this->layout()->Cookie)) ?>" class="navbar-actual-project">Aktualny Projekt</a>
+                    <?php } ?>
                 </p>
             </div>
             <div class="navbar-collapse collapse">
@@ -55,8 +56,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projekty <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-header">Aktualny projekt</li>
-                            <li><a href="<?php echo $this->url('ShowProject',array('project' => 1)) ?>">Testowy Projekt nr 1</a></li>
+                            <li><a href="<?php echo $this->url('ShowProject',array('project' => $this->layout()->Cookie)) ?>">Aktualny projekt</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Ostatnie projekty</li>
                             <li><a href="#">Most recent one</a></li>
@@ -69,8 +69,8 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zadania <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Aktualny projekt</li>
-                            <li><a href="<?php echo $this->url('IssueList',array('project' => 1)) ?>">Lista zadań</a></li>
-                            <li><a href="<?php echo $this->url('AddIssue',array('project' => 1)) ?>">Dodaj zadanie</a></li>
+                            <li><a href="<?php echo $this->url('IssueList',array('project' =>  $this->layout()->Cookie)) ?>">Lista zadań</a></li>
+                            <li><a href="<?php echo $this->url('AddIssue',array('project' =>  $this->layout()->Cookie)) ?>">Dodaj zadanie</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Filtry</li>
                             <li><a href="#">Zadania przypisane do mnie</a></li>
@@ -88,7 +88,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                             <li class="divider"></li>
                             <li><a href="<?php echo $this->url('FieldsList') ?>">Pola Formularza</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo $this->url('Tracker') ?>">Typy Zagadnień</a></li>
+                            <li><a href="?page=TypesOfIssues">Typy Zagadnień</a></li>
                             <li><a href="<?php echo $this->url('IssueStatus') ?>">Statusy zagadnień</a></li>
                             <li><a href="<?php echo $this->url('IssueCategory') ?>">Wyliczenia</a></li>
                             <li class="divider"></li>
@@ -100,7 +100,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                     </li>
                 </ul>
                 <div class="navbar-form navbar-left">
-                    <A href="<?php echo $this->url('AddIssue',array('project' => 1)) ?>"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
+                    <A href="<?php echo $this->url('AddIssue',array('project' =>  $this->layout()->Cookie)) ?>"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
                 </div>
                 <form class="navbar-form navbar-right" role="form">
                     <div class="form-group">

@@ -50,6 +50,7 @@ class IssuesController extends AbstractActionController {
 
     public function listAction(){
     	$id = $this->getEvent()->getRouteMatch()->getParam('project');
+        setcookie('ProjectId', $id, time()+(60*60*24*30), '/', '.pms.localhost');
     	
         $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('project' => $id));
 

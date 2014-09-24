@@ -7,9 +7,13 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 use Application\Library\View\Http\InjectTemplateListener;
+use Zend\Http\Request;
+use Application\Model\Domain\Project;
+use Zend\ServiceManager\AbstractPluginManager;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface, ViewHelperProviderInterface
 {
+    protected $_objectManager;
 
     public function getAutoloaderConfig()
     {
@@ -43,6 +47,15 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         $eventManager = $serviceManager->get('Application')->getEventManager();
         $sharedEvents = $eventManager->getSharedManager();
         
+        /*Wstrzykniecie cookie do layout*/
+        if($_COOKIE){
+            $cookie = $_COOKIE['ProjectId'];
+        }else{
+            $cookie = NULL;
+        }
+
+        $e->getViewModel()->setVariable('Cookie', $cookie);
+
         $injectTemplateListener = new InjectTemplateListener();
         $sharedEvents->attach('Application', MvcEvent::EVENT_DISPATCH, array($injectTemplateListener, 'injectTemplate'), -81);
 
@@ -50,6 +63,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         $viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
         $config = $serviceManager->get('Configuration');
         $viewModel->config = $config['layout'];
+
 
     }
 
@@ -67,5 +81,4 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         return array(
         );
     }
-
 }

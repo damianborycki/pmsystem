@@ -32,18 +32,9 @@
                             <button type="button" class="btn btn-default navbar-btn">Edycja</button>
                         </a>
                         <button type="button" class="btn btn-default navbar-btn">Przydziel osobę</button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Więcej <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="<?php echo $this->url('AddChildIssue',array('project' => $issue->getProject()->getId(), 'id' => $issue->getId())) ?>">Utwórz podzadanie</a></li>
-                                <li><a href="#">Zmień w podzadanie</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Przenieś</a></li>
-                                <li><a href="#">Skopiuj do innego projektu</a></li>
-                            </ul>
-                        </div>
+                        <a href="<?php echo $this->url('AddChildIssue',array('project' => $issue->getProject()->getId(), 'id' => $issue->getId())) ?>">
+                            <button type="button" class="btn btn-default navbar-btn">Utwórz podzadanie</button>
+                        </a>
                     </div>
                 </div>
             </nav>
