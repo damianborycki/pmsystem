@@ -6,12 +6,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Model\Domain\Project;
-<<<<<<< HEAD
 use Application\Model\Domain\Field;
 use Application\Model\Domain\FieldValue;
-=======
 use Application\Model\Domain\Tracker;
->>>>>>> FETCH_HEAD
 use Application\Form\IssueForm;
 use Application\Form\IssueStatusChangeForm;
 
