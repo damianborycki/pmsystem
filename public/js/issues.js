@@ -7,3 +7,7 @@ $('.table-clickable.issues-list-table tr').click(function (event) {
 $("#inputProjectList").change(function() {
 	window.location = "/"+$("#inputProjectList option:selected").val()+"/issues";
 });
+
+$("#inputProject").change(function() {
+	window.location = "/"+$("#inputProject option:selected").val()+"/issues/add";
+});

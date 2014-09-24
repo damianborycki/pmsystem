@@ -39,7 +39,7 @@ class FieldsController extends AbstractActionController {
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $form = new FieldForm ($dbAdapter);
 
-        $projectsRes = [];
+        $projectsRes = array();
         $projectSql = "SELECT id, name FROM PROJECT";
         $projects = $this->getObjectManager()->getConnection()->query($projectSql)->fetchAll();
 
