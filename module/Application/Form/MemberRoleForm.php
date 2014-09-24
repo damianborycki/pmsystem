@@ -166,7 +166,7 @@ class MemberRoleForm extends Form {
 
     public function getPermissionsForSelect() {
         $dbAdapter = $this->adapter;
-        $sql = 'SELECT ID, NAME FROM PERMISSIONS ORDER BY ID ASC';
+        $sql = 'SELECT ID, NAME FROM PERMISSION ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result = $statement->execute();
 
