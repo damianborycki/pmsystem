@@ -75,9 +75,12 @@ class Tracker
     protected $id;
 
 
+    protected $inputFilter;
+    
     public function __construct()
     {
-        $this->fields = new ArrayCollection();
+        $this->estimatedActivitys = new ArrayCollection();
+        $this->assignedUsers = new ArrayCollection();
     }
 
     public function getCode()
@@ -197,5 +200,87 @@ class Tracker
     {
         return (string)($this->getName());
     }
+    
+     public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
+
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory     = new InputFactory();
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'name',
+                    'required' => true,
+                    'options' => array(
+                        'rncoding' => 'UTF-8',
+                        'min' => 2,
+                        'max' => 140,
+                    )
+                ))
+            );
+            
+          $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsClosed',
+                    'required' => false
+                ))
+            );
+          
+          $inputFilter->add(
+                  $factory->createInput(array(
+                      'name' => 'description',
+                      'required' => false,
+                      'filters'  => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim'),
+                    ),
+                      'validators' => array(
+                        array(
+                            'name'    => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min'      => 2,
+                                'max'      => 200,
+                            ),
+                        ),
+                    ),
+                  ))
+           );
+          
+          $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'position',
+                    'required' => false
+                ))
+            );   
+          
+              $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsDefault',
+                    'required' => false
+                ))
+            );
+              
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'IsActive',
+                    'required' => false
+                ))
+            );  
+              
+           
+
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
+    }
+
 
 }
