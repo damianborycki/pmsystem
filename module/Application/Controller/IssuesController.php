@@ -21,8 +21,13 @@ class IssuesController extends AbstractActionController {
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
 
 		$fieldsValue = $this->getObjectManager()->getRepository('\Application\Model\Domain\FieldValue')->findBy(array('contextId' => $id));
-
-
+		$additionalFields = array();
+		foreach ($fieldsValue as $field) {
+        	$fieldId = $field->getFieldId();
+        	$tmpField = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findOneBy(array('id' => $fieldId));
+        	
+        	array_push($additionalFields, array('name' => $tmpField->getName(), 'value' => $field->getValue()));
+		}
         if($parentId = $issue->getParent()){
             $parent = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($parentId);
         }else{
@@ -36,7 +41,7 @@ class IssuesController extends AbstractActionController {
         
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'additionalFields' => $fieldsValue));
 
-        $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'parent' => $parent, 'additionalFields' => $fieldsValue));
+        $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'parent' => $parent, 'additionalFields' => $additionalFields));
 
         $view->setTemplate('Issues/Show');
 
