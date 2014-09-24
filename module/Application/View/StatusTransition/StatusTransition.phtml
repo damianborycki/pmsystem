@@ -16,13 +16,16 @@
 			//alert(trID);
 			var mrID = document.getElementById("memberRole").value;
 			//alert(mrID);
-			var divContent = document.getElementById("trzymacz").innerText;
-			var transitiony = divContent.split("\n");
+			var divContent = document.getElementById("trzymacz").innerHTML;
+			//alert(divContent);
+			var transitiony = divContent.split("<br>");
+			//alert("tu jestem");
 			//alert(transitiony.length);
 			for (index = 0; index < transitiony.length; ++index) {
 				var temp = transitiony[index].split(",");
 				if(temp[0] == trID){
 					if(temp[1] == mrID){
+						//alert("dzien dobry");
 						document.getElementById(temp[2]).checked = true;
 					}
 				}
@@ -85,27 +88,31 @@
       		</div>
 			<?php 
 			if(isset($_POST['tracker'])){
-				$czyOk = $controler->addNewStatusTransition($_POST);	
-				//echo $czyOk;
+				$czyOk = $controler->addNewStatusTransition($_POST);
 				if($czyOk == "OK") {
-			?>
-						<script>
-							var trID = document.getElementById("tracker").selectedIndex ;
-							var mrID = document.getElementById("memberRole").selectedIndex ;
+				$_POST['tracker'] = '';
+				echo "<script>
+							var trID = document.getElementById('tracker').selectedIndex ;
+							var mrID = document.getElementById('memberRole').selectedIndex ;
 							localStorage.setItem('track', trID);
-							localStorage.setItem('role', mrID);
-							location.reload();
-						</script>;
-			<?php
+							localStorage.setItem('role', mrID);";
+							if (strstr($_SERVER['HTTP_USER_AGENT'], "Firefox")){
+								echo " window.location.href = window.location.href; ";
+							}
+							else {
+								echo " location.reload(); ";
+							}
+							//
+							
+						echo "</script>;";
 				}
 			}?>
 			<script>
-			//alert(localStorage.getItem('track'));
 			if(localStorage.getItem('track') != ''){
 				document.getElementById("memberRole").selectedIndex = localStorage.getItem('role');
 				document.getElementById("tracker").selectedIndex = localStorage.getItem('track');
-				localStorage.setItem('track', '');
-				localStorage.setItem('role', '');
+				//localStorage.setItem('track', '');
+				//localStorage.setItem('role', '');
 			}		
 			</script>
 			

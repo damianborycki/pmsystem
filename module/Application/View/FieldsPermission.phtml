@@ -16,22 +16,22 @@
                         <div class="form-group">
                                 <label for="inputProject" class="control-label">Rola:&nbsp;</label>
                                 <select class="form-control" id="inputProject">
-                                   <option>Manger</option>
-                                   <option>Developer</option>
-				   <option>Reporter</option>
-				   <option>Non member</option>
-				   <option>Anonymous</option>
+                                   <?php
+										foreach($roleList as $role){
+											echo "<option value=" . $role->getId() . ">" . $role->getName() . "</option>";
+										}
+									?>
                                 </select>
                         </div>
 
                         <div class="form-group">
                                 <label for="inputProject" class="control-label">&nbsp;Typ zagadnienia:&nbsp;</label>
                                 <select class="form-control" id="inputProject">
-                                   <option>Bug</option>
-                                   <option>Extension</option>
-				   <option>Support</option>
-				   <option>Technical writing</option>
-				   <option>Meeting</option>
+									<?php
+										foreach($trackerList as $track){
+											echo "<option value=" . $track->getId() . ">" . $track->getName() . "</option>";
+										}
+									?>
                                 </select>
                         </div>
 
@@ -41,9 +41,6 @@
 			</div>
                 </form>
       		</div>
-
-
-                                  
         </ol>  
 		<div class="container">
 			<div class="center-block table-responsive table-background-white" >
@@ -52,168 +49,37 @@
 				    <table class="table table-striped">
                         
 			
-			<thead>
+						<thead>
                             <tr class="breadcrumb">
-                                <th>Rodzaj pola</th>
-                                <th></th>
-                                <th></th>
-                                <th>Status zagadnienia</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+							<th></th>
+                                <?php
+									foreach($issuelist as $issue){
+										echo "<th>" . $issue->getName() . "</th>";
+									}
+								?>
+								
                             </tr>
-
-			    <tr>
-				<th></th>			
-                                <th ng-repeat="status in statuses">
- 				  <span editable-text="status.name" e-name="name" e-form="rowform"  onbeforesave="checkName($data, status.id)" e-required >
-                                  </span>
-				</th>
-                            </tr>
+							<?php
+								foreach($fplist as $fp){
+									echo "<tr>
+									<th class='breadcrumb'>" . $fp->getField()->getName() . "</th>";			
+									foreach($issuelist as $issueStatus){
+										echo "<th>";
+										echo "<select>";
+										foreach($fieldPermission as $field){
+											echo "<option value=" . $field->getId() . ">" . $field->getName() . "</option>";
+										}
+										echo "</select>";
+										echo "</th>"; //" . $issueStatus->getName() . " value: lewe-prawe
+									}
+									echo "</tr>";
+								}
+							?>
+			    
                         </thead>
 
-
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Projekt
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Typ zagadnienia
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Opis
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Priorytet
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Kategoria
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Przypisany do
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Wersja docelowa
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Zagadnienie nadrzędne
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Data rozpoczęcia
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Data dodania
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>
-                                <tr><td>
-                                    Szacowany czas
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td></tr>	
-                                <tr><td>
-                                    Stopień wykonania
-                                </td>
-                                <td ng-repeat="status in statuses">
-                               		<select class="form-control" id="inputProject">
-                                   	<option></option>
-                                   	<option>Read-only</option>
-                                   	<option>Required</option>
-                                   	<option>Hidden</option>
-                               		</select>
-                                </td>			
-                            </tr>
-                        </tbody>
-
-
-
                     </table>
-                    <button class="btn btn-success">Zapisz</button>
+					<a href="<?php echo $this->url('addStatusTransiton') ?>"><button class="btn btn-success">Zapisz</button></a>
                     </div>
 			     </div>
 			</div>
