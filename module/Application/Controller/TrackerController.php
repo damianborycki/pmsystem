@@ -81,7 +81,15 @@ class TrackerController extends AbstractActionController{
                 $data = $form->getData();          
    
                 $issue->setName($data['name']);
-                $issue->setDescription($data['description']);              
+                $issue->setDescription($data['description']); 
+                $issue->setAssigned($data['Assigned'][0]); 
+                $issue->setCategory($data['Category'][0]); 
+                $issue->setParentIssue($data['ParentIssue'][0]); 
+                $issue->setStartDate($data['StartDate'][0]); 
+                $issue->setDueDate($data['DueDate'][0]); 
+                $issue->setEstimateHours($data['EstimateHours'][0]); 
+                $issue->setDoneRadio($data['DoneRadio'][0]); 
+                $issue->setFiedVersion($data['FiedVersion'][0]); 
                 if (isset($data['IsActive'])) 
                     { 
                      $issue->setIsActive($data['IsActive'][0]);                                                        
@@ -106,15 +114,6 @@ class TrackerController extends AbstractActionController{
                 echo $count;     
                     
                 $issue->setPosition($count+1);
-                
-                if((isset($data['IsClosed'])) and (isset($data['IsActive']))){
-                   
-                    $ex = 'visible';
-                    
-                    $view = new ViewModel(array('form' => $form, 'ex' => $ex));
-                    $view->setTemplate('Tracker/add');
-                    return $view;
-                }
                     
                 $this->getObjectManager()->persist($issue);                             
                 $this->getObjectManager()->flush();  
@@ -123,10 +122,9 @@ class TrackerController extends AbstractActionController{
  
             }
       }
+    
       
-      $ex = 'hidden';
-      
-      $view = new ViewModel(array('form' => $form, 'ex' => $ex));
+      $view = new ViewModel(array('form' => $form));
       $view->setTemplate('Tracker/add');
       return $view;
     }
@@ -178,7 +176,14 @@ class TrackerController extends AbstractActionController{
                 print_r($data);
                 
                 $issue->setName($data['name']);
-                    
+                $issue->setAssigned($data['Assigned'][0]); 
+                $issue->setCategory($data['Category'][0]); 
+                $issue->setParentIssue($data['ParentIssue'][0]); 
+                $issue->setStartDate($data['StartDate'][0]); 
+                $issue->setDueDate($data['DueDate'][0]); 
+                $issue->setEstimateHours($data['EstimateHours'][0]); 
+                $issue->setDoneRadio($data['DoneRadio'][0]); 
+                $issue->setFiedVersion($data['FiedVersion'][0]);     
                   if (isset($data['IsActive'])) 
                     { 
                         $issue->setIsActive($data['IsActive'][0]);
@@ -198,15 +203,7 @@ class TrackerController extends AbstractActionController{
                      $issue->setIsDefault($data['IsDefault'][0]);
        
                     }
-                    
-                     if((isset($data['IsClosed'])) and (isset($data['IsActive']))){
-                   
-                    $ex = 'visible';
-                    
-                    $view = new ViewModel(array('issueedit' => $issueedit,'form2' => $form, 'ex' => $ex));
-                    $view->setTemplate('Tracker/edit');
-                    return $view;
-                }
+
                                        
                 $issue->setId($id);
                 $issue->setDescription($data['description']);
@@ -220,10 +217,8 @@ class TrackerController extends AbstractActionController{
                 return $this->redirect()->toRoute('Tracker');
             }
       }
-     
-      $ex = 'hidden';
-      
-      $view = new ViewModel(array('issueedit' => $issueedit, 'form2' => $form, 'ex'=>$ex));
+
+      $view = new ViewModel(array('issueedit' => $issueedit, 'form2' => $form));
       $view->setTemplate('Tracker/edit');   
       return $view;
     }
