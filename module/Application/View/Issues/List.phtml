@@ -46,8 +46,9 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                                            <?php foreach ($this->issues as $issue) { ?>
-                                <tr id="<?php echo $issue->getID() ?>">
+                                <?php foreach ($this->issues as $issue) { 
+                                    if(!$issue->getParent()){?>
+                                <tr id="<?php echo $issue->getID() ?>" style="background:#F8F8F8;">
                                     <td><span class="label label-default <?php echo "label-".$issue->getTracker() ?>">
                                         <?php echo $issue->getTracker() ?>
                                         </span>
@@ -68,6 +69,31 @@
                                     <td><?php if($issue->getCloseTime()){echo date_format($issue->getCloseTime(), 'Y-m-d H:i:s');}else{echo "Otwarte";} ?></td>
                                     <td>#<?php echo $issue->getID() ?></td>
                                 </tr>
+                                <?php } foreach ($this->issues as $issueChild) {
+                                    if($issueChild->getParent()){
+                                        if($issue->getId() == $issueChild->getParent()->getId()){ ?>
+                                            <tr id="<?php echo $issueChild->getID() ?>">
+                                        <td><span class="label label-default <?php echo "label-".$issueChild->getTracker() ?>">
+                                            <?php echo $issueChild->getTracker() ?>
+                                            </span>
+                                        </td>
+                                        <td><?php echo $issueChild->getIssuePriority() ?></td>
+                                        <td><?php echo $issueChild->getIssueStatus() ?></td>
+                                        <td><b><?php echo $issueChild->getSubject()?></b></td>
+                                        <td><?php foreach ($issueChild->getAssignedUsers() as $user){
+                                                        $userName = $user->getFirstName()  . ' ' .  $user->getLastName() . '<br>';
+                                                        if(!empty($user)){
+                                                            echo $userName;
+                                                        }else{
+                                                            echo "brak";
+                                                        }
+                                                  }?></td>
+                                        <td><?php echo $issueChild->getCreator()->getFirstName() . ' ' .  $issueChild->getCreator()->getLastName() ?></td>
+                                        <td><?php echo date_format($issueChild->getCreationTime(), 'Y-m-d H:i:s') ?></td>
+                                        <td><?php if($issueChild->getCloseTime()){echo date_format($issueChild->getCloseTime(), 'Y-m-d H:i:s');}else{echo "Otwarte";} ?></td>
+                                        <td>#<?php echo $issueChild->getID() ?></td>
+                                    </tr>
+                                <?php } } } ?>
                                 <?php } ?>
                         </tbody>
                 </table>
