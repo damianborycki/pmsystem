@@ -75,10 +75,10 @@ class IssueForm extends Form {
         ));
 
         $this->add(array(
-            'name'       => 'subject',
+            'name'       => 'issueTracker',
             'type'       => 'Zend\Form\Element\Select',
             'attributes' => array(
-                'id'       => 'inputSubject',
+                'id'       => 'inputTracker',
                 'type'     => 'select',
                 'class'    => 'form-control',
                 'required' => 'true'
@@ -86,20 +86,11 @@ class IssueForm extends Form {
             'options'    => array(
                 'label'            => 'Typ Zadania',
                 'label_attributes' => array(
-                    'for'   => 'inputSubject',
+                    'for'   => 'inputTracker',
                     'class' => 'col-sm-2 control-label'
                 ),
                 'empty_option' => 'Wybierz typ zadania',
-                'value_options'    => array(
-                    'Task'          => 'Zadanie',
-                    'External' => 'Zewnętrzne zadanie',
-                    'Bug'           => 'Bug',
-                    'Requirement'   => 'Wymaganie',
-                    'Request'       => 'Żądanie',
-                    'Fix'           => 'Poprawka',
-                    'Event'         => 'Wydarzenie',
-                    'Client'        => 'Klient'
-                )
+                'value_options'    => $this->getTrackerForSelect(),
             ),
         ));
 
@@ -172,6 +163,21 @@ class IssueForm extends Form {
     {
         $dbAdapter = $this->adapter;
         $sql       = 'SELECT ID, NAME FROM ISSUEPRIORITY ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
+    }
+
+    public function getTrackerForSelect()
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME FROM TRACKER ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result    = $statement->execute();
 

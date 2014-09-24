@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Issue;
 use Application\Model\Domain\Project;
+use Application\Model\Domain\Tracker;
 use Application\Form\IssueForm;
 use Application\Form\IssueStatusChangeForm;
 
@@ -58,6 +59,7 @@ class IssuesController extends AbstractActionController {
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
                 $userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
+                $tracker = $this->getObjectManager()->find('\Application\Model\Domain\Tracker', $data['issueTracker']);
 				
                 if (!empty($parentId)) {
                 	$parent = $this->getObjectManager()->find('\Application\Model\Domain\Issue', $parentId);
@@ -67,7 +69,7 @@ class IssuesController extends AbstractActionController {
                 }
                 $issue->setCreator($creator);
                 $issue->setProject($project);
-                $issue->setSubject($data['subject']);
+                $issue->setTracker($tracker);
                 $issue->setDescription($data['description']);
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);

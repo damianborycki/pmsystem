@@ -313,13 +313,6 @@ class Issue implements InputFilterAwareInterface
 
             $inputFilter->add(
                 $factory->createInput(array(
-                    'name'     => 'subject',
-                    'required' => true
-                ))
-            );
-
-            $inputFilter->add(
-                $factory->createInput(array(
                     'name'     => 'description',
                     'required' => true,
                     'filters'  => array(
@@ -342,6 +335,13 @@ class Issue implements InputFilterAwareInterface
             $inputFilter->add(
                 $factory->createInput(array(
                     'name'     => 'issuePriority',
+                    'required' => true
+                ))
+            );
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'issueTracker',
                     'required' => true
                 ))
             );
