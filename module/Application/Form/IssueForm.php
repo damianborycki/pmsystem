@@ -165,6 +165,7 @@ class IssueForm extends Form {
 	                'label_attributes' => array(
 	                    'class' => 'col-sm-2 control-label'
 	                ),
+	                'value' => $field->getDefaultValue()
 	            ),
 	        ));
         }
