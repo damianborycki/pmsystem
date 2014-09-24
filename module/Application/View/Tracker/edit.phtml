@@ -97,6 +97,16 @@
         float: left;
         margin-right: 10px;
     }
+    .input-bg fieldset{
+        position: relative;
+    }
+    .input-bg fieldset legend{
+        position: absolute;
+        top: 9px;
+        left: 30px;
+        font-size: 14px;
+        border: 0px;
+    }
     /* workflow */
 </style>
     
@@ -164,6 +174,24 @@
                              </div>                                   
                           </div> 
                         
+                      <div class='default-fields default-fields-pola'>
+                              <label>Pola standardowe</label>                              
+                                   <div class="input-bg">
+                                            <div class="col-sm-13">
+                                                <?php echo $this->formRow($form->get('Assigned')->setChecked($issueedit->getAssigned())); ?>
+                                                <?php echo $this->formRow($form->get('Category')->setChecked($issueedit->getCategory())); ?>
+                                                <?php echo $this->formRow($form->get('FiedVersion')->setChecked($issueedit->getFiedVersion())); ?>
+                                                <?php echo $this->formRow($form->get('ParentIssue')->setChecked($issueedit->getParentIssue())); ?>
+                                                <?php echo $this->formRow($form->get('StartDate')->setChecked($issueedit->getStartDate())); ?>
+                                                <?php echo $this->formRow($form->get('DueDate')->setChecked($issueedit->getDueDate())); ?>
+                                                <?php echo $this->formRow($form->get('EstimateHours')->setChecked($issueedit->getEstimateHours())); ?>
+                                                <?php echo $this->formRow($form->get('DoneRadio')->setChecked($issueedit->getDoneRadio())); ?>   
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                   </div>                                            
+                             </div>                                   
+                          </div>
+                        
                       </div>
                          <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Zaktualizuj typ zagadnienia</button>
                     
@@ -178,7 +206,6 @@
 		</div>
             
 	</div>
-
 
 
     
