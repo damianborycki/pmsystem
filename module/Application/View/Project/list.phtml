@@ -16,9 +16,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <?php foreach ($this->projects as $project) { 
-                                 	var_dump($project);								 
-								}?>
+                                <?php foreach ($this->projects as $project): ?>
+                                 	<tr>
+                                 		<td><?php echo $project->getName() ?></td>                                 		
+                                 	</tr>								 
+								<?php endforeach; ?>
                         </tbody>
                 </table>
             </div>

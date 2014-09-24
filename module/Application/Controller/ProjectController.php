@@ -36,6 +36,7 @@ class ProjectController extends AbstractActionController {
     }
     
     public function addAction() {
+    	
       	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
     	$additionalFields = array();
       	        
