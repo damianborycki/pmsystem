@@ -65,7 +65,7 @@
 			</table></div>
 
 			<div id="taski" class="tab-pane">
-											<table class="table table-hover">
+											<table class="table table-hover table-clickable issues-list-table">
                         <thead>
                                 <tr>
                                         <th>Typ</th>
@@ -76,8 +76,8 @@
                         </thead>
                         <tbody>
                         <?php $i=0;
-                        foreach ($this->issues as $issue) { ?>
-                                <tr  class="table-clickable">
+                        foreach ($project->getIssues() as $issue) { ?>
+                                <tr id="<?php echo $issue->getID() ?>">
 									<td><span class="label label-default <?php echo "label-".$issue->getSubject() ?>"><?php echo $issue->getSubject() ?></span></td>	
 									<td>#<?php echo $issue->getID() ?></td>
 									<td><b><?php echo (strlen($issue->getDescription()) > 28) ? substr($issue->getDescription(),0,25).'...' : $issue->getDescription();?></b></td>
