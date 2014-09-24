@@ -14,10 +14,10 @@ class ProjectController extends AbstractActionController {
         $id = $this->getEvent()->getRouteMatch()->getParam('project');
 
         setcookie('ProjectId', $id, time()+(60*60*24*30), '/', '.pms.localhost');
-
+		$projects  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
 		$project = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->find($id);
 		
-        $view   = new ViewModel(array('project' => $project));
+        $view   = new ViewModel(array('project' => $project, 'projects' => $projects, 'id' => $id));
         $view->setTemplate('Project/Show');
 
         return $view;
