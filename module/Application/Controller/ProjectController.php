@@ -15,7 +15,7 @@ class ProjectController extends AbstractActionController {
     public function showAction(){
         $id = $this->getEvent()->getRouteMatch()->getParam('project');
 
-        setcookie('ProjectId', $id, time()+(60*60*24*30), '/', '.pms.localhost');
+        //setcookie('ProjectId', $id, time()+(60*60*24*30), '/', '.pms.localhost');
 		$projects  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
 		$project = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->find($id);
 		

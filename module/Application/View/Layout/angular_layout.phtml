@@ -32,7 +32,9 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
     <! -->      
 </head>
 <body>
-
+    <?php
+echo $this->currentProject();
+?>
 <!-- HEADER -->
     <div class="navbar navbar-inverse navbar-static-top navbar-fixed-top" role="navigation">
         <div class="container">
@@ -45,18 +47,19 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                 </button>
                 <a class="navbar-brand brand" href="/">PMS</a>
                 <p class="navbar-text actual-project-cont">
-                    <?php if($this->layout()->Cookie){ ?>
+                    <?php if($this->currentProject()){ ?>
                     <span class="navbar-brand-separator">/</span> 
-                    <a href="<?php echo $this->url('ShowProject',array('project' =>  $this->layout()->Cookie)) ?>" class="navbar-actual-project">Aktualny Projekt</a>
+                    <a href="<?php echo $this->url('ShowProject',array('project' =>  $this->currentProject())) ?>" class="navbar-actual-project">Aktualny Projekt</a>
                     <?php } ?>
                 </p>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+<?php if($this->currentProject()){ ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projekty <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo $this->url('ShowProject',array('project' => $this->layout()->Cookie)) ?>">Aktualny projekt</a></li>
+                            <li><a href="<?php echo $this->url('ShowProject',array('project' => $this->currentProject())) ?>">Aktualny projekt</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Ostatnie projekty</li>
                             <li><a href="#">Most recent one</a></li>
@@ -70,8 +73,8 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zadania <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Aktualny projekt</li>
-                            <li><a href="<?php echo $this->url('IssueList',array('project' =>  $this->layout()->Cookie)) ?>">Lista zadań</a></li>
-                            <li><a href="<?php echo $this->url('AddIssue',array('project' =>  $this->layout()->Cookie)) ?>">Dodaj zadanie</a></li>
+                            <li><a href="<?php echo $this->url('IssueList',array('project' =>  $this->currentProject())) ?>">Lista zadań</a></li>
+                            <li><a href="<?php echo $this->url('AddIssue',array('project' =>  $this->currentProject())) ?>">Dodaj zadanie</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Filtry</li>
                             <li><a href="#">Zadania przypisane do mnie</a></li>
@@ -80,6 +83,7 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                             <li><a href="?page=ListQueries">Zarządzaj filtrami</a></li>
                         </ul>
                     </li>
+                    <?php } ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administracja <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -100,9 +104,11 @@ echo $this->headLink(array('rel'  => 'shortcut icon', 'href' => $this->basePath(
                         </ul>
                     </li>
                 </ul>
+                <?php if($this->currentProject()){ ?>
                 <div class="navbar-form navbar-left">
-                    <A href="<?php echo $this->url('AddIssue',array('project' =>  $this->layout()->Cookie)) ?>"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
+                    <A href="<?php echo $this->url('AddIssue',array('project' =>  $this->currentProject())) ?>"><button type="button" class="btn btn-primary" id="add-task-btn">Dodaj zadanie</button></a>
                 </div>
+                <?php } ?>
                 <form class="navbar-form navbar-right" role="form">
                     <div class="form-group">
                         <input type="text" placeholder="Wpisz szukaną frazę..." class="form-control">

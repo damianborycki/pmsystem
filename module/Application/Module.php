@@ -46,15 +46,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         $serviceManager = $app->getServiceManager();
         $eventManager = $serviceManager->get('Application')->getEventManager();
         $sharedEvents = $eventManager->getSharedManager();
-        
-        /*Wstrzykniecie cookie do layout*/
-        if($_COOKIE){
-            $cookie = $_COOKIE['ProjectId'];
-        }else{
-            $cookie = NULL;
-        }
-
-        $e->getViewModel()->setVariable('Cookie', $cookie);
 
         $injectTemplateListener = new InjectTemplateListener();
         $sharedEvents->attach('Application', MvcEvent::EVENT_DISPATCH, array($injectTemplateListener, 'injectTemplate'), -81);
@@ -65,6 +56,30 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         $viewModel->config = $config['layout'];
 
 
+    }
+
+    public function setLayoutTitle($e)
+    {
+        $matches    = $e->getRouteMatch();
+        $action     = $matches->getParam('action');
+        $controller = $matches->getParam('controller');
+        $module     = __NAMESPACE__;
+        $siteName   = 'Zend Framework';
+
+        // Getting the view helper manager from the application service manager
+        $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
+
+        // Getting the headTitle helper from the view helper manager
+        $headTitleHelper   = $viewHelperManager->get('headTitle');
+
+        // Setting a separator string for segments
+        $headTitleHelper->setSeparator(' - ');
+
+        // Setting the action, controller, module and site name as title segments
+        $headTitleHelper->append($action);
+        $headTitleHelper->append($controller);
+        $headTitleHelper->append($module);
+        $headTitleHelper->append($siteName);
     }
 
     public function getServiceConfig() {
@@ -79,6 +94,9 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
     public function getViewHelperConfig()
     {
         return array(
+            'invokables' => array(
+                'currentProject' => 'Application\View\Helper\CurrentProject',
+            ),
         );
     }
 }
