@@ -178,7 +178,7 @@ class ProjectForm extends Form {
 
     public function getTrackersForSelect() {
         $dbAdapter = $this->adapter;
-        $sql = 'SELECT ID, NAME FROM TRACKERS ORDER BY ID ASC';
+        $sql = 'SELECT ID, NAME FROM TRACKER ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result = $statement->execute();
 
