@@ -12,7 +12,7 @@ class IndexController extends AbstractActionController
 
     public function indexAction(){
         /*PROJECT HEAD*/
-        if($_COOKIE['ProjectId']){
+        if(isset($_COOKIE['ProjectId'])){
             $headProject = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->find($_COOKIE['ProjectId']);
         }else{
             $headProject = NULL;
