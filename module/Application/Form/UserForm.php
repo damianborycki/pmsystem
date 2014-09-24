@@ -173,7 +173,7 @@ class UserForm extends Form {
 
     public function getUsersForSelect() {
         $dbAdapter = $this->adapter;
-        $sql = 'SELECT ID, NAME FROM USERS ORDER BY ID ASC';
+        $sql = 'SELECT ID, NAME FROM USER ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result = $statement->execute();
 
