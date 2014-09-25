@@ -85,7 +85,7 @@ class EnumerationController extends AbstractActionController{
         ->get('Doctrine\ORM\EntityManager');
     
     $issuelist = $objectManager
-                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueCategory u')
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueCategory u ORDER BY u.position ASC')
                         ->getResult();
     
     
@@ -104,7 +104,7 @@ class EnumerationController extends AbstractActionController{
                      
                      
      $issuepriority = $objectManager
-                        ->createQuery('SELECT u FROM Application\Model\Domain\IssuePriority u')
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssuePriority u ORDER BY u.position ASC')
                         ->getResult();
     
     
@@ -122,7 +122,7 @@ class EnumerationController extends AbstractActionController{
                      } 
                      
      $issueactivity = $objectManager
-                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueActivity u')
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueActivity u ORDER BY u.position ASC')
                         ->getResult();
     
     
@@ -630,8 +630,8 @@ class EnumerationController extends AbstractActionController{
                             ->execute();              
      $objectManager ->createQuery("UPDATE Application\Model\Domain\IssuePriority u SET u.position = $getposition+1  WHERE u.id=$id")
                             ->execute();   
-     $this->rebuild_positions_category();
-     return $this->redirect()->toRoute('IssuePriority');
+     $this->rebuild_positions_priority();
+     return $this->redirect()->toRoute('IssueCategory');
    } 
    
     public function uppriorityAction()   {
@@ -651,7 +651,7 @@ class EnumerationController extends AbstractActionController{
                             ->execute();              
      $objectManager ->createQuery("UPDATE Application\Model\Domain\IssuePriority u SET u.position = $getposition-1  WHERE u.id=$id")
                             ->execute(); 
-     $this->rebuild_positions_category();
+     $this->rebuild_positions_priority();
      return $this->redirect()->toRoute('IssueCategory');
    } 
    
@@ -672,8 +672,8 @@ class EnumerationController extends AbstractActionController{
                             ->execute();              
      $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueActivity u SET u.position = $getposition+1  WHERE u.id=$id")
                             ->execute();   
-     $this->rebuild_positions_category();
-     return $this->redirect()->toRoute('IssuePriority');
+     $this->rebuild_positions_activity();
+     return $this->redirect()->toRoute('IssueCategory');
    } 
    
     public function upactivityAction()   {
@@ -693,7 +693,7 @@ class EnumerationController extends AbstractActionController{
                             ->execute();              
      $objectManager ->createQuery("UPDATE Application\Model\Domain\IssueActivity u SET u.position = $getposition-1  WHERE u.id=$id")
                             ->execute(); 
-     $this->rebuild_positions_category();
+     $this->rebuild_positions_activity();
      return $this->redirect()->toRoute('IssueCategory');
    } 
     
