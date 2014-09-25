@@ -90,7 +90,7 @@ class IssuesController extends AbstractActionController {
                 $priority = $this->getObjectManager()->find('\Application\Model\Domain\IssuePriority', $data['issuePriority']);
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
-                $userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
+                //$userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
                 $tracker = $this->getObjectManager()->find('\Application\Model\Domain\Tracker', $data['issueTracker']);
 				
                 if (!empty($parentId)) {

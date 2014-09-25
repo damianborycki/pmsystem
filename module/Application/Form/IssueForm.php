@@ -144,6 +144,7 @@ class IssueForm extends Form {
             ),
         ));
 
+        /*
         $this->add(array(
             'name'       => 'issueAssigned',
             'type'       => 'Zend\Form\Element\Select',
@@ -163,6 +164,7 @@ class IssueForm extends Form {
                 'value_options'    => $this->getIssueAssignedForSelect(),
             ),
         ));
+        */
 		
       
         foreach ($additionalFields as $field) {
