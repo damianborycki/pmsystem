@@ -69,7 +69,6 @@ class TrackerController extends AbstractActionController{
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');   
        
-    echo $_SERVER['REQUEST_METHOD'];
     $form = new TrackerForm();
 
      if ($this->getRequest()->isPost()) {
@@ -111,7 +110,7 @@ class TrackerController extends AbstractActionController{
               
                 $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\Tracker u');
                 $count = $query->getSingleScalarResult();
-                echo $count;     
+             //   echo $count;     
                     
                 $issue->setPosition($count+1);
                     
@@ -173,7 +172,6 @@ class TrackerController extends AbstractActionController{
                          
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                 
                 $issue->setName($data['name']);
                 $issue->setAssigned($data['Assigned'][0]); 

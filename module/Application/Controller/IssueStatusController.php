@@ -79,7 +79,6 @@ class IssueStatusController extends AbstractActionController{
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');   
        
-    echo $_SERVER['REQUEST_METHOD'];
     $form = new IssueStatusForm();
 
      if ($this->getRequest()->isPost()) {
@@ -89,7 +88,6 @@ class IssueStatusController extends AbstractActionController{
 
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                                
                 
                 $issue->setName($data['name']);
@@ -189,7 +187,6 @@ class IssueStatusController extends AbstractActionController{
                          
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                 
                 $issue->setName($data['name']);
                  if (isset($data['IsActive'])) 

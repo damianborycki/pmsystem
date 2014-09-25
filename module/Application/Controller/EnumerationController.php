@@ -157,7 +157,6 @@ class EnumerationController extends AbstractActionController{
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');   
        
-    echo $_SERVER['REQUEST_METHOD'];
     $form = new IssueCategoryForm();
 
      if ($this->getRequest()->isPost()) {
@@ -167,7 +166,6 @@ class EnumerationController extends AbstractActionController{
 
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                                
                 
                 $issue->setName($data['name']);
@@ -249,7 +247,6 @@ class EnumerationController extends AbstractActionController{
                          
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                 
                 $issue->setName($data['name']);
                 $issue->setDescription($data['description']);
@@ -298,7 +295,6 @@ class EnumerationController extends AbstractActionController{
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');   
        
-    echo $_SERVER['REQUEST_METHOD'];
     $form = new IssuePriorityForm();
 
      if ($this->getRequest()->isPost()) {
@@ -308,7 +304,6 @@ class EnumerationController extends AbstractActionController{
 
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                                
                 
                 $issue->setName($data['name']);
@@ -386,7 +381,6 @@ class EnumerationController extends AbstractActionController{
                          
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                 
                 $issue->setName($data['name']);
                  if (isset($data['IsActive'])) 
@@ -437,7 +431,6 @@ class EnumerationController extends AbstractActionController{
         ->getServiceLocator()
         ->get('Doctrine\ORM\EntityManager');   
        
-    echo $_SERVER['REQUEST_METHOD'];
     $form = new IssueActivityForm();
 
      if ($this->getRequest()->isPost()) {
@@ -447,7 +440,6 @@ class EnumerationController extends AbstractActionController{
 
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                                
                 
                 $issue->setName($data['name']);
@@ -530,7 +522,6 @@ class EnumerationController extends AbstractActionController{
                          
             if ($form->isValid()) {
                 $data = $form->getData();
-                print_r($data);
                 
                 $issue->setName($data['name']);
                  if (isset($data['IsActive'])) 

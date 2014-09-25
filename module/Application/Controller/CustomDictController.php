@@ -140,7 +140,6 @@ class CustomDictController extends AbstractActionController
     		 
     		if ($form->isValid()) {
     			$data = $form->getData();
-    			print_r($data);
     
     			$issue->setName($data['name']);
     			if (isset($data['IsActive']))
@@ -188,7 +187,6 @@ public function addAction()
 	->getServiceLocator()
 	->get('Doctrine\ORM\EntityManager');
 	 
-	echo $_SERVER['REQUEST_METHOD'];
 	$form = new CustomDictForm();
 
 	if ($this->getRequest()->isPost()) {
@@ -198,7 +196,7 @@ public function addAction()
 
 		if ($form->isValid()) {
 			$data = $form->getData();
-			print_r($data);
+
 			 
 
 			$issue->setName($data['name']);
@@ -271,7 +269,6 @@ public function addAttribAction()
 	->getServiceLocator()
 	->get('Doctrine\ORM\EntityManager');
 
-	echo $_SERVER['REQUEST_METHOD'];
 	$form = new CustomDictForm();
 
 	if ($this->getRequest()->isPost()) {
@@ -281,7 +278,6 @@ public function addAttribAction()
 
 		if ($form->isValid()) {
 			$data = $form->getData();
-			print_r($data);
 
 
 			$issue->setName($data['name']);
