@@ -26,7 +26,7 @@ class IssuesController extends AbstractActionController {
 		foreach ($fieldsValue as $field) {
         	$fieldId = $field->getFieldId();
         	$tmpField = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findOneBy(array('id' => $fieldId));
-        	
+
         	array_push($additionalFields, array('name' => $tmpField->getName(), 'value' => $field->getValue()));
 		}
         if($parentId = $issue->getParent()){
@@ -34,12 +34,12 @@ class IssuesController extends AbstractActionController {
         }else{
             $parent = NULL;
         }
-		
+
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
         $form = new IssueStatusChangeForm($dbAdapter);
-        
+
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'additionalFields' => $fieldsValue));
 
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'parent' => $parent, 'additionalFields' => $additionalFields));
@@ -52,17 +52,17 @@ class IssuesController extends AbstractActionController {
     public function listAction(){
     	$id = $this->getEvent()->getRouteMatch()->getParam('project');
         //setcookie('ProjectId', $id, time()+(60*60*24*30), '/', '.pms.localhost');
-    	
+
         $issues = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('project' => $id));
 
 		$project  = $this->getObjectManager()->getRepository('\Application\Model\Domain\Project')->findAll();
-		
+
         $view   = new ViewModel(array('issues' => $issues, 'projects' => $project, 'id' => $id));
         $view->setTemplate('Issues/List');
 
         return $view;
     }
-    
+
     public function addAction() {
         $projectId = $this->getEvent()->getRouteMatch()->getParam('project');
         $parentId = $this->getEvent()->getRouteMatch()->getParam('id');
@@ -76,9 +76,9 @@ class IssuesController extends AbstractActionController {
         		array_push($additionalFields, $field[0]);
         	}
         }
-        
+
       	$form = new IssueForm ($dbAdapter, $projectId, $additionalFields);
-        
+
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
             $form->setInputFilter($issue->getInputFilter());
@@ -92,7 +92,7 @@ class IssuesController extends AbstractActionController {
                 $creator = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['User']);
                 //$userAssigned = $this->getObjectManager()->find('\Application\Model\Domain\User', $data['issueAssigned']);
                 $tracker = $this->getObjectManager()->find('\Application\Model\Domain\Tracker', $data['issueTracker']);
-				
+
                 if (!empty($parentId)) {
                 	$parent = $this->getObjectManager()->find('\Application\Model\Domain\Issue', $parentId);
                 	if (!empty($parent)) {
@@ -107,10 +107,10 @@ class IssuesController extends AbstractActionController {
                 $issue->setIssueStatus($status);
                 $issue->setIssuePriority($priority);
                 $issue->setCreationTime(new \DateTime());
-				$issue->setAssignedUsers(array($userAssigned));
-				
-            	
-        		
+				//$issue->setAssignedUsers(array($userAssigned));
+
+
+
                 $this->getObjectManager()->persist($issue);
                 $this->getObjectManager()->flush();
 
@@ -121,7 +121,7 @@ class IssuesController extends AbstractActionController {
         	 		$fieldValue->setContext('0');
         	 		$fieldValue->setFieldId($field->getId());
         	 		$fieldValue->setValue($data[$field->getName()]);
-        	 		
+
         	 		$this->getObjectManager()->persist($fieldValue);
                 	$this->getObjectManager()->flush();
         		}
@@ -137,18 +137,18 @@ class IssuesController extends AbstractActionController {
 
     public function editAction(){
         $id = $this->getEvent()->getRouteMatch()->getParam('id');
-        
+
         if (!empty($id)) {
         	$issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
-        } 
+        }
         if (empty($issue)) {
         	return $this->redirect()->toRoute('AddIssue');
         }
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
-		
-        
+
+
         $fieldsValue = $this->getObjectManager()->getRepository('\Application\Model\Domain\FieldValue')->findBy(array('contextId' => $id));
-       
+
 		$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
     	$projectFields =  $this->getObjectManager()->getRepository('\Application\Model\Domain\ProjectFields')->findBy(array('projectId' => $issue->getProject()->getId()));
     	$additionalFields = array();
@@ -160,11 +160,11 @@ class IssuesController extends AbstractActionController {
         	}
         }
         $form = new IssueForm ($dbAdapter, $issue->getProject()->getId(), $additionalFields);
-        
+
         if ($this->getRequest()->isPost()) {
             $form->setInputFilter($issue->getInputFilter());
             $form->setData($this->getRequest()->getPost());
-			
+
             if ($form->isValid()) {
                 $data     = $form->getData();
                 $project  = $this->getObjectManager()->find('\Application\Model\Domain\Project', $data['project']);
@@ -190,58 +190,58 @@ class IssuesController extends AbstractActionController {
 	                	$this->getObjectManager()->flush();
         	 		}
 		        }
-            	
+
                 return $this->redirect()->toUrl('/issue/'.$id);
             }
-        } 
-        
+        }
+
 		$form->get('description')->setAttribute('value', $issue->getDescription());
         $form->get('subject')->setValue($issue->getSubject());
         $form->get('project')->setValue($issue->getProject()->getId());
         $form->get('issueTracker')->setValue($issue->getTracker()->getId());
         $form->get('issuePriority')->setValue($issue->getIssuePriority()->getCode());
-        
+
         foreach ($additionalFields as $field) {
         	 $fieldValue = $this->getObjectManager()->getRepository('\Application\Model\Domain\FieldValue')->findOneBy(array('contextId' => $id, 'fieldId' => $field->getId()));
-        	 
+
         	 if (!empty($fieldValue)) {
-        	 	$form->get($field->getName())->setValue($fieldValue->getValue());	
+        	 	$form->get($field->getName())->setValue($fieldValue->getValue());
         	 }
         }
-        
+
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'additionalFields' => $additionalFields));
         $view->setTemplate('Issues/Edit');
 
         return $view;
     }
-	
+
     public function statusChangeAction() {
     	$id = $this->getEvent()->getRouteMatch()->getParam('id');
-        
+
         if (!empty($id)) {
         	$issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
-        } 
+        }
         if (empty($issue)) {
         	return $this->redirect()->toRoute('home');
         }
-        
+
         $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($id);
-		
+
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
         $form = new IssueStatusChangeForm($dbAdapter);
-        
+
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
-			
+
             if ($form->isValid()) {
                 $data     = $form->getData();
-                
+
                 $status = $this->getObjectManager()->find('\Application\Model\Domain\IssueStatus', $data['issueStatus']);
-				
+
                 $issue->setIssueStatus($status);
                 if ($status->getIsClosed()) {
-                	$children = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('parent' => $issue->getId())); 
+                	$children = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->findBy(array('parent' => $issue->getId()));
                 	foreach ($children as $child) {
 	               		$child->setCloseTime(new \DateTime());
                 	}
@@ -253,7 +253,7 @@ class IssuesController extends AbstractActionController {
                 $id = $issue->getId();
 
             }
-        } 
+        }
         return $this->redirect()->toRoute('ShowIssue', array('id' => $id));
     }
 
@@ -270,7 +270,7 @@ class IssuesController extends AbstractActionController {
 
         return $this->response;
     }
-    
+
     protected function getObjectManager() {
         if (!$this->_objectManager) {
             $this->_objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');

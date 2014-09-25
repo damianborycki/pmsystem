@@ -65,7 +65,7 @@ class IssueForm extends Form {
                 ),
             ),
         ));
-        
+
        $this->add(array(
             'name'       => 'subject',
             'attributes' => array(
@@ -165,34 +165,35 @@ class IssueForm extends Form {
             ),
         ));
         */
-		
-      
+
+
         foreach ($additionalFields as $field) {
         	$this->add(array(
 	            'name'       => $field->getName(),
 	            'attributes' => array(
 	                'class'       => 'form-control',
 	                'placeholder' => $field->getName(),
+                    'value' => $field->getDefaultValue(),
+                    'required' => $field->getIsRequired()
 	            ),
 	            'options'    => array(
 	                'label'            => $field->getName(),
 	                'label_attributes' => array(
 	                    'class' => 'col-sm-2 control-label'
 	                ),
-	                'value' => $field->getDefaultValue()
 	            ),
 	        ));
         }
-        
+
         $this->add(array(
             'name'       => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
                 'value' => 'Dodaj zadanie'
             ),
-        )); 
+        ));
     }
-    
+
     public function getProjectsNameForSelect()
     {
         $dbAdapter = $this->adapter;
@@ -207,7 +208,7 @@ class IssueForm extends Form {
         }
         return $selectData;
     }
-    
+
     public function getIssueAssignedForSelect()
     {
         $dbAdapter = $this->adapter;
