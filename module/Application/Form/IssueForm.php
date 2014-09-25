@@ -251,6 +251,9 @@ class IssueForm extends Form {
                 $returnData = $res['ID'];
             }
         }
+        if(!isset($returnData)){
+            $returnData = 1;
+        }
         return $returnData;
     }
 }
