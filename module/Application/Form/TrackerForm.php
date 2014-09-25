@@ -83,7 +83,119 @@ class TrackerForm extends Form {
             )
         ));
          
-        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'Assigned',
+            'options' => array(
+                'label' => 'Przypisany do', 
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'Category',
+            'options' => array(
+                'label' => 'Kategoria', 
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         // assigned;category;fiedVersion;parentIssue;startDate;dueDate;estimateHours;doneRadio;
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'FiedVersion',
+            'options' => array(
+                'label' => 'Wersja docelowa', 
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'ParentIssue',
+            'options' => array(
+                'label' => 'Zagadnienie nadrzędne', 
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'StartDate',
+            'options' => array(
+                'label' => 'Data rozpoczęcia',
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',            
+            'name' => 'DueDate',
+            'options' => array(
+                'label' => 'Data oddania', 
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',             
+            'name' => 'EstimateHours',  
+            'options' => array(
+                'label' => 'Szacowany czas',
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
+         $this->add(array(
+            'type' => 'Zend\Form\Element\MultiCheckbox',         
+            'name' => 'DoneRadio',
+            'options' => array(
+                'label' => '% wykonania', 
+                'value_options' => array(
+                    '1'=>''
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'uncheckedValue' => '0'
+            )
+        ));
 
         $this->add(array(
             'name'       => 'submit',
