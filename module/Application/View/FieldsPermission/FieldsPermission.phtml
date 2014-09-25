@@ -5,7 +5,7 @@
 		</ol>
 	</div>
 	
-	<form method="post">
+	
 		<div class="jumbotron">
 			<ol class="breadcrumb container change-pos">                                 
 				<li class="active">Uprawnienia pól</li>  
@@ -17,33 +17,49 @@
 		?>
 			<div class="half-space-container text-left">
 					<form class="form-group form-inline">
+							<table>
+							<tr>
+								<div class="form-group">
+										<td><label for="memberRole" class="control-label">Rola:</label></td>
+										<td>
+										<select class="form-control" name="memberRole" id="memberRole">
+										   <?php
+												foreach($roleList as $role){
+													echo "<option value=" . $role->getId() . ">" . $role->getName() . "</option>";
+												}
+											?>
+										</select>
+										<td>
+								</div>
+							<br/>
+							<br/>
+							</tr>
+							<tr>
 							<div class="form-group">
-									<label for="memberRole" class="control-label">Rola:</label>
-									<select class="form-control" name="memberRole" id="memberRole">
-									   <?php
-											foreach($roleList as $role){
-												echo "<option value=" . $role->getId() . ">" . $role->getName() . "</option>";
-											}
-										?>
-									</select>
-							</div>
-
-							<div class="form-group">
-									<label for="tracker" class="control-label">Typ zagadnienia:</label>
-									<select class="form-control" name="tracker" id="tracker">
+									<td><label for="tracker" class="control-label">Typ zagadnienia:</label></td>
+									<td><select class="form-control" name="tracker" id="tracker">
 										<?php
 											foreach($trackerList as $track){
 												echo "<option value=" . $track->getId() . ">" . $track->getName() . "</option>";
 											}
 										?>
 									</select>
+									</td>
 							</div>
-
+							</tr>
+						<tr>
+						<br/>
+						<br/>
+						<td><input type="submit" class="btn btn-success" name="load" value="Wczytaj"/></td>
+						</tr>
+					</table>
 				<div class="form-group">
 				</div>
 					</form>
 				</div>
 			</ol>  
+			
+	<form method="post">
 			<div class="container">
 				<div class="center-block table-responsive table-background-white" >
 					<div class="center-block">

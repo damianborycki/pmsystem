@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group">
-                                <label for="tracker" class="control-label">&nbsp;Typ zagadnienia:&nbsp;</label>
+                                <label for="tracker" class="control-label">Typ zagadnienia:</label>
                                 <select class="form-control" name="tracker" id="tracker" onchange="zaznaczacz()">
 									<?php
 										foreach($trackerList as $track){
@@ -125,25 +125,22 @@
                 <div class="center-block">
                     <div ng-app="app" ng-controller="Ctrl">
 				    <table class="table table-striped">
-                        
-			
-			<thead>
+						<thead>
                             <tr class="breadcrumb">
-							<th></th>
+								<th></th>
                                 <?php
 									foreach($issuelist as $issue){
 										echo "<th>" . $issue->getName() . "</th>";
 									}
-								?>
-								
+								?>								
                             </tr>
 							<?php
 								foreach($issuelist as $issue){
 									echo "<tr>
-									<th class='breadcrumb'>" . $issue->getName() . "</th>";			
-									foreach($issuelist as $issueStatus){
-										echo "<th><input type='checkbox' name='check_list[]' value=" . $issue->getId() . "-" .$issueStatus->getId(). " id='" . $issue->getId() . "-" .$issueStatus->getId(). "'> </th>";//" . $issueStatus->getName() . " value: lewe-prawe	visibility: hidden
-									}
+										<th class='breadcrumb'>" . $issue->getName() . "</th>";			
+										foreach($issuelist as $issueStatus){
+											echo "<th><input type='checkbox' name='check_list[]' value=" . $issue->getId() . "-" .$issueStatus->getId(). " id='" . $issue->getId() . "-" .$issueStatus->getId(). "'> </th>";
+										}
 									echo "</tr>";
 								}
 							?>
@@ -159,7 +156,7 @@
 	</div>
 	</form>
 	<div style="display: none;" id="trzymacz">
-	<?php //display: none
+	<?php
 		foreach($przejscia as $przej){
 			echo $przej->getTracker()->getId() . "," . $przej->getMemberRole()->getId() . "," . $przej->getPrevStatus()->getId() . "-" . $przej->getNextStatus()->getId() . "<br>";
 		}
@@ -168,15 +165,4 @@
 	
 	<script>
 		zaznaczacz();
-	/*
-		var trID = document.getElementById("tracker").value;
-		alert(trID);
-		var mrID = document.getElementById("memberRole").value;
-		alert(mrID);
-		var divContent = document.getElementById("trzymacz").innerText;
-		var transitiony = divContent.split(";\n");
-		for (index = 0; index < transitiony.length; ++index) {
-			console.log(transitiony[index]);
-		}
-	*/
 	</script>
