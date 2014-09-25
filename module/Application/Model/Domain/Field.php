@@ -93,8 +93,14 @@ class Field
      * @ORM\SequenceGenerator(sequenceName="FIELD_SEQ")
      * @ORM\Column(name="`ID`", type="integer", nullable=false)
      */
+      
     protected $id;
 
+     /**
+     * @var boolean $isActive
+     * @ORM\Column(name="`ISACTIVE`", type="boolean", nullable=true)
+     */
+    protected $isActive;
 
     public function __construct()
     {
@@ -116,6 +122,17 @@ class Field
         return $this->maxValue;
     }
 
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }    
+    
     public function setMaxValue($maxValue)
     {
         $this->maxValue = $maxValue;

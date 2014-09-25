@@ -180,7 +180,7 @@ class IssueForm extends Form {
 		                'id'       => 'inputPriority',
 		                'type'     => 'select',
 		                'class'    => 'form-control',
-		                'required' =>  $field->getIsRequired()
+		                'required' =>  'true'
 		            ),
 		            'options'    => array(
 		                'label'            => $field->getName(),

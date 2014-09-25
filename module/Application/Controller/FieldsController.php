@@ -23,14 +23,14 @@ class FieldsController extends AbstractActionController {
 
         return $view;
     }
-
+  
     public function removeAction(){
-        $id = $this->params('id', null);
+		$id = $this->params('id', null);
         $field = $this->getObjectManager()->find('Application\Model\Domain\Field', $id);
-
-        $this->getObjectManager()->remove($field);
-        $this->getObjectManager()->flush();
-
+	
+	    $field->setIsActive(false);
+	    $this->getObjectManager()->flush();
+	
         return $this->redirect()->toRoute('FieldsList');
     }
 
