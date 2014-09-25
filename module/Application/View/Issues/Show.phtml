@@ -41,6 +41,11 @@
                         <a href="<?php echo $this->url('AddChildIssue',array('project' => $issue->getProject()->getId(), 'id' => $issue->getId())) ?>">
                             <button type="button" class="btn btn-default navbar-btn">Utwórz podzadanie</button>
                         </a>
+                        <a href="<?php echo $this->url('WorkTimeEntry-Issue', array(
+                            'issueId' => $issue->getId(),
+                        )) ?>">
+                            <button type="button" class="btn btn-default navbar-btn">Czas pracy</button>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -140,7 +145,6 @@
                             </div>
                 </div>
                 <div class="tab-pane" id="profile">...</div>
-                
             </div>
         </div>
     </div>

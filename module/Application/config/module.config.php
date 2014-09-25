@@ -14,7 +14,9 @@ return array(
             'Application\Controller\Enumeration' => 'Application\Controller\EnumerationController',
         	'Application\Controller\CustomDict' => 'Application\Controller\CustomDictController',
         	'Application\Controller\Tracker' => 'Application\Controller\TrackerController',
-            'Application\Controller\UserAssignment' => 'Application\Controller\UserAssignmentController'
+            'Application\Controller\UserAssignment' => 'Application\Controller\UserAssignmentController',
+            'Application\Controller\WorkTimeEntry' => 'Application\Controller\WorkTimeEntryController',
+            'Application\Controller\Query' => 'Application\Controller\QueryController',
             /* generator-end-controllers.invokables */
         ),
     ),
@@ -969,6 +971,33 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\UserAssignment',
                         'action' => 'fetchUsers'
+                    )
+                ),
+            ),
+            
+            'WorkTimeEntry' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/work-time-entry/[:action]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\WorkTimeEntry',
+                    )
+                ),
+            ),
+            
+            'WorkTimeEntry-Issue' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/work-time-entry/issue/[:issueId]',
+                    'constraints' => array(
+                        'issueId' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\WorkTimeEntry',
+                        'action' => 'issue'
                     )
                 ),
             ),
