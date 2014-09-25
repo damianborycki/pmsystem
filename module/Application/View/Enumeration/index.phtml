@@ -83,6 +83,9 @@ margin: 0px!important
                                 </td>
                                 <td>
                                     
+                                    <a href="'  . $this->url('DownIssueCategory', array('action'=>'down', 'id'=>$issue->getId())). '"><i class="fa fa-sort-asc"></i></a>
+                                    <a href="'  . $this->url('UpIssueCategory', array('action'=>'up', 'id'=>$issue->getId())). '"><i class="fa fa-sort-desc"></i></a>
+                                
                                 </td>
 		                 <td style="white-space: nowrap">
                                     <form editable-form="" name="rowform" onbeforesave="save($data, status.id)" ng-show="rowform.$visible" class="form-buttons form-inline ng-pristine ng-valid" shown="inserted == status">
@@ -161,7 +164,9 @@ margin: 0px!important
                                     </span>
                                 </td>
                                 <td>
-                                    
+                                    <a href="'  . $this->url('DownIssuePriority', array('action'=>'down', 'id'=>$issue->getId())). '"><i class="fa fa-sort-asc"></i></a>
+                                    <a href="'  . $this->url('UpIssuePriority', array('action'=>'up', 'id'=>$issue->getId())). '"><i class="fa fa-sort-desc"></i></a>
+                                
                                 </td>
 		                 <td style="white-space: nowrap">
                                     <form editable-form="" name="rowform" onbeforesave="save($data, status.id)" ng-show="rowform.$visible" class="form-buttons form-inline ng-pristine ng-valid" shown="inserted == status">
@@ -243,7 +248,9 @@ margin: 0px!important
                                     </span>
                                 </td>
                                 <td>
-                                    
+                                    <a href="'  . $this->url('DownIssueActivity', array('action'=>'down', 'id'=>$issue->getId())). '"><i class="fa fa-sort-asc"></i></a>
+                                    <a href="'  . $this->url('UpIssueActivity', array('action'=>'up', 'id'=>$issue->getId())). '"><i class="fa fa-sort-desc"></i></a>
+                                 
                                 </td>
 		                 <td style="white-space: nowrap">
                                     <form editable-form="" name="rowform" onbeforesave="save($data, status.id)" ng-show="rowform.$visible" class="form-buttons form-inline ng-pristine ng-valid" shown="inserted == status">
