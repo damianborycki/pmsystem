@@ -31,7 +31,8 @@
                 </thead>
                 <tbody>
                 <?php
-                foreach ($this->fields as $field) { ?>
+                foreach ($this->fields as $field) { 
+                	if($field->getIsActive() == 1){?>
                     <tr>
                         <td><?php echo $field->getName() ?></td>
                         <td><?php echo $field->getType() ?></td>
@@ -52,7 +53,7 @@
                             </a>-->
                         </td>
                     </tr>
-                <?php } ?>
+                <?php }} ?>
                 </tbody>
             </table>
             <?php } else ?>
