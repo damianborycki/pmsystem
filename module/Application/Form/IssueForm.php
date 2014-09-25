@@ -168,21 +168,47 @@ class IssueForm extends Form {
 
 
         foreach ($additionalFields as $field) {
-        	$this->add(array(
-	            'name'       => $field->getName(),
-	            'attributes' => array(
-	                'class'       => 'form-control',
-	                'placeholder' => $field->getName(),
-                    'value' => $field->getDefaultValue(),
-                    'required' => $field->getIsRequired()
-	            ),
-	            'options'    => array(
-	                'label'            => $field->getName(),
-	                'label_attributes' => array(
-	                    'class' => 'col-sm-2 control-label'
-	                ),
-	            ),
-	        ));
+        	if($field->getType() == 'list'){
+        		$arrayWithValues = array();
+        		$str = $field->getDefaultValue();
+        		$arrayWithValues = explode( ',', $str );
+        		
+		        $this->add(array(
+		            'name'       => $field->getName(),
+		            'type'       => 'Zend\Form\Element\Select',
+		            'attributes' => array(
+		                'id'       => 'inputPriority',
+		                'type'     => 'select',
+		                'class'    => 'form-control',
+		                'required' =>  $field->getIsRequired()
+		            ),
+		            'options'    => array(
+		                'label'            => $field->getName(),
+		                'label_attributes' => array(
+		                    'for'   => 'inputPriority',
+		                    'class' => 'col-sm-2 control-label'
+		                ),
+		                'value_options'    => $arrayWithValues,
+		            ),
+		        ));
+	        	
+	        }else if($field->getType() == 'text'){
+	        	$this->add(array(
+		            'name'       => $field->getName(),
+		            'attributes' => array(
+		                'class'       => 'form-control',
+		                'placeholder' => $field->getName(),
+	                    'value' => $field->getDefaultValue(),
+	                    'required' => $field->getIsRequired()
+		            ),
+		            'options'    => array(
+		                'label'            => $field->getName(),
+		                'label_attributes' => array(
+		                    'class' => 'col-sm-2 control-label'
+		                ),
+		            ),
+		        ));
+        	}
         }
 
         $this->add(array(
