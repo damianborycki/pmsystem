@@ -10,6 +10,7 @@ use Application\Model\Domain\IssuePriority;
 use Application\Form\IssuePriorityForm;
 use Application\Model\Domain\IssueActivity;
 use Application\Form\IssueActivityForm;
+use Application\Model\Domain\Issue;
 
 class EnumerationController extends AbstractActionController{
   
@@ -139,9 +140,9 @@ class EnumerationController extends AbstractActionController{
                           }                         
                      } 
                      
-                                
+     $ex = 'hidden';                            
                      
-     $view = new ViewModel(array('issuelist'=> $issuelist,'issuepriority'=>$issuepriority, 'issueactivity'=>$issueactivity ));
+     $view = new ViewModel(array('issuelist'=> $issuelist,'issuepriority'=>$issuepriority, 'issueactivity'=>$issueactivity, 'ex' => $ex));
      $view->setTemplate('Enumeration/index');
      $this->rebuild_positions_category();
      $this->rebuild_positions_priority();
@@ -188,7 +189,7 @@ class EnumerationController extends AbstractActionController{
                      $issue->setIsDefault($data['IsDefault'][0]);
                     }
                 
-                $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\IssueStatus u');
+                $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\IssueCategory u');
                 $count = $query->getSingleScalarResult();   
                 $issue->setPosition($count+1);  
                 
@@ -326,6 +327,10 @@ class EnumerationController extends AbstractActionController{
                      $issue->setIsDefault($data['IsDefault'][0]);
                     }
                 
+                $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\IssuePriority u');
+                $count = $query->getSingleScalarResult();   
+                $issue->setPosition($count+1);
+
                 $this->getObjectManager()->persist($issue);                             
                 $this->getObjectManager()->flush();  
                 $this->rebuild_positions_priority();
@@ -350,11 +355,133 @@ class EnumerationController extends AbstractActionController{
     }
 
     $issuedelete = $objectManager->find('Application\Model\Domain\IssuePriority', $id);
+
+    $issuecount = count($objectManager
+                        ->createQuery("SELECT u FROM Application\Model\Domain\Issue u WHERE u.issuePriority=$id")
+                        ->getResult());
+
+       
+    
+             if($issuecount > 0){
+                           
+                            $ex = 'visible';
+
+                             $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueCategory u ORDER BY u.position ASC')
+                        ->getResult();
+    
+                    foreach ($issuelist as $iss)
+                     {
+                          if($iss->getIsDefault(true)){                            
+                            $iss->setIsDefault('<i class="fa fa-check"></i>');
+                          }
+                          
+                          if($iss->getIsActive(true)){                           
+                            $iss->setIsActive('<i class="fa fa-check"></i>');
+                          }                         
+                     } 
+
+                             $issuepriority = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssuePriority u ORDER BY u.position ASC')
+                        ->getResult();
+    
+                            
+                            foreach ($issuepriority as $iss)
+                                             {
+                                                  if($iss->getIsDefault(true)){                            
+                                                    $iss->setIsDefault('<i class="fa fa-check"></i>');
+                                                  }
+                                                  
+                                                  if($iss->getIsActive(true)){                           
+                                                    $iss->setIsActive('<i class="fa fa-check"></i>');
+                                                  }                         
+                                             } 
+                                             
+                             $issueactivity = $objectManager
+                                                ->createQuery('SELECT u FROM Application\Model\Domain\IssueActivity u ORDER BY u.position ASC')
+                                                ->getResult();
+                            
+                            
+                           
+                            
+                            foreach ($issueactivity as $iss)
+                                             {
+                                                  if($iss->getIsDefault(true)){                            
+                                                    $iss->setIsDefault('<i class="fa fa-check"></i>');
+                                                  }
+                                                  
+                                                  if($iss->getIsActive(true)){                           
+                                                    $iss->setIsActive('<i class="fa fa-check"></i>');
+                                                  }                         
+                                             } 
+                            
+                           $view = new ViewModel(array('issuelist'=> $issuelist,'issuepriority'=>$issuepriority, 'issueactivity'=>$issueactivity, 'ex' => $ex));
+                            $view->setTemplate('Enumeration/index');
+                            $this->rebuild_positions_priority();
+                            return $view;
+            } 
+      
+ 
+    $ex = 'hidden';
  
     $objectManager->remove($issuedelete);
     $objectManager->flush();
+    $this->rebuild_positions_priority();
     
-    return $this->redirect()->toRoute('IssueCategory');
+     $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssueCategory u ORDER BY u.position ASC')
+                        ->getResult();
+    
+    
+    foreach ($issuelist as $iss)
+                     {
+                          if($iss->getIsDefault(true)){                            
+                            $iss->setIsDefault('<i class="fa fa-check"></i>');
+                          }
+                          
+                          if($iss->getIsActive(true)){                           
+                            $iss->setIsActive('<i class="fa fa-check"></i>');
+                          }                         
+                     } 
+
+    $issuepriority = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\IssuePriority u ORDER BY u.position ASC')
+                        ->getResult();
+    
+                            
+                            foreach ($issuepriority as $iss)
+                                             {
+                                                  if($iss->getIsDefault(true)){                            
+                                                    $iss->setIsDefault('<i class="fa fa-check"></i>');
+                                                  }
+                                                  
+                                                  if($iss->getIsActive(true)){                           
+                                                    $iss->setIsActive('<i class="fa fa-check"></i>');
+                                                  }                         
+                                             } 
+                                             
+                             $issueactivity = $objectManager
+                                                ->createQuery('SELECT u FROM Application\Model\Domain\IssueActivity u ORDER BY u.position ASC')
+                                                ->getResult();
+                            
+                            
+                           
+                            
+                            foreach ($issueactivity as $iss)
+                                             {
+                                                  if($iss->getIsDefault(true)){                            
+                                                    $iss->setIsDefault('<i class="fa fa-check"></i>');
+                                                  }
+                                                  
+                                                  if($iss->getIsActive(true)){                           
+                                                    $iss->setIsActive('<i class="fa fa-check"></i>');
+                                                  }                         
+                                             } 
+                            
+                           $view = new ViewModel(array('issuelist'=> $issuelist,'issuepriority'=>$issuepriority, 'issueactivity'=>$issueactivity, 'ex' => $ex));
+                            $view->setTemplate('Enumeration/index');
+                            $this->rebuild_positions_priority();
+                            return $view;
    } 
    
     public function editpriorityAction()
@@ -462,10 +589,10 @@ class EnumerationController extends AbstractActionController{
                      $issue->setIsDefault($data['IsDefault'][0]);
                     }
                 
-                 $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\IssueStatus u');
+                 $query = $objectManager->createQuery('SELECT COUNT(u.id) FROM Application\Model\Domain\IssueActivity u');
                 $count = $query->getSingleScalarResult();   
-                    
                 $issue->setPosition($count+1);
+                
                 $this->getObjectManager()->persist($issue);                             
                 $this->getObjectManager()->flush();   
                 $this->rebuild_positions_activity();
