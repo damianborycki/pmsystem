@@ -2,8 +2,7 @@
     li.header{
         margin-top: 20px;
     }
-    input[type=text]{
-        width: 100%;
+   input[type=text] {
         height: 34px;
         padding: 6px 12px;
         font-size: 14px;
@@ -18,9 +17,29 @@
         -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
-    .editable-controls.form-group {
+    textarea {
         width: 300px;
-        }
+        max-width: 300px;
+        min-width: 300px;
+        min-height: 34px;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    p.bg-danger{
+        font-size: 14px;
+        padding: 10px;
+    }
 </style>
     
 	<div class="jumbotron">
@@ -40,14 +59,17 @@
                             
                 <div class="center-block">
                     <div ng-app="app" ng-controller="Ctrl">
+                    <p class="bg-danger <?php echo $ex?>">Uwaga! Status nie może być jednocześnie otwarty i zamknięty.</p>  
+          
 				    <table class="table table-striped table-clickable">
                         <thead>
                             <tr>
-                                <th style="width: 35%">Status</th>
-                                <th style="width: 25%">Domyślny Status</th>
-                                <th style="width: 25%">Zagadnienia zamknięte</th>
-                                
-                                
+                                <th style="width: 25%">Status</th>
+                                <th style="width: 45%">Opis</th>
+                                <th style="width: 10%">Domyślny Status</th>
+                                <th style="width: 10%">Zagadnienia zamknięte</th>
+                                <th style="width: 10%">Zagadnienia otwarte</th>
+
                             </tr>
                         </thead>
                        
@@ -68,6 +90,20 @@
                                     </span>
                                 </td>
                                 <td>
+                                 <td>
+                                    <span editable-text="status.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, status.id)" e-required="" class="ng-scope ng-binding editable editable-hide editable-empty">
+                                    
+                                    </span>
+                                    <span class="editable-wrap editable-text ng-scope">
+                                        <div class="editable-controls form-group" ng-class="{'has-error': $error}">
+                                            <div class="col-sm-13">
+                                                <?php echo $this->formElement($form->get('description')); ?>
+                                            </div>
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                            </div>                                            
+                                        </div>
+                                    </span>
+                                </td>
                                     <span editable-checkbox="status.default" e-name="default" e-form="rowform" onbeforesave="checkName($data, default.id)" class="ng-scope ng-binding editable editable-hide editable-empty">
                                     
                                     </span>
@@ -85,6 +121,18 @@
                                     <span class="editable-wrap editable-checkbox ng-scope">
                                         <div class="editable-controls form-group" ng-class="{'has-error': $error}">
                                             <?php echo $this->formRow($form->get('IsClosed')); ?> 
+                                            <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
+                                            </div>                                                
+                                        </div>
+                                    </span>
+                                </td>
+                                <td>
+                                     <span editable-checkbox="status.close" e-name="default" e-form="rowform" onbeforesave="checkName($data, close.id)" class="ng-scope ng-binding editable editable-hide editable-empty">
+                                    
+                                    </span>
+                                    <span class="editable-wrap editable-checkbox ng-scope">
+                                        <div class="editable-controls form-group" ng-class="{'has-error': $error}">
+                                            <?php echo $this->formRow($form->get('IsActive')); ?> 
                                             <div class="editable-error help-block ng-binding" ng-show="$error" ng-bind="$error" style="display: none;">                                                
                                             </div>                                                
                                         </div>
