@@ -7,7 +7,7 @@ use Zend\Form\Form;
 
 class IssueStatusChangeForm extends Form {
 	protected $adapter;
-    public function __construct(AdapterInterface $dbAdapter) {
+    public function __construct(AdapterInterface $dbAdapter, $memberStatus, $tracker, $currentStatus) {
     	$this->adapter =$dbAdapter;
         parent::__construct('issue');
 
@@ -25,7 +25,7 @@ class IssueStatusChangeForm extends Form {
             'options'    => array(
                 'label'            => 'Status',
                 'empty_option' => 'Zmień status',
-                'value_options'    => $this->getIssueStatusForSelect(),
+                'value_options'    => $this->getIssueStatusForSelect($memberStatus, $tracker, $currentStatus),
             ),
         ));
 
@@ -39,10 +39,12 @@ class IssueStatusChangeForm extends Form {
         )); 
     }
     
-    public function getIssueStatusForSelect()
+    public function getIssueStatusForSelect($memberStatus, $tracker, $currentStatus)
     {
         $dbAdapter = $this->adapter;
-        $sql       = 'SELECT ID, NAME FROM ISSUESTATUS WHERE ISACTIVE = 1 ORDER BY POSITION ASC';
+        //$sql       = 'SELECT ID, NAME FROM ISSUESTATUS WHERE ISACTIVE = 1 ORDER BY POSITION ASC';
+        $sql = 'SELECT ISSUESTATUS.ID, ISSUESTATUS.NAME FROM ISSUESTATUS, STATUSTRANSITION WHERE MEMBERROLEID = '.$memberStatus.' and TRACKERID = '.$tracker.' and STATUSTRANSITION.PREVSTATUSID = '. $currentStatus.' and STATUSTRANSITION.NEXTSTATUSID = ISSUESTATUS.ID
+ORDER BY ID ASC';
         $statement = $dbAdapter->query($sql);
         $result    = $statement->execute();
 

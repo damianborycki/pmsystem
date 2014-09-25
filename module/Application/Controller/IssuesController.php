@@ -38,7 +38,11 @@ class IssuesController extends AbstractActionController {
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
-        $form = new IssueStatusChangeForm($dbAdapter);
+        $memberStatus = 1;
+        $tracker = $issue->getTracker()->getId();
+        $currentStatus = $issue->getIssueStatus()->getId();
+
+        $form = new IssueStatusChangeForm($dbAdapter, $memberStatus, $tracker, $currentStatus);
 
         $view   = new ViewModel(array('issue' => $issue, 'form' => $form, 'additionalFields' => $fieldsValue));
 
@@ -229,7 +233,11 @@ class IssuesController extends AbstractActionController {
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 
-        $form = new IssueStatusChangeForm($dbAdapter);
+        $memberStatus = 1;
+        $tracker = $issue->getTracker()->getId();
+        $currentStatus = $issue->getIssueStatus()->getId();
+
+        $form = new IssueStatusChangeForm($dbAdapter, $memberStatus, $tracker, $currentStatus);
 
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
