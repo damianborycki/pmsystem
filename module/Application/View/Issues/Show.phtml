@@ -108,12 +108,12 @@
                     <?php if(!empty($additionalFields)): ?>
 	               <div class="col-md-6 col-md-6">
                         <h3><span class="glyphicon glyphicon-info-sign"></span> Dodatkowe pola:</h3>
-                        <div class="row show-grid row-with-space">
 	                    <?php foreach ($additionalFields as $field): ?>
-		                    <div class="col-md-1 col-md-3 details-label"><?php echo $field['name'] ?>:</div>
+                        <div class="row show-grid ">
+		                    <div class="col-md-2 col-md-3 details-label"><?php echo $field['name'] ?>:</div>
 		                    <div class="col-md-2 col-md-6"><?php echo $field['value'] ?></div>
-		                <?php endforeach; ?>
                         </div>
+		                <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
                     <div class="row">

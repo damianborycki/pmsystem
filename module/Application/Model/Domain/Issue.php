@@ -303,7 +303,7 @@ class Issue implements InputFilterAwareInterface
         throw new \Exception("Not used");
     }
 
-    public function getInputFilter()
+        public function getInputFilter($additionalFields = null)
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
@@ -351,9 +351,32 @@ class Issue implements InputFilterAwareInterface
                 ))
             );
 
+            
+            if($additionalFields != NULL){
+                foreach($additionalFields as $field){
+                    $inputFilter->add(
+                        $factory->createInput(array(
+                            'name'     => '$field->getName()',
+                            'required' => $field->getIsRequired(),
+                            'validators' => array(
+                            array(
+                                'name'    => 'StringLength',
+                                'options' => array(
+                                    'encoding' => 'UTF-8',
+                                    'min'      => $field->getMinValue(),
+                                    'max'      => $field->getMaxValue(),
+                                    ),
+                                ),
+                            ),
+                        ))
+                    );
+                }
+            }
+
             $this->inputFilter = $inputFilter;
         }
 
         return $this->inputFilter;
     }
+
 }

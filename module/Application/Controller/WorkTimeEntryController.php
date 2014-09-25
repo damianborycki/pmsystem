@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Form\IssueActivityForm;
 
 class WorkTimeEntryController extends AbstractActionController
 {
@@ -19,6 +20,16 @@ class WorkTimeEntryController extends AbstractActionController
             'issue' => $issue,
         ));
         $view->setTemplate('WorkTimeEntry/Issue');
+        return $view;
+    }
+    
+    public function addAction()
+    {
+    	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+    	$activityForm = new IssueActivityForm();
+    	
+    	$view = new ViewModel(array( 'activityForm' => $activityForm ));
+        $view->setTemplate('WorkTimeEntry/Add');
         return $view;
     }
     
