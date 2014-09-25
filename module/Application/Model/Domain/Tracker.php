@@ -58,6 +58,55 @@ class Tracker implements InputFilterAwareInterface
      * @ORM\Column(name="`ISACTIVE`", type="boolean", nullable=true)
      */
     protected $isActive;
+    
+     /**
+     * @var boolean $assigned
+     * @ORM\Column(name="`ASSIGNED`", type="boolean", nullable=true)
+     */
+    protected $assigned;
+    
+    /**
+     * @var boolean $category
+     * @ORM\Column(name="`CATEGORY`", type="boolean", nullable=true)
+     */
+    protected $category;
+    
+    /**
+     * @var boolean $fiedVersion
+     * @ORM\Column(name="`FIXEDVERSION`", type="boolean", nullable=true)
+     */
+    protected $fiedVersion;
+    
+    /**
+     * @var boolean $parentIssue
+     * @ORM\Column(name="`PARENTISSUE`", type="boolean", nullable=true)
+     */
+    protected $parentIssue;
+    
+    /**
+     * @var boolean $startDate
+     * @ORM\Column(name="`STARTDATE`", type="boolean", nullable=true)
+     */
+    protected $startDate;
+    
+    /**
+     * @var boolean $dueDate
+     * @ORM\Column(name="`DUEDATE`", type="boolean", nullable=true)
+     */
+    protected $dueDate;
+    
+    /**
+     * @var boolean $estimateHours
+     * @ORM\Column(name="`ESTIMATEDHOURS`", type="boolean", nullable=true)
+     */
+    protected $estimateHours;
+    
+    /**
+     * @var boolean $doneRadio
+     * @ORM\Column(name="`DONERADIO`", type="boolean", nullable=true)
+     */
+    protected $doneRadio;
+
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $fields
@@ -186,6 +235,90 @@ class Tracker implements InputFilterAwareInterface
         foreach ($collection as $item) {
             $this->fields->removeElement($item);
         }
+    }
+
+     /**/
+    public function getAssigned()
+    {
+        return $this->assigned;
+    }
+
+    public function setAssigned($assigned)
+    {
+        $this->assigned = $assigned;
+        return $this;
+    }
+    
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+    
+    public function getFiedVersion()
+    {
+        return $this->fiedVersion;
+    }
+
+    public function setFiedVersion($fiedVersion)
+    {
+        $this->fiedVersion = $fiedVersion;
+        return $this;
+    }
+    public function getParentIssue()
+    {
+        return $this->parentIssue;
+    }
+
+    public function setParentIssue($parentIssue)
+    {
+        $this->parentIssue = $parentIssue;
+        return $this;
+    }
+    
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+        return $this;
+    }
+    public function getDueDate()
+    {
+        return $this->dueDate;
+    }
+    public function setDueDate($dueDate)
+    {
+        $this->dueDate = $dueDate;
+        return $this;
+    }
+    public function getEstimateHours()
+    {
+        return $this->estimateHours;
+    }
+
+    public function setEstimateHours($estimateHours)
+    {
+        $this->estimateHours = $estimateHours;
+        return $this;
+    }
+    public function getDoneRadio()
+    {
+        return $this->doneRadio;
+    }
+
+    public function setDoneRadio($doneRadio)
+    {
+        $this->doneRadio = $doneRadio;
+        return $this;
     }
 
     public function getId()
