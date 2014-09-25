@@ -228,7 +228,7 @@ class IssueForm extends Form {
     public function getArrayForSelect($table)
     {
         $dbAdapter = $this->adapter;
-        $sql       = 'SELECT ID, NAME FROM '.$table.' ORDER BY POSITION ASC';
+        $sql       = 'SELECT ID, NAME FROM '.$table.' WHERE ISACTIVE = 1 ORDER BY POSITION ASC';
         $statement = $dbAdapter->query($sql);
         $result    = $statement->execute();
 

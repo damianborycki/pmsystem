@@ -42,7 +42,7 @@ class IssueStatusChangeForm extends Form {
     public function getIssueStatusForSelect()
     {
         $dbAdapter = $this->adapter;
-        $sql       = 'SELECT ID, NAME FROM ISSUESTATUS ORDER BY ID ASC';
+        $sql       = 'SELECT ID, NAME FROM ISSUESTATUS WHERE ISACTIVE = 1 ORDER BY POSITION ASC';
         $statement = $dbAdapter->query($sql);
         $result    = $statement->execute();
 

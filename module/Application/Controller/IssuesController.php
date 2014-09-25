@@ -81,7 +81,7 @@ class IssuesController extends AbstractActionController {
 
         if ($this->getRequest()->isPost()) {
             $issue = new Issue();
-            $form->setInputFilter($issue->getInputFilter());
+            $form->setInputFilter($issue->getInputFilter($additionalFields));
             $form->setData($this->getRequest()->getPost());
 
             if ($form->isValid()) {
