@@ -9,6 +9,7 @@ use Application\Model\Domain\Project;
 use Application\Model\Domain\Field;
 use Application\Model\Domain\FieldValue;
 use Application\Model\Domain\Tracker;
+use Application\Model\Domain\IssueStatus;
 use Application\Form\IssueForm;
 use Application\Form\IssueStatusChangeForm;
 

@@ -33,6 +33,13 @@
                                                 <?php echo $this->formSelect($form->get('project')); ?>
                                         </div>
                                 </div>
+                                <hr/>
+                                <div class="form-group">
+                                        <?php echo $this->formLabel($form->get('issueStatus')); ?>
+                                        <div class="col-sm-10">
+                                                <?php echo $this->formSelect($form->get('issueStatus')); ?>
+                                        </div>
+                                </div>
                                 <div class="form-group">
                                         <?php echo $this->formLabel($form->get('issueTracker')); ?>
                                         <div class="col-sm-10">
@@ -61,7 +68,6 @@
                                 </div>
                                 <div class="form-group">
                                         <div class="col-sm-10">
-                                                <?php echo $this->formHidden($form->get('issueStatus')); ?>
                                                 <?php echo $this->formHidden($form->get('User')); ?>
                                         </div>
                                 </div>

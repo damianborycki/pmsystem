@@ -96,6 +96,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         return array(
             'invokables' => array(
                 'currentProject' => 'Application\View\Helper\CurrentProject',
+                //'currentProjectName' => 'Application\View\Helper\CurrentProjectName',
             ),
         );
     }

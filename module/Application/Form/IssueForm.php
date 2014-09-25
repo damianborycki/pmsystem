@@ -29,14 +29,6 @@ class IssueForm extends Form {
          ));
 
         $this->add(array(
-             'type' => 'Zend\Form\Element\Hidden',
-             'name' => 'issueStatus',
-             'attributes' => array(
-                     'value' => '1'
-             )
-         ));
-
-        $this->add(array(
             'name'       => 'project',
             'type'       => 'Zend\Form\Element\Select',
             'attributes' => array(
@@ -99,7 +91,8 @@ class IssueForm extends Form {
                 'id'       => 'inputTracker',
                 'type'     => 'select',
                 'class'    => 'form-control',
-                'required' => 'true'
+                'required' => 'true',
+                'value'        => $this->getDefault('TRACKER')
             ),
             'options'    => array(
                 'label'            => 'Typ Zadania',
@@ -107,8 +100,27 @@ class IssueForm extends Form {
                     'for'   => 'inputTracker',
                     'class' => 'col-sm-2 control-label'
                 ),
-                'empty_option' => 'Wybierz typ zadania',
-                'value_options'    => $this->getTrackerForSelect(),
+                'value_options'    => $this->getArrayForSelect('TRACKER'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'issueStatus',
+            'type'       => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'id'       => 'inputStatus',
+                'type'     => 'select',
+                'class'    => 'form-control',
+                'required' => 'true',
+                'value'        => $this->getDefault('ISSUESTATUS')
+            ),
+            'options'    => array(
+                'label'            => 'Status Zadania',
+                'label_attributes' => array(
+                    'for'   => 'inputStatus',
+                    'class' => 'col-sm-2 control-label'
+                ),
+                'value_options'    => $this->getArrayForSelect('ISSUESTATUS'),
             ),
         ));
 
@@ -119,16 +131,16 @@ class IssueForm extends Form {
                 'id'       => 'inputPriority',
                 'type'     => 'select',
                 'class'    => 'form-control',
-                'required' => 'true'
+                'required' => 'true',
+                'value'        => $this->getDefault('ISSUEPRIORITY')
             ),
             'options'    => array(
                 'label'            => 'Priorytet',
-                'empty_option' => 'Wybierz priorytet zadania',
                 'label_attributes' => array(
                     'for'   => 'inputPriority',
                     'class' => 'col-sm-2 control-label'
                 ),
-                'value_options'    => $this->getIssuePriorityForSelect(),
+                'value_options'    => $this->getArrayForSelect('ISSUEPRIORITY'),
             ),
         ));
 
@@ -194,36 +206,6 @@ class IssueForm extends Form {
         return $selectData;
     }
     
-    public function getIssuePriorityForSelect()
-    {
-        $dbAdapter = $this->adapter;
-        $sql       = 'SELECT ID, NAME FROM ISSUEPRIORITY ORDER BY ID ASC';
-        $statement = $dbAdapter->query($sql);
-        $result    = $statement->execute();
-
-        $selectData = array();
-
-        foreach ($result as $res) {
-            $selectData[$res['ID']] = $res['NAME'];
-        }
-        return $selectData;
-    }
-
-    public function getTrackerForSelect()
-    {
-        $dbAdapter = $this->adapter;
-        $sql       = 'SELECT ID, NAME FROM TRACKER ORDER BY ID ASC';
-        $statement = $dbAdapter->query($sql);
-        $result    = $statement->execute();
-
-        $selectData = array();
-
-        foreach ($result as $res) {
-            $selectData[$res['ID']] = $res['NAME'];
-        }
-        return $selectData;
-    }
-
     public function getIssueAssignedForSelect()
     {
         $dbAdapter = $this->adapter;
@@ -238,5 +220,37 @@ class IssueForm extends Form {
             //Przydało by się aby ta tablica posiadała Imiona i Nazwiska a nie ID'ki userów...
         }
         return $selectData;
+    }
+
+    public function getArrayForSelect($table)
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME FROM '.$table.' ORDER BY POSITION ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+        $selectData = array();
+
+        foreach ($result as $res) {
+            $selectData[$res['ID']] = $res['NAME'];
+        }
+        return $selectData;
+    }
+
+
+    public function getDefault($table)
+    {
+        $dbAdapter = $this->adapter;
+        $sql       = 'SELECT ID, NAME, ISDEFAULT FROM '.$table.' ORDER BY ID ASC';
+        $statement = $dbAdapter->query($sql);
+        $result    = $statement->execute();
+
+
+        foreach ($result as $res) {
+            if($res['ISDEFAULT'] == 1){
+                $returnData = $res['ID'];
+            }
+        }
+        return $returnData;
     }
 }
