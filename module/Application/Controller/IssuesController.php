@@ -76,7 +76,7 @@ class IssuesController extends AbstractActionController {
       	foreach ($projectFields as $projectField) {
         	$fieldId = $projectField->getFieldId();
         	$field = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findBy(array('id' => $fieldId));
-        	if (!empty($field)) {
+        	if (!empty($field) && $field[0]->getIsActive() == 1) {
         		array_push($additionalFields, $field[0]);
         	}
         }
@@ -159,7 +159,7 @@ class IssuesController extends AbstractActionController {
       	foreach ($projectFields as $projectField) {
         	$fieldId = $projectField->getFieldId();
         	$field = $this->getObjectManager()->getRepository('\Application\Model\Domain\Field')->findBy(array('id' => $fieldId));
-        	if (!empty($field)) {
+      	    if (!empty($field) && $field[0]->getIsActive() == 1) {
         		array_push($additionalFields, $field[0]);
         	}
         }
