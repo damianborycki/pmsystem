@@ -78,6 +78,7 @@ class FieldsController extends AbstractActionController {
                 $field->setIsForAll($data['isForAll']);
                 $field->setIsFilter($data['isFilter']);
                 $field->setType($data['types']);
+                $field->setIsActive(1);
                 $this->getObjectManager()->persist($field);
                 $this->getObjectManager()->flush();
 
