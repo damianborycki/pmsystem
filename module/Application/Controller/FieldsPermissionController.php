@@ -25,9 +25,10 @@ class FieldsPermissionController extends AbstractActionController {
 		$trackerList =  $objectManager->getRepository('Application\Model\Domain\Tracker')->findAll();
 		$fieldPermission = $objectManager->getRepository('Application\Model\Domain\FieldPermission')->findAll();
 		$fplist = $objectManager->getRepository('Application\Model\Domain\FieldsPermission')->findAll();
+		$fieldlist = $objectManager->getRepository('Application\Model\Domain\Field')->findAll();
 		
 		
-		$view = new ViewModel(array('fplist'=> $fplist, 'roleList'=> $roleList, 'trackerList'=> $trackerList, 'issuelist'=> $issuelist, 'fieldPermission' => $fieldPermission, 'controller' => $this));
+		$view = new ViewModel(array('fplist'=> $fplist, 'roleList'=> $roleList, 'trackerList'=> $trackerList, 'issuelist'=> $issuelist, 'fieldPermission' => $fieldPermission, 'fields'=> $fieldlist, 'controller' => $this));
 		$view->setTemplate('FieldsPermission/FieldsPermission');
 		return $view;
 	}

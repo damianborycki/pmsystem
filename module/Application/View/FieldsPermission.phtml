@@ -60,7 +60,7 @@
 								
                             </tr>
 							<?php
-								foreach($fplist as $fp){
+								foreach($fields as $fp){
 									echo "<tr>
 									<th class='breadcrumb'>" . $fp->getField()->getName() . "</th>";			
 									foreach($issuelist as $issueStatus){
@@ -70,7 +70,7 @@
 											echo "<option value=" . $field->getId() . ">" . $field->getName() . "</option>";
 										}
 										echo "</select>";
-										echo "</th>"; //" . $issueStatus->getName() . " value: lewe-prawe
+										echo "</th>"; 
 									}
 									echo "</tr>";
 								}
