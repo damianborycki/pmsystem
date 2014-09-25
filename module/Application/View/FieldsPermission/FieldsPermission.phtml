@@ -62,15 +62,18 @@
 									
 								</tr>
 								<?php
-									foreach($fplist as $fp){
+									foreach($fields as $fp){
 										echo "<tr>
-										<th class='breadcrumb'>" . $fp->getField()->getName() . "</th>";			
+										<th class='breadcrumb'>" . $fp->getName() . "</th>";			
 										foreach($issuelist as $issue){
 										
-											$newId = "field" . $fp->getField()->getId() . "issue" . $issue->getId();
+											$newId = "field" . $fp->getId() . "issue" . $issue->getId();
 											echo "<th>";
 											echo "<select name='" . $newId . "' id='" . $newId . "'>";
 											foreach($fieldPermission as $field){
+												foreach($fieldPermission as $field){
+													echo "<option value=" . $field->getId() . ">" . $field->getName() . "</option>";
+												}
 												echo "<option value=" . $field->getId() . ">" . $field->getName() . "</option>";
 											}
 											echo "</select>";
