@@ -80,7 +80,13 @@
                                 		<div class="form-group">
 		                                        <?php echo $this->formLabel($form->get($field->getName())); ?>
 		                                        <div class="col-sm-10">
-		                                                <?php echo $this->formTextarea($form->get($field->getName())); ?>
+		                                                <?php 
+		                                                	if($field->getType() == 'list'){
+		                                                		echo $this->formSelect($form->get($field->getName()));
+		                                                	}else if($field->getType() == 'text'){
+		                                                		echo $this->formTextarea($form->get($field->getName()));
+		                                                	} 
+		                                                ?>
 		                                        </div>
 		                                </div>
                                 	<?php endforeach; ?>
