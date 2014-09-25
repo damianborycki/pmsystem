@@ -17,6 +17,10 @@ overflow: hidden;
 font-size: 14px!important;
 margin: 0px!important
 }
+p.bg-danger{
+        font-size: 14px;
+        padding: 10px;
+}
 </style>
     
 	<div class="jumbotron">
@@ -31,6 +35,7 @@ margin: 0px!important
                             
                 <div class="center-block">
                     <div ng-controller="Ctrl">
+                         <p class="bg-danger <?php echo $ex?>">Uwaga! Statusu do którego przypisane jest zadanie nie można usunąć.</p> 
 				    <table class="table table-striped table-clickable">
                         <thead>
                             <tr>

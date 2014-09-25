@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Domain\Tracker;
 use Application\Form\TrackerForm;
+use Application\Model\Domain\Issue;
 
 class TrackerController extends AbstractActionController{
   
@@ -56,7 +57,10 @@ class TrackerController extends AbstractActionController{
                             $iss->setIsActive('<i class="fa fa-check"></i>');
                           } 
                      }                     
-     $view = new ViewModel(array('issuelist'=> $issuelist));
+
+        $ex = 'hidden';
+
+     $view = new ViewModel(array('issuelist'=> $issuelist, 'ex' => $ex));
      $view->setTemplate('Tracker/index');
      $this->rebuild_positions();
      return $view;  
@@ -141,11 +145,62 @@ class TrackerController extends AbstractActionController{
     }
 
     $issuedelete = $objectManager->find('Application\Model\Domain\Tracker', $id);
+    $issuecount = count($objectManager
+                        ->createQuery("SELECT u FROM Application\Model\Domain\Issue u WHERE u.tracker=$id")
+                        ->getResult());
+
+       
+    
+             if($issuecount > 0){
+                           
+                            $ex = 'visible';
+
+                             $issuelist = $objectManager
+                                ->createQuery('SELECT u FROM Application\Model\Domain\Tracker u ORDER BY u.position ASC')
+                                ->getResult();
+                
+                            foreach ($issuelist as $iss)
+                             {   
+                                  if($iss->getIsDefault(true)){                            
+                                    $iss->setIsDefault('<i class="fa fa-check"></i>');
+                                  }
+                                  
+                                   if($iss->getIsActive(true)){                           
+                                    $iss->setIsActive('<i class="fa fa-check"></i>');
+                                  } 
+                             }      
+                            
+                            $view = new ViewModel(array('issuelist' => $issuelist, 'ex' => $ex));
+                            $view->setTemplate('Tracker/index');
+                            return $view;
+            } 
+      
  
+    $ex = 'hidden';
+
     $objectManager->remove($issuedelete);
     $objectManager->flush();
     $this->rebuild_positions();
-    return $this->redirect()->toRoute('Tracker');
+
+    $issuelist = $objectManager
+                        ->createQuery('SELECT u FROM Application\Model\Domain\Tracker u ORDER BY u.position ASC')
+                        ->getResult();
+        
+    foreach ($issuelist as $iss)
+                     {   
+                          if($iss->getIsDefault(true)){                            
+                            $iss->setIsDefault('<i class="fa fa-check"></i>');
+                          }
+                          
+                           if($iss->getIsActive(true)){                           
+                            $iss->setIsActive('<i class="fa fa-check"></i>');
+                          } 
+                     }     
+
+     $view = new ViewModel(array('issuelist'=> $issuelist, 'ex' => $ex));
+     $view->setTemplate('Tracker/index');
+     $this->rebuild_positions();
+     return $view;  
    } 
     
    public function editAction()
