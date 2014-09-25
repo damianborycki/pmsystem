@@ -410,6 +410,54 @@ class Tracker implements InputFilterAwareInterface
                 ))
             );  
               
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'Assigned',
+                    'required' => false
+                ))
+            );  
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'Category',
+                    'required' => false
+                ))
+            ); 
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'FiedVersion',
+                    'required' => false
+                ))
+            ); 
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'ParentIssue',
+                    'required' => false
+                ))
+            ); 
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'StartDate',
+                    'required' => false
+                ))
+            ); 
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'DueDate',
+                    'required' => false
+                ))
+            ); 
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'EstimateHours',
+                    'required' => false
+                ))
+            ); 
+           $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'DoneRadio',
+                    'required' => false
+                ))
+            );   
            
 
 
