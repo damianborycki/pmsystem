@@ -978,9 +978,11 @@ return array(
             'WorkTimeEntry' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/work-time-entry/[:action]',
+                    'route' => '/work-time-entry/[:action]/[:issueId][/:id2]',
                     'constraints' => array(
                         'action' => '[a-zA-Z]+',
+                        'issueId' => '[0-9]+',
+                        'id2' => '[0-9]+'
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\WorkTimeEntry',

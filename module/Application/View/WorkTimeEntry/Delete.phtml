@@ -1,0 +1,21 @@
+<div class="container under-top">
+        <ol class="breadcrumb">
+                <li><a href="?page=ListOfTasks">Zadania</a></li>
+                <li><a href="?page=ViewTask">#BUG-1</a></li>
+                <li><a href="?page=ListTimeEntry">Czas pracy</a></li>
+                <li class="active">Usuń czas pracy</li>
+        </ol>
+</div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+        <div class="container">
+                <div class="center-block">
+                    <form action="" method="post">
+                        Czy na pewno chcesz usunąć ten wpis?
+                        <input type="hidden" name="naPewno" value="1">
+                        <button type="submit" class="btn btn-danger">Tak</button>
+                        <a href="<?php echo $this->url('WorkTimeEntry-Issue', array('issueId' => $issue->getId())) ?>" class="btn btn-default">Nie</a>
+                    </form>
+                </div>
+        </div>
+</div>

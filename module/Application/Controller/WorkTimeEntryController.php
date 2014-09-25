@@ -4,7 +4,6 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Form\IssueActivityForm;
 
 class WorkTimeEntryController extends AbstractActionController
 {
@@ -13,11 +12,17 @@ class WorkTimeEntryController extends AbstractActionController
     public function issueAction()
     {
         $issueId = $this->params('issueId');
+        $od = $this->params()->fromPost('filtrujPoDacieOd');
+        $do = $this->params()->fromPost('filtrujPoDacieDo');
         
-        $issue = $this->getObjectManager()->getRepository('\Application\Model\Domain\Issue')->find($issueId);
+        $em = $this->getObjectManager();
+        
+        $issue = $em->getRepository('\Application\Model\Domain\Issue')->find($issueId);
+        $timeEntries = $em->getRepository('\Application\Model\Domain\WorkTimeEntry')->getWorkTimeEntriesForIssue($issue, $od, $do);
         
         $view = new ViewModel(array(
             'issue' => $issue,
+            'timeEntries' => $timeEntries,
         ));
         $view->setTemplate('WorkTimeEntry/Issue');
         return $view;
@@ -25,11 +30,63 @@ class WorkTimeEntryController extends AbstractActionController
     
     public function addAction()
     {
-    	$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-    	$activityForm = new IssueActivityForm();
-    	
-    	$view = new ViewModel(array( 'activityForm' => $activityForm ));
+        $issueId = $this->params('issueId');
+        $em = $this->getObjectManager();
+        $issue = $em->getRepository('\Application\Model\Domain\Issue')->find($issueId);
+        $form = new \Application\Form\WorkTimeEntryForm();
+        $entity = new \Application\Model\Domain\WorkTimeEntry();
+        $form->bind($entity);
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $ae = new \Application\Model\Domain\ActivityEntry();
+                $ae->setIssue($issue);
+                $ae->setProject($issue->getProject());
+                $ae->setUser($em->getRepository('\Application\Model\Domain\User')->find(1));
+                $em->persist($ae);
+                $em->flush();
+                
+                $entity->setEntryDate(new \DateTime($entity->getEntryDate()));
+                $entity->setActivityEntries($ae);
+                $em->persist($entity);
+                $em->flush();
+                
+                return $this->redirect()->toRoute('WorkTimeEntry-Issue', array('issueId' => $issue->getId()));
+            }
+        }
+        
+    	$view = new ViewModel(array(
+            'issue' => $issue,
+            'form' => $form,
+        ));
         $view->setTemplate('WorkTimeEntry/Add');
+        return $view;
+    }
+    
+    public function deleteAction()
+    {
+        $issueId = $this->params('issueId');
+        $timeEntryId = $this->params('id2');
+        $em = $this->getObjectManager();
+        $issue = $em->getRepository('\Application\Model\Domain\Issue')->find($issueId);
+        $timeEntry = $em->getRepository('\Application\Model\Domain\WorkTimeEntry')->find($timeEntryId);
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($request->getPost()->get('naPewno') == '1') {
+                $em->remove($timeEntry);
+                $em->flush();
+                return $this->redirect()->toRoute('WorkTimeEntry-Issue', array('issueId' => $issue->getId()));
+            }
+        }
+        
+    	$view = new ViewModel(array(
+            'issue' => $issue,
+            'timeEntry' => $timeEntry,
+        ));
+        $view->setTemplate('WorkTimeEntry/Delete');
         return $view;
     }
     

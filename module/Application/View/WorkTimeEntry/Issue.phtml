@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container under-top">
     <ol class="breadcrumb">
         <li><a href="<?php echo $this->url('ShowProject', array('project' => $issue->getProject()->getId())) ?>"><?php echo $issue->getProject()->getName() ?></a></li>
         <li><a href="<?php echo $this->url('IssueList', array('project' => $issue->getProject()->getId())) ?>">Zadania</a></li>
-        <li><a href="<?php echo $this->url('ShowIssue', array('id' => $issue->getId())) ?>"><?php echo $issue->getSubject() ?></a></li>
+        <li><a href="<?php echo $this->url('ShowIssue', array('id' => $issue->getId())) ?>">#<?php echo $issue->getId() ?> <?php echo $issue->getSubject() ?></a></li>
         <li class="active">Czas pracy</li>
     </ol>
 </div>
@@ -13,16 +13,20 @@
         <div class="row">
             <div class="col-md-5">
                 <a href="<?php echo $this->url('ShowIssue', array('id' => $issue->getId())) ?>" class="btn btn-default">Powrót do zadania</a>
-                <a href="<?php echo $this->url('WorkTimeEntry', array('action' => 'add')) ?>" class="btn btn-success">Dodaj czas pracy</a>
+                <a href="<?php echo $this->url('WorkTimeEntry', array('action' => 'add', 'issueId' => $issue->getId())) ?>" class="btn btn-success">Dodaj czas pracy</a>
                 <a href="#" class="btn btn-default">Eksport do CSV</a>
             </div>
             <div class="col-md-6 col-md-offset-1">
-                <form class="form-inline pull-right"><strong>Filtry:</strong> od: <input type="date" class="form-control"> do: <input type="date" class="form-control"> <input type="submit" value="Filtruj" class="btn btn-primary" onclick="return false"></form>
+                <form action="" class="form-inline pull-right">
+                    <strong>Filtry:</strong>
+                    od: <input type="date" name="filtrujPoDacieOd" class="form-control">
+                    do: <input type="date" name="filtrujPoDacieDo" class="form-control">
+                    <input type="submit" value="Filtruj" class="btn btn-primary" onclick="return false" />
+                </form>
             </div>
         </div>
         <div class="col-md-10 center-block table-background-white">
             <table class="table table-hover table-responsive table-clickable">
-                    <thead>
                             <tr>
                                     <th>Data</th>
                                     <th>Imię i nazwisko</th>
@@ -31,42 +35,21 @@
                                     <th>Komentarz</th>
                                     <th>Akcje</th>
                             </tr>
-                    </thead>
-                    <tbody>
+                            <?php
+                            foreach ($timeEntries as $te):
+                                $user = $te->getActivityEntries()->getUser();
+                                ?>
                             <tr>
-                                    <td>29.04.2013</td>
-                                    <td>Admin Adminowski</td>
-                                    <td>Programowanie</td>
-                                    <td>5</td>
-                                    <td>Dodałem moduł płatności.</td>
-                                    <td>
-                                            <a href="?page=EditTimeEntry" class="btn btn-primary">Edytuj</a>
-                                            <a href="?page=ListTimeEntry&amp;action=usun-czas-pracy" class="btn btn-danger">Usuń</a>
-                                    </td>
+                                <td><?php echo $te->getEntryDate()->format('Y-m-d H:i:s') ?></td>
+                                <td><?php echo $user->getFirstName(), ' ', $user->getLastName() ?></td>
+                                <td>&mdash;</td>
+                                <td><?php echo $te->getHours() ?></td>
+                                <td><?php echo $te->getComment() ?></td>
+                                <td><a href="<?php echo $this->url('WorkTimeEntry', array('action' => 'delete', 'issueId' => $issue->getId(), 'id2' => $te->getId())) ?>" class="btn btn-danger">Usuń</a></td>
                             </tr>
-                            <tr>
-                                    <td>29.04.2013</td>
-                                    <td>Admin Adminowski</td>
-                                    <td>Design</td>
-                                    <td>3</td>
-                                    <td>Zaprojektowałem GUI.</td>
-                                    <td>
-                                            <a href="?page=EditTimeEntry" class="btn btn-primary">Edytuj</a>
-                                            <a href="?page=ListTimeEntry&amp;action=usun-czas-pracy" class="btn btn-danger">Usuń</a>
-                                    </td>
-                            </tr>
-                            <tr>
-                                    <td>29.04.2013</td>
-                                    <td>Admin Adminowski</td>
-                                    <td>Programowanie</td>
-                                    <td>10</td>
-                                    <td>Bugfiksy.</td>
-                                    <td>
-                                            <a href="?page=EditTimeEntry" class="btn btn-primary">Edytuj</a>
-                                            <a href="?page=ListTimeEntry&amp;action=usun-czas-pracy" class="btn btn-danger">Usuń</a>
-                                    </td>
-                            </tr>
-                    </tbody>
+                            <?php
+                            endforeach;
+                            ?>
             </table>
         </div>
         <div class="col-md-2 kwerendy">
